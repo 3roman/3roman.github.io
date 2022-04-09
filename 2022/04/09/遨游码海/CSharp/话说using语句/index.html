@@ -1,0 +1,592 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="3roman">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="using 是 C# 程序员非常熟悉的关键字，概括起来有两个用途：引入命名空间；释放非托管资源。第一个用途就不多说了，下面剖析下释放非托管资源的前前后后。 资源分类众所周知，C# 中的资源分托管资源和非托管资源。托管资源位于托管堆上，由 GC 自动回收。由于非托管资源不在托管堆上，GC 秉持“铁道警察各管一段”的职业道德，非托管资源它就不管了，交给程序员自己释放吧。 常见的非托管资源包括数据库连接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="话说using语句">
+<meta property="og:url" content="https://3roman.github.io/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/%E8%AF%9D%E8%AF%B4using%E8%AF%AD%E5%8F%A5/index.html">
+<meta property="og:site_name" content="昼锦堂小记">
+<meta property="og:description" content="using 是 C# 程序员非常熟悉的关键字，概括起来有两个用途：引入命名空间；释放非托管资源。第一个用途就不多说了，下面剖析下释放非托管资源的前前后后。 资源分类众所周知，C# 中的资源分托管资源和非托管资源。托管资源位于托管堆上，由 GC 自动回收。由于非托管资源不在托管堆上，GC 秉持“铁道警察各管一段”的职业道德，非托管资源它就不管了，交给程序员自己释放吧。 常见的非托管资源包括数据库连接">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-09T07:52:53.203Z">
+<meta property="article:modified_time" content="2022-04-09T08:52:19.259Z">
+<meta property="article:author" content="3roman">
+<meta property="article:tag" content="CSharp">
+<meta property="article:tag" content="编程">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>话说using语句 - 昼锦堂小记</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"3roman.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昼锦堂小记</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="话说using语句">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      3roman
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-09 15:52" pubdate>
+        2022年4月9日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">话说using语句</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：5 分钟前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>using 是 C# 程序员非常熟悉的关键字，概括起来有两个用途：引入命名空间；释放非托管资源。第一个用途就不多说了，下面剖析下释放非托管资源的前前后后。</p>
+<h2 id="资源分类"><a href="#资源分类" class="headerlink" title="资源分类"></a>资源分类</h2><p>众所周知，C# 中的资源分托管资源和非托管资源。托管资源位于托管堆上，由 GC 自动回收。由于非托管资源不在托管堆上，GC 秉持“铁道警察各管一段”的职业道德，非托管资源它就不管了，交给程序员自己释放吧。</p>
+<p>常见的非托管资源包括数据库连接、文件流、网络套接字等等，它们往往比内存更宝贵，用完应尽早释放。鉴于非托管资源自身的多样性和复杂性，GC 也心有余而力不足。另外，GC 回收资源不是实时的，把非托管资源交给 GC 释放也存在滞后。对于托管资源，GC 早点、晚点来释放，无非就是多占点内存，没那么紧要。</p>
+<h2 id="释放方法"><a href="#释放方法" class="headerlink" title="释放方法"></a>释放方法</h2><p>.NET 提供了两个非托管资源的释放方法：类型自身的<code>Finalize()</code>方法和<code>IDispose</code>接口的<code>Dispose()</code>方法。</p>
+<p>GC 回收对象时会调用<code>Finalize()</code>方法。重载某个类的<code>Finalize()</code>方法，再将清理逻辑写在其中，这样就实现了非托管资源的托管释放。但于非托管资源的释放与对象本身的回收往往无法同步，且<code>Finalize()</code>方法的调用也相当消耗资源。</p>
+<p>为了方便及时释放非托管资源，微软专门定义了一个接口<code>IDisposable</code>，该接口中只包含一个方法<code>Dispose()</code>。任何包含非托管资源的类都应继承此接口，并将清理逻辑写入<code>Dispose()</code>方法的实现中，以确保非托管资源的正常释放。非常贴心的是，微软实现了大多数非托管资源操作类的<code>Dispose()</code>方法，比如 FileStream 类、SqlConnection 类、WebClient 类等等。</p>
+<h2 id="using语句"><a href="#using语句" class="headerlink" title="using语句"></a>using语句</h2><h3 id="用法说明"><a href="#用法说明" class="headerlink" title="用法说明"></a>用法说明</h3><p>文章开头就说了，using 语句会隐式调用<code>Dispose()</code>方法。这里以创建数据库连接为例，展示一下这种写法简洁与优雅。注意：using 语句只适用于实现了<code>IDispose</code>接口的类型。</p>
+<div class="code-wrapper"><pre class="line-numbers language-csharp" data-language="csharp"><code class="language-csharp"><span class="token keyword">using</span> <span class="token namespace">System<span class="token punctuation">.</span>Data<span class="token punctuation">.</span>SqlClient</span><span class="token punctuation">;</span>
+
+<span class="token keyword">namespace</span> <span class="token namespace">Demo</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">class</span> <span class="token class-name">Program</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">static</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Main</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span></span> args<span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token keyword">using</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">var</span></span> dbConnection <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">SqlConnection</span><span class="token punctuation">(</span><span class="token string">"Server=.;Database=test;uid=sa;pwd=123"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                dbConnection<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">// .......................</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>学习任何一门知识，不深入不专注都很难有所得。下面我们用<a target="_blank" rel="noopener" href="https://github.com/icsharpcode/ILSpy">ILSpy</a>查看下程序的中间码：</p>
+<div class="code-wrapper"><pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">.method private hidebysig static 
+	void Main (
+		string[] args
+	) cil managed 
+&#123;
+	&#x2F;&#x2F; Method begins at RVA 0x2050
+	&#x2F;&#x2F; Header size: 12
+	&#x2F;&#x2F; Code size: 35 (0x23)
+	.maxstack 1
+	.entrypoint
+	.locals init (
+		[0] class [System.Data]System.Data.SqlClient.SqlConnection dbConnection
+	)
+
+	IL_0000: nop
+	IL_0001: ldstr &quot;Server&#x3D;.;Database&#x3D;test;uid&#x3D;sa;pwd&#x3D;123&quot;
+	IL_0006: newobj instance void [System.Data]System.Data.SqlClient.SqlConnection::.ctor(string)
+	IL_000b: stloc.0
+	.try
+	&#123;
+		IL_000c: nop
+		IL_000d: ldloc.0
+		IL_000e: callvirt instance void [System.Data]System.Data.Common.DbConnection::Open()
+		IL_0013: nop
+		IL_0014: nop
+		IL_0015: leave.s IL_0022
+	&#125; &#x2F;&#x2F; end .try
+	finally
+	&#123;
+		IL_0017: ldloc.0
+		IL_0018: brfalse.s IL_0021
+
+		IL_001a: ldloc.0
+		IL_001b: callvirt instance void [mscorlib]System.IDisposable::Dispose()
+		IL_0020: nop
+
+		IL_0021: endfinally
+	&#125; &#x2F;&#x2F; end handler
+
+	IL_0022: ret
+&#125; &#x2F;&#x2F; end of method Program::Main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>可见 using 语句只是一个语法糖，背后还是依靠了传统的 try-finaly 结构。秘密在于：finally 语句块中调用了实例的<code>Dispose()</code>方法，以此保证了数据库连接始终能被释放。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li><p>不要嵌套使用</p>
+<p>不要嵌套使用 using 语句。否则，内层 using 块发生异常时，外层的对象资源将得不到释放。</p>
+</li>
+<li><p>捕获异常</p>
+<p>using 语句只是对 try-finaly 结构的包装，无法 catch 异常。需要处理异常的场合，建议还是使用 try-catch-finaly ，示例如下。另外，不要在 try 语句中嵌套使用 using ，也不要在 using 语句中嵌套使用 try，因为都很难看！万事不必强求！！！</p>
+<div class="code-wrapper"><pre class="line-numbers language-csharp" data-language="csharp"><code class="language-csharp"><span class="token keyword">using</span> <span class="token namespace">System</span><span class="token punctuation">;</span>
+<span class="token keyword">using</span> <span class="token namespace">System<span class="token punctuation">.</span>Data<span class="token punctuation">.</span>SqlClient</span><span class="token punctuation">;</span>
+
+<span class="token keyword">namespace</span> <span class="token namespace">Demo</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">class</span> <span class="token class-name">Program</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">static</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Main</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span></span> args<span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token class-name">SqlConnection</span> dbConnection <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+            <span class="token keyword">try</span>
+            <span class="token punctuation">&#123;</span>
+                dbConnection <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">SqlConnection</span><span class="token punctuation">(</span><span class="token string">"Server=.;Database=test;uid=sa;pwd=123"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                dbConnection<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">// ....</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">Exception</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>Message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">finally</span>
+            <span class="token punctuation">&#123;</span>
+                dbConnection<span class="token punctuation">?.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                dbConnection<span class="token punctuation">?.</span><span class="token function">Dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/">遨游码海</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/CSharp/">CSharp</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/FrontEnd/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">vue学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/%E8%AF%95%E8%AF%95nameof%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+                        <span class="hidden-mobile">试试nameof表达式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

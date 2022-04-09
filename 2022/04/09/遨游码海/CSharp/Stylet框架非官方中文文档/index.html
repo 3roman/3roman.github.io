@@ -1,0 +1,1471 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="3roman">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Stylet 是一款非常优秀的 MVVM 框架，配套 wiki 写的也很棒。为了让更多的人熟悉这款框架，同时也给自己一个全面学习 Stylet 的机会，笔者决定将其 wiki 译成中文。限于外语水平和专业知识有限，难免出现不到和纰漏之处，望读者海涵。 简介Stylet是一款小巧又强大的 MVVM 框架，它的诞生受到了Caliburn.Micro的启发。开发本框架的意图是尽量降低 MVVM 的复杂性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stylet框架非官方中文文档">
+<meta property="og:url" content="https://3roman.github.io/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/Stylet%E6%A1%86%E6%9E%B6%E9%9D%9E%E5%AE%98%E6%96%B9%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/index.html">
+<meta property="og:site_name" content="昼锦堂小记">
+<meta property="og:description" content="Stylet 是一款非常优秀的 MVVM 框架，配套 wiki 写的也很棒。为了让更多的人熟悉这款框架，同时也给自己一个全面学习 Stylet 的机会，笔者决定将其 wiki 译成中文。限于外语水平和专业知识有限，难免出现不到和纰漏之处，望读者海涵。 简介Stylet是一款小巧又强大的 MVVM 框架，它的诞生受到了Caliburn.Micro的启发。开发本框架的意图是尽量降低 MVVM 的复杂性">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-09T07:52:53.193Z">
+<meta property="article:modified_time" content="2022-04-09T08:52:18.846Z">
+<meta property="article:author" content="3roman">
+<meta property="article:tag" content="CSharp">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="译文">
+<meta property="article:tag" content="MVVM">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>Stylet框架非官方中文文档 - 昼锦堂小记</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"3roman.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昼锦堂小记</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Stylet框架非官方中文文档">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      3roman
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-09 15:52" pubdate>
+        2022年4月9日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Stylet框架非官方中文文档</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：5 分钟前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>Stylet 是一款非常优秀的 MVVM 框架，配套 wiki 写的也很棒。为了让更多的人熟悉这款框架，同时也给自己一个全面学习 Stylet 的机会，笔者决定将其 wiki 译成中文。限于外语水平和专业知识有限，难免出现不到和纰漏之处，望读者海涵。</p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Stylet是一款小巧又强大的 MVVM 框架，它的诞生受到了<a target="_blank" rel="noopener" href="http://caliburnmicro.com/">Caliburn.Micro</a>的启发。开发本框架的意图是尽量降低 MVVM 的复杂性和神秘性，让菜鸟也能快速上手。</p>
+<p>Stylet 的部分功能是 Caliburn.Micro 不具备的，比如：IoC  容器、简单的 ViewModel 验证，兼容 MVVM 的消息框（译者注：方便单元测试）。</p>
+<p>Stylet 项目源码经过全面的单元测试，LOC 指标优秀，非常适合一些由于使用和验证 SOUP 导致开销很大的项目。得益于模块化的设计，本框架提供功能可按需引入。</p>
+<blockquote>
+<p>Stylet is a minimal, but powerful, MVVM framework inspired by <a target="_blank" rel="noopener" href="http://caliburnmicro.com/">Caliburn.Micro</a>. Its intention is to cut down on the complexity and magic even further, to allow people (coworkers) unfamiliar with any MVVM framework to get up to speed more quickly.</p>
+<p>It also provides features not available in Caliburn.Micro, including its own IoC container, easy ViewModel validation, and even an MVVM-compatible MessageBox.</p>
+<p>The low LOC count and very comprehensive test suite makes it an attractive option for projects where using and validating&#x2F;verifying SOUP comes with a high overhead, which its modular toolkit-inspired architecture means it’s easy to use just the bits you like, or replace the bits you don’t.</p>
+<p>A brief feature list is shown below. Follow the links on the right to learn more.</p>
+</blockquote>
+<h2 id="ViewModel-优先模式"><a href="#ViewModel-优先模式" class="headerlink" title="ViewModel 优先模式"></a>ViewModel 优先模式</h2><p>经典 MVVM 架构通常使用View优先的模式，该模式中由 View 隐式实例化 ViewModel，ViewModel 一般不被显式实例化。Stylet 反其道而行之，先实例化 ViewModel 再用 ViewModel 附加 View，形成了独具一格的ViewModel 优先模式。这样做最明显的好处是方便组织 ViewModel。</p>
+<blockquote>
+<p>The classic MVVM structure, where a view knows how to instantiate its ViewModel, and ViewModels typically don’t communicate directly, is known as View-first. However, reversing this pattern - instantiating the ViewModels yourself and having the Views automatically attached - provides many advantages, allowing you to compose your ViewModels in a way which should feel very familiar. This ViewModel-first approach is the only one supported by Stylet.</p>
+</blockquote>
+<h2 id="动作"><a href="#动作" class="headerlink" title="动作"></a>动作</h2><p>WPF 的 ICommand 接口很强大但也很笨重，譬如按钮点击动作用属性来实现而不是用方法，也不怎么符合直觉。 通过前端 XAML 动作绑定：<code>&lt;Button Command=&quot;&#123;s:Action DoSomething&#125;&quot;/&gt;</code>，按钮被点击时将调用 ViewModel 中定义好的 <code>DoSomething()</code>方法。另外，还可创建一个名为 <code>CanDoSomething</code> 的监视属性用于判断该方法是否可被执行。事件也可绑定动作，比如为<code>MouseEnter</code>事件绑定动作：<code>&lt;Button MouseEnter=&quot;&#123;s:Action DoSomethingElse&#125;&quot;/&gt;</code>。</p>
+<blockquote>
+<p>The ICommand interface used by WPF is powerful, but clunky when used in an MVVM architecture. It doesn’t seem right that actions to be taken by your ViewModel in response to things like button clicks should be represented as properties, rather than methods. A simple <code>&lt;Button Command=&quot;&#123;s:Action DoSomething&#125;&quot;/&gt;</code> will cause <code>DoSomething()</code> on your ViewModel to be called every time the button is clicked. Additionally, if you have a bool property called <code>CanDoSomething</code>, that will be observed and used to tell whether the button should be enabled or disabled.</p>
+<p>Actions also work with events, allowing you to do things like <code>&lt;Button MouseEnter=&quot;&#123;s:Action DoSomethingElse&#125;&quot;/&gt;</code>.</p>
+</blockquote>
+<h2 id="页面和页面管理器"><a href="#页面和页面管理器" class="headerlink" title="页面和页面管理器"></a>页面和页面管理器</h2><p>Screen 是 ViewModel 的基类，其本身实现了很多功能：事件通知、ViewModel 校验、生命周期管理（何时显示、隐藏、关闭窗口及确定窗口能否被关闭）。</p>
+<blockquote>
+<p> The Screen class provides many things which make it an attractive base class for your ViewModels: PropertyChanged notifications, validation, and the ability to be notified when it’s shown&#x2F;hidden&#x2F;closed, and the ability to control if and when it can be closed.</p>
+</blockquote>
+<h2 id="事件总线"><a href="#事件总线" class="headerlink" title="事件总线"></a>事件总线</h2><p>类似于 Caliburn.Micro 的事件总线，订阅者直接从总线上获取某事件而无需了解该事件发布者的信息。事件总线有很多应用场景，比如 ViewModel 间传递消息。</p>
+<blockquote>
+<p> Stylet’s Event Aggregator is very similar to Caliburn.Micro’s, and allows subscribers to receive messages from publishes without either having knowledge of, or retaining, the other. This is particularly useful for messaging between ViewModels, although it has plenty of other uses.</p>
+</blockquote>
+<h2 id="窗口管理器"><a href="#窗口管理器" class="headerlink" title="窗口管理器"></a>窗口管理器</h2><p>窗口具体实现了 Stylet 的 ViewModel 优先模式，还实现了兼容 MVVM 的消息框。</p>
+<blockquote>
+<p>With a ViewModel-first approach, you display windows and dialogs by referencing the ViewModel to display, and the View gets attached automatically. The WindowManager allows this to be done with ease.</p>
+<p>An MVVM-compatible MessageBox implementation is also provided, so you don’t have to roll your own.</p>
+</blockquote>
+<h2 id="校验"><a href="#校验" class="headerlink" title="校验"></a>校验</h2><p>在传统 MVVM 架构下，校验 ViewModel 需要大量的模板文件，而且相关资源都是松散的。Stylet 有一个专门用于校验的框架，该框架还支持自定义校验库（比如： <a target="_blank" rel="noopener" href="https://fluentvalidation.codeplex.com/">FluentValidation</a>）。</p>
+<blockquote>
+<p>Validation in MVVM is traditionally a bit of a pain: it requires a fair amount of boilerplate in each ViewModel that requires validation, and resources on how to do this well are sparse.</p>
+<p>Stylet comes with a framework for taking your favourite validation library (e.g. <a target="_blank" rel="noopener" href="https://fluentvalidation.codeplex.com/">FluentValidation</a>) and handles running validations and reporting the results to the View.</p>
+</blockquote>
+<h2 id="StyletIoC-容器"><a href="#StyletIoC-容器" class="headerlink" title="StyletIoC 容器"></a>StyletIoC 容器</h2><p>Stylet 提供了一个强大、快速、轻量且易于使用的 IoC 容器。</p>
+<blockquote>
+<p>Stylet comes with its own lightweight and extremely fast (but still powerful) IoC container, although it’s easy to use another one if you’d prefer.</p>
+</blockquote>
+<h2 id="MIT-许可"><a href="#MIT-许可" class="headerlink" title="MIT 许可"></a>MIT 许可</h2><p>Stylet 使用 MIT 许可，该许可证允许您自行修改 Stylet 并将其用于商业用途，无归属者（唯一的限制是您必须包含本许可的副本）。 若有需要，我们愿意根据具体情况重新许可。</p>
+<blockquote>
+<p>Stylet is distributed under the MIT license, which allows you to modify Stylet, and include it in commercial projects, without attributation (the only restriction being that you must include a copy of the license). I’m open to re-licensing it on a case-by-case basis if you require this.</p>
+</blockquote>
+<h1 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h1><p>想要上手试一下吗？那么请往下看吧！下面将创建一个简单的脚手架项目。</p>
+<p><em><strong>注意</strong>：本项目的 git 仓库包含示例代码，可自行下载学习。</em></p>
+<blockquote>
+<p>Want to get up and running as quickly as possible? This is the right place!</p>
+<p><em>NOTE: If you’re looking for example applications, download the source code and look in the Samples folder.</em></p>
+<p>The following instructions will set up a minimal skeleton project.</p>
+</blockquote>
+<h2 id="自动安装"><a href="#自动安装" class="headerlink" title="自动安装"></a>自动安装</h2><h3 id="NET-Framework"><a href="#NET-Framework" class="headerlink" title=".NET Framework"></a>.NET Framework</h3><p><em><strong>注意</strong>：VS2013 及之前的版本不支持自动安装 Nuget 包，若有需要请手动安装。</em></p>
+<p>如果您刚接触 Stylet，最简单的上手步骤如下：</p>
+<ol>
+<li>打开Visual Studio，创建一个 WPF 项目；</li>
+<li>通过 NuGet 包管理器（右键项目 -&gt;管理 Nuget 包）安装<code>Stylet.Start</code>。</li>
+<li>项目创建成功后，可删除 <code>Stylet.Start</code> 包。</li>
+</ol>
+<blockquote>
+<p><strong>Note</strong>: This will <strong>not</strong> work if your project uses <strong>PackageReference</strong> for NuGet packages or if you are using VS2013 or earlier. Follow the “Manual Option” section below instead.</p>
+<p>If you’re new to Stylet (and you’re running VS2015 or later), this is the easiest way to get started.</p>
+<ol>
+<li>Open Visual Studio, and create a new <code>WPF Application</code> project.</li>
+<li>Open NuGet (right-click your project -&gt; Manage NuGet Packages), and install the <code>Stylet.Start</code> package.</li>
+</ol>
+<p>This will give you a working skeleton project.</p>
+<p>When it has finished installing, uninstall Stylet.Start.</p>
+<p>Happy coding!</p>
+</blockquote>
+<h3 id="NET-Core"><a href="#NET-Core" class="headerlink" title=".NET Core"></a>.NET Core</h3><p>建议通过 <code>dotnet new</code>命令使用 Stylet 模板创建  .NET Core 脚手架项目。</p>
+<p>在项目目录打开命令行，输入命令安装 Stylet 模板：</p>
+<div class="code-wrapper"><pre class="line-numbers language-pow" data-language="pow"><code class="language-pow">dotnet new -i Stylet.Templates<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<p>根据新安装的模板创建项目：</p>
+<div class="code-wrapper"><pre class="line-numbers language-pow" data-language="pow"><code class="language-pow">dotnet new stylet -o MyStyletProject<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<blockquote>
+<p>For .NET Core projects, the quickest way to get started is by using <code>dotnet new</code> with Stylet’s template.</p>
+<p>Open a command window where you want to create your new project, and install the Stylet templates using:</p>
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">dotnet new -i Stylet.Templates<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<p>Then create a new project with:</p>
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">dotnet new stylet -o MyStyletProject<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<p>(changing <code>MyStyletProject</code> as appropriate).</p>
+</blockquote>
+<h2 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h2><p>如果您想手动创建项目，步骤如下：</p>
+<ol>
+<li>打开 Visual Studio，创建一个 WPF 项目；</li>
+<li>通过 NuGet 包管理器（右键项目 -&gt;管理 Nuget 包）安装<code>Stylet</code>包。</li>
+</ol>
+<p>删除<code>MainWindow.xaml</code>和<code>MainWindow.xaml.cs/vb</code>这些以后用不到的文件。接着右键项目，新增一个名为<code>RootView</code>的 WPF 窗口，前端示例代码如下：</p>
+<blockquote>
+<p>If you don’t want to use the <code>Stylet.Start</code> package and would prefer to create your own skeleton project, follow the instructions in this section.</p>
+<ol>
+<li>Open Visual Studio, and create a new <code>WPF Application</code> project.</li>
+<li>Open NuGet (right-click your project -&gt; Manage NuGet Packages), and install the <code>Stylet</code> package.</li>
+</ol>
+<p>First off, delete <code>MainWindow.xaml</code> and <code>MainWindow.xaml.cs/vb</code>. You won’t be needing them.</p>
+<p>Next, you’ll need a root View and a ViewModel. The View has to be a <code>Window</code>, but there are no other restrictions.</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Window</span> <span class="token attr-name"><span class="token namespace">x:</span>Class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Stylet.Samples.Hello.RootView<span class="token punctuation">"</span></span>
+        <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.microsoft.com/winfx/2006/xaml/presentation<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">xmlns:</span>x</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.microsoft.com/winfx/2006/xaml<span class="token punctuation">"</span></span>
+        <span class="token attr-name">Height</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>300<span class="token punctuation">"</span></span> <span class="token attr-name">Width</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>300<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TextBlock</span><span class="token punctuation">></span></span>Hello, World<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>TextBlock</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Window</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>新建一个名为<code>RootViewModel</code>的 ViewModel 类。</p>
+<blockquote>
+<p>The ViewModel can be any old class (for now - you might want it to be a <a target="_blank" rel="noopener" href="https://github.com/canton7/Stylet/wiki/Screens-and-Conductors">Screen or Conductor</a>).</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">public class RootViewModel
+&#123;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+
+<p>引导器类的基本职责是实例化主窗口的 ViewModel，诸如 IoC 容器等其它功能详见后续章节。</p>
+<blockquote>
+<p>Next, you’ll need a bootstrapper. For now, you don’t need anything special - just something to identify your root ViewModel. Later, you’ll be able to configure your IoC container here, as well as other application-level stuff.</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-C#" data-language="C#"><code class="language-C#">public class Bootstrapper : Bootstrapper&lt;RootViewModel&gt;
+&#123;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+
+<p>删除<code>App.xaml</code>中的<code>StartUri</code>特性并引入 Stylet 命名空间后，通过该命名空间下的<code>ApplicationLoader</code>元素以加载资源的方式实例化引导器类，示例代码如下：</p>
+<blockquote>
+<p>Finally, this needs to be referenced as a resource in your <code>App.xaml</code>. You’ll need to remove the <code>StartUri</code> attribute, and add <code>xmlns</code> entries for Stylet and your own application. Finally, you’ll need to add Stylet’s <code>ApplicationLoader</code> to the resources, and identify the bootstrapper you created above.</p>
+<p>It should look something like this:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-<Application" data-language="<Application"><div class="caption"><span>x:Class</span></div><code class="language-<Application">             xmlns&#x3D;&quot;http:&#x2F;&#x2F;schemas.microsoft.com&#x2F;winfx&#x2F;2006&#x2F;xaml&#x2F;presentation&quot;
+             xmlns:x&#x3D;&quot;http:&#x2F;&#x2F;schemas.microsoft.com&#x2F;winfx&#x2F;2006&#x2F;xaml&quot;
+             xmlns:s&#x3D;&quot;https:&#x2F;&#x2F;github.com&#x2F;canton7&#x2F;Stylet&quot;
+             xmlns:local&#x3D;&quot;clr-namespace:Stylet.Samples.Hello&quot;&gt;
+    &lt;Application.Resources&gt;
+       &lt;s:ApplicationLoader&gt;
+            &lt;s:ApplicationLoader.Bootstrapper&gt;
+                &lt;local:Bootstrapper&#x2F;&gt;
+            &lt;&#x2F;s:ApplicationLoader.Bootstrapper&gt;
+        &lt;&#x2F;s:ApplicationLoader&gt;
+    &lt;&#x2F;Application.Resources&gt;
+&lt;&#x2F;Application&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>好了，可以运行程序了！</p>
+<blockquote>
+<p>That’s it! Run that, and you should get a window with ‘Hello World’ in it.</p>
+</blockquote>
+<h2 id="应用程序装载器"><a href="#应用程序装载器" class="headerlink" title="应用程序装载器"></a>应用程序装载器</h2><p>上述<code>&lt;s:ApplicationLoader&gt;</code>元素用于加载 Stylet 内置的资源，此类继承自资源字典类 ResourceDictionary ，用法如下：</p>
+<blockquote>
+<p>It’s worth noting that <code>&lt;s:ApplicationLoader&gt;</code> above is a ResourceDictionary subclass. This allows it to load in Stylet’s built-in resources (see <a target="_blank" rel="noopener" href="https://github.com/canton7/Stylet/wiki/Screens-and-Conductors">Screens and Conductors</a>). You can choose not to load Stylet’s resources like this:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">s:</span>ApplicationLoader</span> <span class="token attr-name">LoadStyletResources</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>False<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   ...
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">s:</span>ApplicationLoader</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+
+<p><code>&lt;s:ApplicationLoader&gt;</code>元素也可用来创建不属于Stylet 的应用程序级资源或资源字典，用法如下：</p>
+<blockquote>
+<p>If you want to add your own Resources &#x2F; ResourceDictionaries to the Application, the simplest way is like this:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Application.Resources</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">s:</span>ApplicationLoader</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">s:</span>ApplicationLoader.Bootstrapper</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">local:</span>Bootstrapper</span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">s:</span>ApplicationLoader.Bootstrapper</span><span class="token punctuation">></span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Style</span> <span class="token attr-name"><span class="token namespace">x:</span>Key</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>MyResourceKey<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            ...
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Style</span><span class="token punctuation">></span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">s:</span>ApplicationLoader.MergedDictionaries</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ResourceDictionary</span> <span class="token attr-name">Source</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>MyResourceDictionary.xaml<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">s:</span>ApplicationLoader.MergedDictionaries</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">s:</span>ApplicationLoader</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Application.Resources</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>以上代码也写成如下习惯形式：</p>
+<blockquote>
+<p>If this makes you uncomfortable for some reason, you can also do this:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Application.Resources</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ResourceDictionary</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ResourceDictionary.MergedDictionaries</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">s:</span>ApplicationLoader</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">s:</span>ApplicationLoader.Bootstrapper</span><span class="token punctuation">></span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">local:</span>Bootstrapper</span><span class="token punctuation">/></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">s:</span>ApplicationLoader.Bootstrapper</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">s:</span>ApplicationLoader</span><span class="token punctuation">></span></span>
+
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ResourceDictionary</span> <span class="token attr-name">Source</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>MyResourceDictionary.xaml<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ResourceDictionary.MergedDictionaries</span><span class="token punctuation">></span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Style</span> <span class="token attr-name"><span class="token namespace">x:</span>Key</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>MyResourceKey<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            ...
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Style</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ResourceDictionary</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Application.Resources</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h1 id="引导器"><a href="#引导器" class="headerlink" title="引导器"></a>引导器</h1><p>引导器负责引导应用程序，可完成多项任务，其中两项基本任务如下：</p>
+<ol>
+<li>配置 IoC 容器</li>
+<li>通过窗口管理器实例化根 ViewModel</li>
+</ol>
+<p>引导器类 BootStrapper 有两种父类：</p>
+<ol>
+<li><p>BootstrapperBase<TRootViewModel></p>
+<p>使用自定义的 IoC 容器</p>
+</li>
+<li><p>Bootstrapper<TRootViewModel></p>
+<p>使用默认的 IoC 容器，示例代码如下：</p>
+</li>
+</ol>
+<blockquote>
+<p>The bootstrapper is responsible for bootstrapping your application. It configures the IoC container, creates a new instance of your root ViewModel and displays it using the <code>WindowManager</code>. It also provides various other functions, described below.</p>
+<p>The bootstrapper comes in two flavours: <code>BootstrapperBase&lt;TRootViewModel&gt;</code>, which requires you to configure the IoC container yourself, and <code>Bootstrapper&lt;TRootViewModel&gt;</code>, which uses Stylet’s built-in IoC container, StyletIoC.</p>
+<p>Example bootstrapper, using StyletIoC:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">
+class Bootstrapper : Bootstrapper&lt;MyRootViewModel&gt;
+&#123;
+   protected override void OnStart()
+   &#123;
+      &#x2F;&#x2F; This is called just after the application is started, but before the IoC container is set up.
+      &#x2F;&#x2F; Set up things like logging, etc
+   &#125;
+ 
+   protected override void ConfigureIoC(IStyletIoCBuilder builder)
+   &#123;
+      &#x2F;&#x2F; Bind your own types. Concrete types are automatically self-bound.
+      builder.Bind&lt;IMyInterface&gt;().To&lt;MyType&gt;();
+   &#125;
+ 
+   protected override void Configure()
+   &#123;
+      &#x2F;&#x2F; This is called after Stylet has created the IoC container, so this.Container exists, but before the
+      &#x2F;&#x2F; Root ViewModel is launched.
+      &#x2F;&#x2F; Configure your services, etc, in here
+   &#125;
+ 
+   protected override void OnLaunch()
+   &#123;
+      &#x2F;&#x2F; This is called just after the root ViewModel has been launched
+      &#x2F;&#x2F; Something like a version check that displays a dialog might be launched from here
+   &#125;
+ 
+   protected override void OnExit(ExitEventArgs e)
+   &#123;
+      &#x2F;&#x2F; Called on Application.Exit
+   &#125;
+ 
+   protected override void OnUnhandledException(DispatcherUnhandledExceptionEventArgs e)
+   &#123;
+      &#x2F;&#x2F; Called on Application.DispatcherUnhandledException
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="自定义-IoC-容器"><a href="#自定义-IoC-容器" class="headerlink" title="自定义 IoC 容器"></a>自定义 IoC 容器</h2><p>使用自定义 IoC 容器很简单，官方 git 仓库也提供了多个 IoC 容器供您选择。这些容器都经过了全面的单元测试。</p>
+<p>由于管理多个 IoC 容器很麻烦，同时为了减少依赖， 本框架的发布包只内置一个 IoC 容器。若您需要使用其它容器，可从官方 git 仓库下载后手动添加引用。使用方法见上一章，示例代码如下：</p>
+<blockquote>
+<p>Using another IoC container with Stylet is easy. I’ve included bootstrappers for a number of popular IoC containers in the <a target="_blank" rel="noopener" href="https://github.com/canton7/Stylet/tree/master/Bootstrappers">Bootstrappers project</a>. These are all unit-tested but not battle-tested: feel free to customize them.</p>
+<p>Note that the Stylet nuget package &#x2F; dll don’t include these, as it would add unnecessary dependencies. Similarly, I don’t publish IoC container-specific packages, as that’s a waste of effort.</p>
+<p>Copy the bootstrapper you want from the above link into your project somewhere. Then subclass it, as you would normally subclass <code>Bootstrapper&lt;TRootViewModel&gt;</code>, documented above. Then add your subclass to your App.xaml.cs, as documented in <a target="_blank" rel="noopener" href="https://github.com/canton7/Stylet/wiki/Quick-Start">Quick Start</a>, e.g.</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">public class Bootstrapper : AutofacBootstrapper&lt;ShellViewModel&gt;
+&#123;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Application</span> <span class="token attr-name"><span class="token namespace">x:</span>Class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Stylet.Samples.Hello.App<span class="token punctuation">"</span></span>
+             <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.microsoft.com/winfx/2006/xaml/presentation<span class="token punctuation">"</span></span>
+             <span class="token attr-name"><span class="token namespace">xmlns:</span>x</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.microsoft.com/winfx/2006/xaml<span class="token punctuation">"</span></span>
+             <span class="token attr-name"><span class="token namespace">xmlns:</span>s</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://github.com/canton7/Stylet<span class="token punctuation">"</span></span>
+             <span class="token attr-name"><span class="token namespace">xmlns:</span>local</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>clr-namespace:Stylet.Samples.Hello<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Application.Resources</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">s:</span>ApplicationLoader</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">s:</span>ApplicationLoader.Bootstrapper</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">local:</span>Bootstrapper</span><span class="token punctuation">/></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">s:</span>ApplicationLoader.Bootstrapper</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">s:</span>ApplicationLoader</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Application.Resources</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Application</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="添加资源字典"><a href="#添加资源字典" class="headerlink" title="添加资源字典"></a>添加资源字典</h2><p>由于<code>s:ApplicationLoader </code>本身就是资源字典，如果再想添加其它资源字典，就必须与<code>s:ApplicationLoader</code>一起嵌套在合并资源字典<code>MergedDictionaries</code>中，示例代码如下：</p>
+<blockquote>
+<p>s:ApplicationLoader is itself a ResourceDictionary. If you need to add your own resource dictionary to App.xaml, you will have to nest s:ApplicationLoader inside your ResourceDictionary as a MergedDictionary, like this:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Application.Resources</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ResourceDictionary</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ResourceDictionary.MergedDictionaries</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">s:</span>ApplicationLoader</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">s:</span>ApplicationLoader.Bootstrapper</span><span class="token punctuation">></span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">local:</span>Bootstrapper</span><span class="token punctuation">/></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">s:</span>ApplicationLoader.Bootstrapper</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">s:</span>ApplicationLoader</span><span class="token punctuation">></span></span>
+
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ResourceDictionary</span> <span class="token attr-name">Source</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>YourDictionary.xaml<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ResourceDictionary.MergedDictionaries</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ResourceDictionary</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Application.Resources</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h1 id="ViewModel-优先"><a href="#ViewModel-优先" class="headerlink" title="ViewModel 优先"></a>ViewModel 优先</h1><p>ViewModel 优先是 Stylet 框架的一大特点，其相对于传统的View优先更显自然。</p>
+<blockquote>
+<p>The ViewModel-first approach is one that’s crucial to Stylet’s architecture, but unintuitive if you learnt MVVM in the traditional View-first manner.</p>
+<p>Hopefully this article will make everything clear.</p>
+</blockquote>
+<h2 id="View优先"><a href="#View优先" class="headerlink" title="View优先"></a>View优先</h2><p>让我们先了解一下什么是 View优先。该模式下视图必须了解 ViewModel 的详细情况，但反过来 ViewModel 可以不知 View 的信息。将两者联系到一起的常用方法是：在 View 的后台代码中实例化 ViewModel ，并赋给 View 的<code>DataContent</code>属性。</p>
+<blockquote>
+<p>Let’s start by defining the View-first approach, and what exactly I mean by that. MVVM states that the ViewModel should know nothing about the View, but that View should be aware of the ViewModel. The obvious way to attach a View and ViewModel, then, is have the View construct its ViewModel in its codebehind - something like this:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">
+public partial class MyView : Window
+&#123;
+   public MyView()
+   &#123;
+      InitializeComponent();
+ 
+      this.DataContext &#x3D; new MyViewModel();
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>目前看起来都还不错！但当 View 创建了其它 View，并需按层次关系组合这些被创建的 View 时，危机来到了。一个很典型场景是窗口 View 创建了标题栏 View 和工作区 View。</p>
+<blockquote>
+<p>This is fine. Views can create and own other views, meaning that you can compose your views into a hierarchy. All well and good.</p>
+<p>The crunch comes when you’ve composed a couple of views, say something like this, where a shell contains a top bar and a frame, inside which any page can be shown:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- This is a window which contains a top bar and another page --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Window</span> <span class="token attr-name"><span class="token namespace">x:</span>Class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>MyNamespace.ShellView<span class="token punctuation">"</span></span> <span class="token attr-name">....</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>StackPanel</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">my:</span>TopBarView</span><span class="token punctuation">/></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Frame</span> <span class="token attr-name"><span class="token namespace">x:</span>Name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>navigationFrame<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>StackPanel</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Window</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>三者都有各自的 ViewModel 。当标题栏 View 的某些字段变化了，比如标题改变了，窗口的 ViewModel 可以得知上述变化，但标题栏 ViewModel 却不知道。常用做法是在窗口标题栏的前端代码中，将窗口标题绑定到窗口本身的某个依赖属性上，示例代码如下：</p>
+<blockquote>
+<p>where <code>TopBarView</code> has its own ViewModel, <code>TopBarViewModel</code>. Fine.</p>
+<p>Now say that <code>TopBarView</code> has a field containing some data you want to update, for example the title of the current page. Now, the <code>ShellViewModel</code> knows this (it’s decided what the current page is, after all), but the <code>TopBarViewModel</code> doesn’t (how would it? It doesn’t really know about anything). The temptation is to expose a dependency property on the <code>TopBarView</code> and bind it into the <code>ShellViewModel</code>, like so:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Window</span> <span class="token attr-name"><span class="token namespace">x:</span>Class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>MyNamespace.ShellView<span class="token punctuation">"</span></span> <span class="token attr-name">....</span> <span class="token attr-name"><span class="token namespace">x:</span>Name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>rootObject<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>StackPanel</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">my:</span>TopBarView</span> <span class="token attr-name">CurrentPageTitle</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;Binding CurrentPageTitle, ElementName=rootObject&#125;<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Frame</span> <span class="token attr-name"><span class="token namespace">x:</span>Name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>navigationFrame<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>StackPanel</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Window</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>后续标题栏的其它属性或者工作区的属性也许也要如此操作一番，简直太麻烦了。</p>
+<p>另一个主要问题发生在显示窗口和对话框时，此问题也是传统 MVVM 模型中的一个痛点。在 ViewModel 中实例化并显示相应的 View 不便于单元测试，更好一点的选择是在主视图的后台代码中实例化并显示某个子视图，后续通过某种方式将创建的子视图与其子视图模型结合起来。</p>
+<p><code>Frame</code>元素的内容需先实例化一个 View ，该由窗口的 ViewModel 还是 View 实例化这个 View 呢？</p>
+<p>总之，View优先弊端很多。</p>
+<blockquote>
+<p>but that’s just nasty. You’ve now got one-and-a-bit views bound to the <code>ShellViewModel</code>.</p>
+<p>Another major concern is displaying windows and dialogs. In traditional MVVM, this is a bit of a pain. One option is to instantiate and display the View (using <code>Show()</code> or <code>ShowDialog()</code>) from inside the ViewModel (which makes it, or at least that bit of it, untestable). The better option is to instantiate the View you want to display in the codebehind of your View, and show it from there. This means you need to establish ways of telling to View to display this dialog, and a way of getting the results of the dialog back to the ViewModel.</p>
+<p>Indeed, setting the content for the <code>Frame</code> above requires instantiating a View to put in it. This has the same dilemma - either the ViewModel instantiates it (making it untestable), or the View does (leading to communication pain).</p>
+<p>Either way, this approach has some nastiness.</p>
+</blockquote>
+<h2 id="ViewModel-优先-1"><a href="#ViewModel-优先-1" class="headerlink" title="ViewModel 优先"></a>ViewModel 优先</h2><p>该模式下， ViewModel 不由 View 来实例化， ViewModel 也无需知道与其对应 View 的存在。一个第三方服务将通过命名约定的方式匹配相关联的 View 和 ViewModel （比如根据 MainView 去搜寻 MainViewModel ），匹配成功后继续由该服务实例化 ViewModel ，然后将其赋给对应 View 的 <code>DataContext </code>属性。详见后续章节。</p>
+<blockquote>
+<p>The ViewModel-first approach accepts that a ViewModel shouldn’t know anything about its View, but does not accept that the View should be responsible for constructing the ViewModel either. Instead, a third service is responsible for locating the correct View for a given ViewModel, and setting up its DataContext correctly.</p>
+<p>The default implementation uses naming conventions to locate the correct View for a given ViewModel, replacing ‘ViewModel’ with ‘View’ in its name. That’s explained in more detail in <a target="_blank" rel="noopener" href="https://github.com/canton7/Stylet/wiki/The-ViewManager">The ViewManager</a>.</p>
+<p><strong>This allows ViewModels to be created by other ViewModels. Which allows ViewModels to know about, and own, other ViewModels. Which allows you to compose your ViewModels properly.</strong></p>
+<p>There’s another part of this trick, which is best explained by example:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">public class ShellViewModel
+&#123;
+   public TopBarViewModel TopBar &#123; get; private set; &#125;
+   &#x2F;&#x2F; Stuff to instantiate and assign TopBarViewModel
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Window</span> <span class="token attr-name"><span class="token namespace">x:</span>Class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>MyNamespace.ShellView<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">xmlns:</span>s</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://github.com/canton7/Stylet<span class="token punctuation">"</span></span> <span class="token attr-name">.....</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>StackPanel</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ContentControl</span> <span class="token attr-name"><span class="token namespace">s:</span>View.Model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;Binding TopBar&#125;<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+      <span class="token comment">&lt;!-- ... --></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>StackPanel</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Window</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>附加属性<code>View.Model</code>将会实例化其绑定 ViewModel 的实例（本例中是<code>TopBarViewModel</code>的实例）并作为ContentControl元素的内容，然后即可定位到正确的 View（本例中是 <code>TopBarView</code>）。</p>
+<p>诀窍在于<code>TopBarView</code>可以根据命名约定找到对应的<code>TopBarViewModel</code>，<code>TopBarViewModel</code>也可以被<code>ShellViewModel</code>知会。问题解决了！</p>
+<blockquote>
+<p>The <code>View.Model</code> attached property will fetch the ViewModel it’s bound to (in this case it’s an instance of <code>TopBarViewModel</code>), and locate the correct view (<code>TopBarView</code>). It will instantiate an instance, and set it as the content of that <code>ContentControl</code>.</p>
+<p>The upshot is that the <code>TopBarView</code> can get the name of the current page from its <code>TopBarViewModel</code>, and the <code>TopBarViewModel</code> can be told this by the <code>ShellViewModel</code>. Problem solved!</p>
+<p>The <code>ContentControl</code> trick also works well for navigation:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Window</span> <span class="token attr-name"><span class="token namespace">x:</span>Class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>MyNamespace.ShellView<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">xmlns:</span>s</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://github.com/canton7/Stylet<span class="token punctuation">"</span></span> <span class="token attr-name">.....</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>StackPanel</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ContentControl</span> <span class="token attr-name"><span class="token namespace">s:</span>View.Model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;Binding TopBar&#125;<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ContentControl</span> <span class="token attr-name"><span class="token namespace">s:</span>View.Model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;Binding CurrentPage&#125;<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>StackPanel</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Window</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>当多页面窗口应用程序切换页面时，由主窗口的 ViewModel 实例化页面的 ViewModel ，并将该实例赋值给主窗口 ViewModel 的的<code>CurrentPage</code>属性。主窗口的 ViewModel 不必知道如何得到页面的 View。窗口管理器会以大致相同的方式处理对话框应用程序和窗口应用程序，在获得某个 ViewModel 实例后将由其显示对应的窗口 View 或对话框 View。</p>
+<blockquote>
+<p>The <code>ShellViewModel</code> will then navigate to a new page by instantiating a new instance of that page’s <code>ViewModel</code>, and assigning it to the property <code>CurrentPage</code>. Note how the <code>ShellViewModel</code> no longer needs to know anything about views. <em>It hasn’t had to instantiate a single view</em>. This is a very important, useful, and powerful point.</p>
+<p>Dialogs and Windows are handled in much the same way by <a target="_blank" rel="noopener" href="https://github.com/canton7/Stylet/wiki/The-WindowManager">The WindowManager</a>. This takes a given ViewModel instance, and displays its View as a dialog or window.</p>
+</blockquote>
+<h2 id="删除后台代码"><a href="#删除后台代码" class="headerlink" title="删除后台代码"></a>删除后台代码</h2><p>在 ViewModel 优先模式下，通过动作、转换器、附加属性、附加行为几乎可以实现所有功能，View 的后台代码也就没有存在的必要了。强烈建议您删除 View 的后台代码文件，<code>InitializeComponent</code>方法会由 Stylet 替您调用。</p>
+<p><em><strong>注意</strong>：VB.NET中不建议删除后台代码。</em></p>
+<blockquote>
+<p>With this approach in place, there’s nothing you actually need to do in the codebehind. You can of course do so, but there’s very little you can’t solve with <a target="_blank" rel="noopener" href="https://github.com/canton7/Stylet/wiki/Actions">Actions</a> (for handling events), Converters, Attached Properties, and (most importantly) Attached Behaviors.</p>
+<p>Stylet lets you delete the codebehind entirely (it will call <code>InitializeComponent</code> for you), and you are strongly encouraged to do so. Delete the codebehind!</p>
+<p><em><strong>Note</strong>: If you’re using VB.NET, sometimes your XAML namespaces will stop working if you delete the codebehind. If this is the case, simply recreate the codebehind with the matching filename, give it the correct namespace and class and then leave the remainder blank. For example, <code>MyView.xaml.vb</code> :</em></p>
+</blockquote>
+<h1 id="动作-1"><a href="#动作-1" class="headerlink" title="动作"></a>动作</h1><p>点击按钮后调用 ViewModel 定义的方法，动作适用于诸如此场景。</p>
+<blockquote>
+<p>You have a button, and you want to click it and execute a method on your ViewModel? Actions cover this use-case.</p>
+</blockquote>
+<h2 id="动作和方法"><a href="#动作和方法" class="headerlink" title="动作和方法"></a>动作和方法</h2><p>WPF 中命令绑定步骤为：ViewModel 实现<code> ICommand</code>接口后将按钮的 Command 特性绑定到 ViewModel 的某个属性。尽管看起来有点混乱，这种机制其实也不错，至少 ViewModel 无需了解 View且View 的后台代码也可删除。但最好还是直接调用方法而不是通过某个属型间接调用。Stylet 引入了动作来解决这个问题，示例代码如下：</p>
+<blockquote>
+<p>In ‘traditional’ WPF, you’d create a property on your ViewModel which implements the <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/system.windows.input.icommand(v=vs.110).aspx">ICommand</a> interface, and bind your button’s Command attribute to it. This works fairly well (the ViewModel knows nothing about the View, and code-behind is not required), but it’s a bit messy - you really want to be calling a method on your ViewModel, not executing a method on some property.</p>
+<p>Stylet solves this by introducing Actions. Look at this:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">
+class ViewModel : Screen
+&#123;
+   public void DoSomething()
+   &#123;
+      Debug.WriteLine(&quot;DoSomething called&quot;);
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>UserControl</span> <span class="token attr-name"><span class="token namespace">x:</span>Class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>MyNamespace.View<span class="token punctuation">"</span></span>
+             <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.microsoft.com/winfx/2006/xaml/presentation<span class="token punctuation">"</span></span>
+             <span class="token attr-name"><span class="token namespace">xmlns:</span>x</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.microsoft.com/winfx/2006/xaml<span class="token punctuation">"</span></span>
+             <span class="token attr-name"><span class="token namespace">xmlns:</span>s</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://github.com/canton7/Stylet<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Button</span> <span class="token attr-name">Command</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;s:Action DoSomething&#125;<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Click me<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Button</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>UserControl</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>上例中点击按钮后将直接调用<code>DoSomething </code>方法，多么简单！CommandParameter 特性还可用来给方法传递一个参数，示例代码如下：</p>
+<blockquote>
+<p>As you might have guessed, clicking the button called the DoSomething method on the ViewModel to be called.</p>
+<p>It’s that simple.</p>
+<p>If your method accepts a single argument, the value of the button’s CommandParameter property will be passed. For example:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">
+class ViewModel : Screen
+&#123;
+   public void DoSomething(string argument)
+   &#123;
+      Debug.WriteLine(String.Format(&quot;Argument is &#123;0&#125;&quot;, argument));
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>UserControl</span> <span class="token attr-name"><span class="token namespace">x:</span>Class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>MyNamespace.View<span class="token punctuation">"</span></span>
+             <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.microsoft.com/winfx/2006/xaml/presentation<span class="token punctuation">"</span></span>
+             <span class="token attr-name"><span class="token namespace">xmlns:</span>x</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.microsoft.com/winfx/2006/xaml<span class="token punctuation">"</span></span>
+             <span class="token attr-name"><span class="token namespace">xmlns:</span>s</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://github.com/canton7/Stylet<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Button</span> <span class="token attr-name">Command</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;s:Action DoSomething&#125;<span class="token punctuation">"</span></span> <span class="token attr-name">CommandParameter</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Hello<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Click me<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Button</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>UserControl</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>注意：动作也适用于任何 ICommand 类型的属性，比如 KeyBinding 属性。</p>
+<blockquote>
+<p>Note that Actions also work on any ICommand property, on anything (e.g. a <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/system.windows.input.keybinding(v=vs.110).aspx">KeyBinding</a>).</p>
+</blockquote>
+<h2 id="守卫属性"><a href="#守卫属性" class="headerlink" title="守卫属性"></a>守卫属性</h2><p>1111</p>
+<blockquote>
+<p>You can also control whether you button is enabled just as easily, using <em>Guard Properties</em>. A guard property for a given method is a boolean property which has the name “Can<method name>“, so if your method is called “DoSomething”, the corresponding guard property is called “CanDoSomething”.</p>
+<p>Stylet will check whether a guard property exists, and if so, will disable the button if it returns false, or enable it if it returns true. It will also watch for PropertyChanged notifications for that property, so you can change whether the button is enabled.</p>
+<p>For example:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">
+class ViewModel : Screen
+&#123;
+   private bool _canDoSomething;
+   public bool CanDoSomething
+   &#123;
+      get &#123; return this._canDoSomething; &#125;
+      set &#123; this.SetAndNotify(ref this._canDoSomething, value); &#125;
+   &#125;
+   public void DoSomething()
+   &#123;
+      Debug.WriteLine(&quot;DoSomething called&quot;);
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><p>Stylet 也支持事件绑定，语法同命令绑定，但是事件绑定不涉及守卫属性的概念。</p>
+<blockquote>
+<p>But what about if you want to call a ViewModel method when an event occurs? Actions have that covered as well. The syntax is exactly the same, although there’s no concept of a guard property here.</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>UserControl</span> <span class="token attr-name"><span class="token namespace">x:</span>Class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>MyNamespace.View<span class="token punctuation">"</span></span>
+             <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.microsoft.com/winfx/2006/xaml/presentation<span class="token punctuation">"</span></span>
+             <span class="token attr-name"><span class="token namespace">xmlns:</span>x</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.microsoft.com/winfx/2006/xaml<span class="token punctuation">"</span></span>
+             <span class="token attr-name"><span class="token namespace">xmlns:</span>s</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://github.com/canton7/Stylet<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Button</span> <span class="token attr-name">Click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;s:Action DoSomething&#125;<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Click me<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Button</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>UserControl</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>绑定事件的方法可以没有形参，也可以有一个或两个形参，方法的签名可能如下：</p>
+<blockquote>
+<p>The method which is called must have zero, one, or two parameters. The possible signatures are:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">
+public void HasNoArguments() &#123; &#125;
+ 
+&#x2F;&#x2F; This can accept EventArgs, or a subclass of EventArgs
+public void HasOneSingleArgument(EventArgs e) &#123; &#125;
+ 
+&#x2F;&#x2F; Again, a subclass of EventArgs is OK
+public void HasTwoArguments(object sender, EventArgs e) &#123; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="方法返回值"><a href="#方法返回值" class="headerlink" title="方法返回值"></a>方法返回值</h2><p>动作通常不关心方法的返回类型和返回值，但返回 Task 是个例外。</p>
+<blockquote>
+<p>Actions don’t care about the return type of the method, and the returned value is discarded.</p>
+<p>The exception to this is if a <code>Task</code> is returned (e.g. if the method being invoked is <code>async</code>). In this case, the <code>Task</code> will be awaited in an <code>async void</code> method. This means that if the method returns a <code>Task</code> which ends up containing an exception, this exception is rethrown and will bubble up to the Dispatcher, where it will terminate your application (unless you handle it, with e.g. <code>BootstrapperBase.OnUnhandledException</code>). The effect is the same as if the method being invoked was <code>async void</code>, but means it’s easier to unit-test <code>async</code> ViewModel methods.</p>
+</blockquote>
+<h2 id="动作目标"><a href="#动作目标" class="headerlink" title="动作目标"></a>动作目标</h2><blockquote>
+<p>So far I’ve been telling a little white lie. I’ve been saying that the Action is invoked on the ViewModel, but that isn’t strictly true. Let’s go into a bit more detail.</p>
+<p>Stylet defines an inherited attached property called View.ActionTarget. When a View is bound to its ViewModel, the View.ActionTarget on the root element in the View is bound to the ViewModel, and it’s then inherited by each element in the View. When you invoke an action, it’s invoked on the View.ActionTarget.</p>
+<p>This means that, by default, actions are invoked on the ViewModel regardless of the current DataContext, which is probably what you want.</p>
+<p>This is a very important point, and one that’s worth stressing. The DataContext will probably change at multiple points throughout the visual tree. However, the View.ActionTarget will stay the same (unless you manually change it). This means the actions will always be handled by your ViewModel, and not by whatever object is being bound to, which is almost always what you want.</p>
+<p>You can of course alter the View.ActionTarget for individual elements, for example:</p>
+</blockquote>
+<h2 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h2><p>动作也可调用静态方法</p>
+<blockquote>
+<p>Actions can also invoke static methods, if the target is a <code>Type</code> object (use <code>&#123;x:Type ...&#125;</code> in XAML for this). You can set this using both <code>View.ActionTarget</code> and Action’s <code>Target</code> property.</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">public static class CommonButtonTarget
+&#123;
+    public static void DoSomething() &#123; &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Button</span> <span class="token attr-name">Command</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;s:Action DoSomething, Target=&#123;x:Type my:CommonButtonTarget&#125;&#125;<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Click me<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Button</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<h2 id="动作和样式"><a href="#动作和样式" class="headerlink" title="动作和样式"></a>动作和样式</h2><blockquote>
+<p>Actions will not work from style setters. The classes required to do this in WPF are all internal, which means there is no way to fix the issue. You will need to use old-fashioned Commands in this (rare) case, unfortunately.</p>
+</blockquote>
+<h2 id="上下文菜单和弹出式菜单陷阱"><a href="#上下文菜单和弹出式菜单陷阱" class="headerlink" title="上下文菜单和弹出式菜单陷阱"></a>上下文菜单和弹出式菜单陷阱</h2><p>111</p>
+<blockquote>
+<p>View.ActionTarget is of course an attached property, which is configured to be inherited by the children of whatever element it is set on. Like any attached property, and indeed the DataContext, there are certain boundaries it is not inherited across, such as:</p>
+</blockquote>
+<ul>
+<li>Using a ContextMenu</li>
+<li>Using a Popup</li>
+<li>Using a Frame</li>
+</ul>
+<p>In these cases, Stylet will do the best it can to find a suitable ActionTarget (it may, for example, find the the ActionTarget associated with the root element in the current XAML file), but this may not be exactly what you expect (e.g. it may ignore a <code>s:View.ActionTarget=&quot;&#123;Binding ...&#125;&quot;</code> line you have somewhere in the middle of your page), or it may (in rare circumstances) fail to find an ActionTarget at all.</p>
+<p>In this case, please set <code>s:View.ActionTarget</code> to a suitable value. You may struggle to get a reference to anything outside of a ContextMenu from inside of one: I suggest the <a target="_blank" rel="noopener" href="http://www.thomaslevesque.com/2011/03/21/wpf-how-to-bind-to-data-when-the-datacontext-is-not-inherited/">BindingProxy</a> technique.</p>
+<h2 id="附加行为"><a href="#附加行为" class="headerlink" title="附加行为"></a>附加行为</h2><p>有两种可能会导致动作停止： <code>View.ActionTarget</code>为空或者<code>View.ActionTarget</code> 中指定方法不存在。上述情况的默认处理如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="center">View.ActionTarget为空</th>
+<th align="center">View.ActionTarget中指定方法不存在</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>命令</td>
+<td align="center">禁用控件</td>
+<td align="center">点击控件时抛出异常</td>
+</tr>
+<tr>
+<td>事件</td>
+<td align="center">启用控件</td>
+<td align="center">事件被引发时抛出异常</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>There are two cases which will stop an action from working properly: if the <code>View.ActionTarget</code> is null, or if the specified method on the <code>View.ActionTarget</code> doesn’t exist. The default behaviour in each of these cases is as follows:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>View.ActionTarget &#x3D;&#x3D; null</th>
+<th>No method on View.ActionTarget</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Commands</td>
+<td>Disable the control</td>
+<td>Throw an exception when the control is clicked</td>
+</tr>
+<tr>
+<td>Events</td>
+<td>Enable the control</td>
+<td>Throw an exception when the event is raised</td>
+</tr>
+</tbody></table>
+<p>The justification for this is that if the <code>View.ActionTarget</code> is null, you must have set it yourself, so you probably know what you’re doing. However, if the specified method doesn’t exist on the <code>View.ActionTarget</code>, that’s probably a mistake, and you deserve to know.</p>
+<p>Of course, this behaviour is configurable.</p>
+<p>To control the behaviour when <code>View.ActionTarget</code> is null, set the <code>NullTarget</code> property on the <code>Action</code> markup extension so either <code>Enable</code>, <code>Disable</code>, or <code>Throw</code>. (Note that <code>Disable</code> is invalid when the Action is linked to an event, as we have no power to disable anything).</p>
+<p>For example:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Button</span> <span class="token attr-name">Command</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;s:Action MyMethod, NullTarget=Enable&#125;<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Button</span> <span class="token attr-name">Click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;s:Action MyMethod, NullTarget=Throw&#125;<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+
+<p>11</p>
+<blockquote>
+<p>Similarly, you can set the <code>ActionNotFound</code> property to the same values:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Button</span> <span class="token attr-name">Command</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;s:Action MyMethod, ActionNotFound=Disable&#125;<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Button</span> <span class="token attr-name">Click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;s:Action MyMethod, ActionNotFound=Enable&#125;<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+
+<h1 id="窗口管理器-1"><a href="#窗口管理器-1" class="headerlink" title="窗口管理器"></a>窗口管理器</h1><p>采用传统View优先的方法，要显示一个新的窗口或对话框应首先创建视图的实例，再调用实例方法<code>.Show()</code>或<code>.ShowDialog()</code>。采用ViewModel 优先的方法时无法与视图直接交互，因此上述步骤行不通。窗口管理器正是为了解决这个问题，通过调用<code>IWindowManager.ShowWindow(someViewModel)</code>方法可定位并实例化对应的 View，再将其绑定到 ViewModel，最后显示它。示例代码如下：</p>
+<blockquote>
+<p>In a traditional View-first approach, if you want to display a new window or dialog, you create a new instance of the View, then call <code>.Show()</code> or <code>.ShowDialog()</code>.</p>
+<p>In a ViewModel-first approach, you can’t interact directly with the views, so you can’t do this. The WindowManager solves this problem - calling <code>IWindowManager.ShowWindow(someViewModel)</code> will take that ViewModel, find its view, instantiate it, bind it to that ViewModel, and display it.</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">class SomeViewModel
+&#123;
+   private IWindowManager windowManager;
+   public SomeViewModel(IWindowManager windowManager)
+   &#123;
+      this.windowManager &#x3D; windowManager;
+   &#125;
+ 
+   public void ShowAWindow()
+   &#123;
+      var viewModel &#x3D; new OtherViewModel();
+      this.windowManager.ShowWindow(viewModel);
+   &#125;
+ 
+   public void ShowADialog()
+   &#123;
+      var viewModel &#x3D; new OtherViewModel();
+      bool? result &#x3D; this.windowManager.ShowDialog(viewModel);
+      &#x2F;&#x2F; result holds the return value of Window.ShowDialog()
+      if (result.GetValueOrDefault(true))
+      &#123;
+         &#x2F;&#x2F; DialogResult was set to true
+      &#125;
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>多么简单有效！另外，通过构造注入的方式得到<code>IWindowManager </code>的实例而不是在 ViewModel 中显式构造该实例使得单元测试方便很多。在 ViewModel 中调用父类 <code>Screen</code> 的 <code>RequestCLose</code>方法可关闭窗口或对话框。</p>
+<blockquote>
+<p>Nice and easy! In addition, the introduction of the IWindowManager (rather than calling methods directly on the ViewModel) makes testing a lot easier.</p>
+<p>To close a window or dialog from its ViewModel, use <code>Screen.RequestClose</code>, like this:  </p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">class ViewModelDisplayedAsWindow
+&#123;
+   &#x2F;&#x2F; Called by pressing the &#39;close&#39; button
+   public void Close()
+   &#123;
+      this.RequestClose();
+   &#125;
+&#125;
+ 
+class ViewModelDisplayedAsDialog
+&#123;
+   &#x2F;&#x2F; Called by pressing the &#39;OK&#39; button
+   public void CloseWithSuccess()
+   &#123;
+      this.RequestClose(true);
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h1 id="消息框"><a href="#消息框" class="headerlink" title="消息框"></a>消息框</h1><p>11</p>
+<blockquote>
+<p>As we all know, WPF comes with its own MessageBox implementation - <code>System.Windows.MessageBox</code>. And that’s fine, except that you can’t call it from your ViewModel (well, you <em>can</em>, but it makes your ViewModel untestable). The usual workaround suggested online is “write your own”.</p>
+<p>Well, Stylet comes with its own MessageBox clone, which looks and behaves almost identically to the WPF one (including appearance, buttons, icons, auto-sizing, sounds, alignment, etc).</p>
+</blockquote>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>11</p>
+<blockquote>
+<p>To use, simply call the <code>ShowMessageBox</code> method on <code>IWindowManager</code>, like this:</p>
+<p>The MessageBox accepts all of the same options as as the WPF MessageBox, plus a few more.</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">
+public MyViewModel
+&#123;
+   private readonly IWindowManager windowManager;
+ 
+   public MyViewModel(IWindowManager windowManager)
+   &#123;
+      this.windowManager &#x3D; windowManager;
+   &#125;
+ 
+   public void ShowMessagebox()
+   &#123;
+      var result &#x3D; this.windowManager.ShowMessageBox(&quot;Hello&quot;);
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="定制消息框"><a href="#定制消息框" class="headerlink" title="定制消息框"></a>定制消息框</h2><p>111</p>
+<blockquote>
+<p>Stylet’s MessageBox is implemented as a ViewModel, <code>MessageBoxViewModel</code>, and its corresponding View, <code>MessageBoxView</code>. The ViewModel implements an interface, <code>IMessageBoxViewModel</code>, and the <code>ShowMessageBox()</code> method uses this interface to retrieve an instance of the ViewModel.</p>
+<p>Therefore, you can provide you own custom implementation of <code>MessageBoxViewModel</code> and <code>MessageBoxView</code> by writing a ViewModel which implements <code>IMessageBoxViewModel</code>, and registering it with your IoC container. This will then be used by <code>ShowMessageBox()</code>.</p>
+<p>If you just want to tweak the behaviour of the existing <code>MessageBoxViewModel</code>, you can. The following options are available:</p>
+</blockquote>
+<h3 id="自定义按钮内容"><a href="#自定义按钮内容" class="headerlink" title="自定义按钮内容"></a>自定义按钮内容</h3><p>111</p>
+<blockquote>
+<p>You can edit the button text for any of the buttons on a per-application basis by modifying <code>MessageBoxViewModel.ButtonLabels</code>, which is a dictionary holding the text to display for each button. If you just want to edit the text for a particular MessageBox, <code>ShowMessageBox</code> will accept a dictionary allowing you to do just that:  </p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">MessageBoxViewModel.ButtonLabels[MessageBoxResult.No] &#x3D; &quot;No, thanks&quot;;
+ 
+this.windowManager.ShowMessageBox(&quot;Do you want breakfast?&quot;, 
+                                   buttons: MessageBoxButton.YesNo, 
+                                   buttonLabels: new Dictionary&lt;MessageBoxResult, string&gt;()
+        &#123;
+            &#123; MessageBoxResult.Yes, &quot;Yes please!&quot; &#125;,
+        &#125;);
+ 
+&#x2F;&#x2F; Will display a MessageBox with the buttons &quot;Yes please!&quot; and &quot;No, thanks&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h1 id="事件总线-1"><a href="#事件总线-1" class="headerlink" title="事件总线"></a>事件总线</h1><p>事件总线是一个基于发布者&#x2F;订阅者模型的事件管理器，其特征是去中心化和弱绑定。</p>
+<blockquote>
+<p>The EventAggregator is a decentralised, weakly-binding, publish&#x2F;subscribe-based event manager.</p>
+</blockquote>
+<h2 id="发布者与订阅者"><a href="#发布者与订阅者" class="headerlink" title="发布者与订阅者"></a>发布者与订阅者</h2><h3 id="订阅者"><a href="#订阅者" class="headerlink" title="订阅者"></a>订阅者</h3><p>111</p>
+<blockquote>
+<p>subscribers interesting in a particular event can tell the IEventAggregator of their interest, and will be notified whenever a publisher publishes that particular event to the IEventAggregator.</p>
+<p>Events are classes - do whatever you want with them. For example:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">class MyEvent
+&#123; 
+  &#x2F;&#x2F; Do something 
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>11</p>
+<blockquote>
+<p>Subscribers must implement <code>IHandle&lt;T&gt;</code>, where <code>T</code> is the event type they are interested in receiving (they can of course implement multiple <code>IHandle&lt;T&gt;</code>‘s for multiple <code>T</code>‘s). They must then get hold of an instance of the IEventAggregator, and subscribe themselves, for example:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">
+class Subscriber : IHandle&lt;MyEvent&gt;, IHandle&lt;MyOtherEvent&gt;
+&#123;
+   public Subscriber(IEventAggregator eventAggregator)
+   &#123;
+      eventAggregator.Subscribe(this);
+   &#125;
+ 
+   public void Handle(MyEvent message)
+   &#123;
+      &#x2F;&#x2F; ...
+   &#125;
+ 
+   public void Handle(MyOtherEvent message)
+   &#123;
+      &#x2F;&#x2F; ...
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>111</p>
+<blockquote>
+<p>For VB.NET users, the <code>Sub New()</code> passing the eventAggregator by reference will probably fail across namespaces, and can be irritating to have to define with each new subscriber. Thus, it may be easier to define your eventAggregator in a global module, then subscribe directly to it instead of passing its reference along to each new ViewModel you call.</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-vb" data-language="vb"><code class="language-vb">Module Global
+  Public eventAggregator as IEventAggregator
+End Module
+
+Class Subscriber : Implements IHandle(Of MyEvent)
+
+  Public Sub New()
+  Global.eventAggregator.Subscribe(Me)
+  End Sub
+  
+  &#39;Public Sub Handle...
+
+End Class
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>11</p>
+<blockquote>
+<p>Make sure to keep the namespace for the <em>module</em> blank, so that it can be used throughout the program.</p>
+</blockquote>
+<h3 id="发布者"><a href="#发布者" class="headerlink" title="发布者"></a>发布者</h3><p>11</p>
+<blockquote>
+<p>Publishers must also get an instance of the IEventAggregator, but they don’t need to subscribe themselves - they only need to call IEventAggregator.Publish every time they want to publish an event, for example:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">
+class Publisher
+&#123;
+   private IEventAggregator eventAggregator;
+   public Publisher(IEventAggregator eventAggregator)
+   &#123;
+      this.eventAggregator &#x3D; eventAggregator;
+   &#125;
+ 
+   public void PublishEvent()
+   &#123;
+      this.eventAggregator.Publish(new MyEvent());
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>11</p>
+<blockquote>
+<p>Again, for VB.NET users, if you’ve set up the global module then you don’t need to pass the eventAggregator to the Publisher. You can just publish directly to the global eventAggregator;</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-vb" data-language="vb"><code class="language-vb">Class Publisher
+
+  Public Sub PublishEvent()
+  Global.eventAggregator.Publish(New MyEvent())
+  End Sub
+  
+End Class<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="取订和弱绑定"><a href="#取订和弱绑定" class="headerlink" title="取订和弱绑定"></a>取订和弱绑定</h2><p>11</p>
+<blockquote>
+<p>Because the IEventAggregator is weakly binding, subscribers don’t need to unsubscribe themselves - the IEventAggregator won’t retain them. It is however possible for a subscriber to unsubscribe itself if it wants - call  </p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">IEventAggregator.Unsubscribe(this);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<h3 id="同步发布和异步发布"><a href="#同步发布和异步发布" class="headerlink" title="同步发布和异步发布"></a>同步发布和异步发布</h3><p>111</p>
+<blockquote>
+<p>The default <code>IEventAggregator.Publish</code> method publishes the event synchronously. You can also call <code>PublishOnUIThread</code> to dispatch asynchronously to the UI thread, or <code>PublishWithDispatcher</code> and pass any action you want to act as the dispatcher (this can be useful if writing your own methods on IEventAggregator).</p>
+</blockquote>
+<h2 id="频道"><a href="#频道" class="headerlink" title="频道"></a>频道</h2><h1 id="属性通知类"><a href="#属性通知类" class="headerlink" title="属性通知类"></a>属性通知类</h1><p>PropertyChangedBase 提供了用于引发通知的方法，被用作那些要实现 INotifyPropertyChanged 接口的类型的基类。</p>
+<blockquote>
+<p>PropertyChangedBase is base class for types implementing INotifyPropertyChanged, and provides methods for raising PropertyChanged notifications.</p>
+</blockquote>
+<h2 id="引发通知"><a href="#引发通知" class="headerlink" title="引发通知"></a>引发通知</h2><p>目的不同，引发通知的方法也不一样，最常用的方法是属性被赋值时引发通知。使用<code>PropertyChangedBase</code>自带的工具方法<code>SetAndNotify</code>，当字段被赋新值时，赋值操作才实际发生，并引发<code>PropertyChanged </code>事件通知，示例代码如下：</p>
+<blockquote>
+<p>There are a number of ways to raise PropertyChanged notifications, depending on what exactly you want to do.</p>
+<p>The most common case is having a property raise a notification each time it’s assigned to. PropertyChangedBase provides a nice utility method to help: SetAndNotify. It takes, by reference, a field, and a value to assign to the field. If the field’s value !&#x3D; the value, the assignment happens, and a PropertyChanged notification is raised. For example:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">class MyClass : PropertyChangedBase
+&#123;
+   private string _name;
+   public string Name
+   &#123;
+      get &#123; return this._name; &#125;
+      set &#123; SetAndNotify(ref this._name, value); &#125;
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>绑定属性前台代码如下：</p>
+<blockquote>
+<p>To connect to the object you have to put in the view:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TextBox</span> <span class="token attr-name">Text</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&#123;Binding Name, UpdateSourceTrigger=PropertyChanged&#125;<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<p>由于C#版本不同，在当前属性中引发其它属性通知的方法也不同。C# 6.0及以上版本推荐使用 <code>nameof()</code>方法，该方法非常简单并可在编译期进行安全检查；C# 6.0以下版本使用 lambda 表达式，可能相对慢一点，也可在编译期进行安全检查。如果有需要，甚至可采用原始字符串的方式。具体可结合以下代码来理解：</p>
+<blockquote>
+<p>If you want to raise a PropertyChanged notification for a property other than the current one, there are a few ways of achieving that, too (depending on whether you’re using C#6, or below). The preferred C# 6 way is to use <code>nameof()</code>, as that is very cheap and provides compile-time safety. If you’re using C# 5 or below, you can use an expression: this is slower, but also gives compile-time safety. If you <em>really</em> want, you can use a raw string as well. See below:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">class MyClass : PropertyChangedBase
+&#123;
+   private string _firstName;
+   public string FirstName
+   &#123;
+      get &#123; return _firstName; &#125;
+      private set
+      &#123;
+         SetAndNotify(ref _firstName, value);
+
+         &#x2F;&#x2F; Preferred if you&#39;re using C# 6, as it provides compile-time safety
+         this.NotifyOfPropertyChange(nameof(this.FullName));         
+      &#125;
+   &#125;
+
+   private string _lastName;
+   public string LastName
+   &#123;
+      get &#123; return _lastName; &#125;
+      private set
+      &#123;
+         SetAndNotify(ref _lastName, value);
+
+         &#x2F;&#x2F; Preferred for C# 5 and below, as it provides compile-time safety
+         this.NotifyOfPropertyChange(() &#x3D;&gt; this.FullName);
+      &#125;
+   &#125;
+
+   public string FullName
+   &#123;
+      get &#123; return FirstName + &quot; &quot; + LastName; &#125;
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>关联通知其它属性的代码集中放到构造函数里，比如：</p>
+<blockquote>
+<p>You can also wire things together in the constructor, like this:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">class MyClass : PropertyChangedBase
+&#123;
+   private string _firstName, _lastName;
+
+   public MyClass()
+   &#123;
+      this.Bind(s &#x3D;&gt; s.FirstName, (o, e) &#x3D;&gt; NotifyOfPropertyChange(nameof(FullName)));
+      this.Bind(s &#x3D;&gt; s.LastName, (o, e) &#x3D;&gt; NotifyOfPropertyChange(nameof(FullName)));
+   &#125;
+
+   public string FirstName
+   &#123;
+      get &#123; return _firstName; &#125;
+      private set &#123; SetAndNotify(ref _firstName, value); &#125;
+   &#125;
+
+   public string LastName
+   &#123;
+      get &#123; return _lastName; &#125;
+      private set &#123; SetAndNotify(ref _lastName, value); &#125;
+   &#125;
+
+   public string FullName
+   &#123;
+      get &#123; return FirstName + &quot; &quot; + LastName; &#125;
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="分配事件"><a href="#分配事件" class="headerlink" title="分配事件"></a>分配事件</h2><p>默认情况下，<code>PropertyChanged </code>事件先在当前线程被引发，再由 WPF 具体负责分配到 UI 线程。当然，直接在 UI 线程中引发事件也没问题，<code>PropertyChangedBase</code>有一个名为<code>PropertyChangedDispatcher</code>的属性，该属性有一个名为<code>Execute.DefaultPropertyChangedDispatcher</code>的默认委托，将委托值设为<code>Execute.OnUIThread</code>即可。改变<code>PropertyChangedBase</code>所有子类的事件引发方式应重写<code>Configure</code>函数，示例代码如下：</p>
+<blockquote>
+<p>By default, PropertyChanged events are raised on the current thread (and WPF takes care of dispatching them to the UI thread). If you do want to change this, however, you can! PropertyChangedBase has a property called PropertyChangedDispatcher, which has an <code>Action&lt;Action&gt;</code>, and defaults to Execute.DefaultPropertyChangedDispatcher (which you can assign) (which has the value <code>a =&gt; a()</code>).</p>
+<p>If you want to change this to execute on the UI thread, you can do the following.</p>
+<p>To change for all instances of PropertyChangedBase:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">class Bootstrapper : Bootstrapper&lt;MyRootViewModel&gt;
+&#123;
+   public override void Configure()
+   &#123;
+      base.Configure();
+      Execute.DefaultPropertyChangedDispatcher &#x3D; Execute.OnUIThread;
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>针对单独子类的示例代码如下：</p>
+<blockquote>
+<p>To change for just once instance of PropertyChangedBase:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">class MyClass : PropertyChangedBase
+&#123;
+   public MyClass()
+   &#123;
+      this.PropertyChangedDispatcher &#x3D; Execute.OnUIThread;
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="PropertyChanged-Fody包"><a href="#PropertyChanged-Fody包" class="headerlink" title="PropertyChanged.Fody包"></a>PropertyChanged.Fody包</h2><p><a target="_blank" rel="noopener" href="https://github.com/Fody/PropertyChanged">PropertyChanged.Fody</a>是一个非常神奇的 nuget 包，它能在编译期自动将用于引发<code>PropertyChanged </code>通知的代码注入到相关属性中，这样就使得代码整体很简洁。同时能够自行识别哪些属性需要引发通知，示例代码如下：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/Fody/PropertyChanged">PropertyChanged.Fody</a> is a fantastic package, which injects code at compile-time to automatically raise PropertyChanged notifications for your properties, allowing you to write very concise code. It will also figure out dependencies between your properties and raise notifications appropriately for example:</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-C#" data-language="C#"><code class="language-C#">class MyClass : PropertyChangedBase
+&#123;
+   public string FirstName &#123; get; private set; &#125;
+   public string LastName &#123; get; private set; &#125;
+   public string FullName &#123; get &#123; return String.Format(&quot;&#123;0&#125; &#123;1&#125;&quot;, this.FirstName, this.LastName); &#125; &#125;
+
+   public void SomeMethod()
+   &#123;
+      &#x2F;&#x2F; PropertyChanged notifications are automatically raised for both FirstName and FullName
+      this.FirstName &#x3D; &quot;Fred&quot;;
+   &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p><code>PropertyChangedBase</code>也注意与<code>Fody.PropertyChanged</code>的集成，实际采用<code>PropertyChangedDispatcher</code>引发通知。因此，<code>Screen</code>、 <code>ValidatingModelBase</code>或<code>PropertyChangedBase</code>的子类使用 <code>Fody.PropertyChanged</code>无需任何特别代码。</p>
+<blockquote>
+<p>PropertyChangedBase also takes care to integrate with <code>Fody.PropertyChanged</code>. Notifications raised by <code>Fody.PropertyChanged</code> are raised using the <code>PropertyChangedDispatcher</code>.</p>
+<p>Therefore you do not need to do anything special in order to use <code>Fody.PropertyChanged</code> with any subclass of <code>Screen</code>, <code>ValidatingModelBase</code>, or <code>PropertyChangedBase</code>.</p>
+</blockquote>
+<h1 id="可绑定集合"><a href="#可绑定集合" class="headerlink" title="可绑定集合"></a>可绑定集合</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><code>BindableCollection&lt;T&gt;</code>集合类是<code>ObservableCollection</code>的子类，其实例一般用作 ItemsControl 族控件的数据源（增、减元素时 View 可以得到通知）。该集合类还新增了两个很有用的特性：</p>
+<ul>
+<li>新增方法<code>AddRange</code>, <code>RemoveRange</code> 和 <code>Refresh</code></li>
+<li>线程安全</li>
+</ul>
+<blockquote>
+<p><code>BindableCollection&lt;T&gt;</code> is a subclass of <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/ms668604(v=vs.110).aspx"><code>ObservableCollection</code></a>. It’s the class to use if you have a collection of something in your ViewModel, and want to use it as the <code>ItemsSource</code> &#x2F; etc for something in your View (and have the View be notified whenever an item is added to &#x2F; removed from that collection).</p>
+<p>However, it adds a couple of useful extra features:</p>
+<ul>
+<li>New <code>AddRange</code>, <code>RemoveRange</code>, and <code>Refresh</code> methods</li>
+<li>Is thread-safe</li>
+</ul>
+</blockquote>
+<h2 id="新方法"><a href="#新方法" class="headerlink" title="新方法"></a>新方法</h2><p><code>ObservableCollection&lt;T&gt;</code>集合增加元素时需手动迭代每个元素并多次调用<code>collection.Add(element)</code>方法，如此就会引发大量新增元素事件。通过新增的方法<code>AddRange</code> 和<code>RemoveRange</code>，可以一次性批量增、减元素，同时只引发一次事件。</p>
+<p><code>Refresh</code> 方法不会改变集合，它只是触发<code>PropertyChanged</code> 和<code>CollectionChanged</code> 事件，通知 UI 其绑定的集合发生了变化，请 UI 元素重载数据。尽管该方法很有用，但大多数场合都用不到。</p>
+<blockquote>
+<p><code>ObservableCollection&lt;T&gt;</code> is missing a couple of very useful methods: <code>AddRange</code> and <code>RemoveRange</code>. These do pretty much what you’d expect, allowing you to add a remove a range of elements at once, without having to manually iterate over each element and calling <code>collection.Add(element)</code> on each (while raising lots of events for each element added). <code>AddRange</code> and <code>RemoveRange</code> will raise one set of events per range added&#x2F;removed only.</p>
+<p><code>Refresh</code> is a convenience. It does not modify the collection in any way, but does cause the <code>PropertyChanged</code> and <code>CollectionChanged</code> events to be fired, indicating to any UI elements that the collection has been modified and that they should reload their data. It’s not often needed, but when it is it’s <em>really</em> needed.</p>
+</blockquote>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>线程安全的实现方法是将集合元素的增加、删除、清空、重置等操作分配到的 UI 线程，具体分配工作由 <code>Execute.OnUIThreadSync</code>方法完成，也就是说：</p>
+<ul>
+<li>这些都是同步操作，即方法在动作完成后才返回；</li>
+<li><code>PropertyChanged</code>和 <code>CollectionChanged</code>事件总是由 UI 线程引发；</li>
+<li>？？？</li>
+</ul>
+<p>属性相关的操作总是在 UI 线程中完成，因此事件也由 UI 线程引发。基于此，<code>BindableCollection&lt;T&gt;</code>移除了 <code>PropertyChangedDispatcher</code>、<code>CollectionChangedDispatcher</code>属性，在<code>PropertyChangedBase</code> 中这些属性仍存在。</p>
+<blockquote>
+<p>Thread safety is achieved by dispatching all actions (adds, removes, clear, reset, etc) to the UI thread. The dispatch uses <code>Execute.OnUIThreadSync</code>, which means that:</p>
+<ul>
+<li>These operations are synchronous: the method being called won’t return until the action has been completed.</li>
+<li>They’re free if you’re already on the UI Thread - the operation will be carried out synchronously in this case.</li>
+<li>All <code>PropertyChanged</code> and <code>CollectionChanged</code> events are always raised on the UI thread.</li>
+</ul>
+<p>That last point means that there is no <code>PropertyChangedDispatcher</code> property on <code>BindableCollection&lt;T&gt;</code>, as there is with <code>PropertyChangedBase</code> - the event is always raised on the UI thread, since the operation the property relates to is always performed on the UI thread. Similarly, there’s no <code>CollectionChangedDispatcher</code> concept.</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/">遨游码海</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/CSharp/">CSharp</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AF%91%E6%96%87/">译文</a>
+                    
+                      <a class="hover-with-bg" href="/tags/MVVM/">MVVM</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/%E6%89%98%E7%AE%A1%E4%BB%A3%E7%A0%81%E7%AE%80%E4%BB%8B/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">托管代码简介</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/Dapper%E6%A1%86%E6%9E%B6%E9%9D%9E%E5%AE%98%E6%96%B9%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/">
+                        <span class="hidden-mobile">Dapper框架非官方中文文档</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

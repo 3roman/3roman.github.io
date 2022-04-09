@@ -1,0 +1,778 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="3roman">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言安全阀是各行各业都会用到的重要安全泄放装置，大到运载火箭，小到家用高压锅，都出现了安全阀的身影。另一种常见安全泄放装置是爆破片或者两者的组合。 本文的目的不在于扫盲，不会介绍安全阀的入门知识。读者如果不具备相关背景知识，请提前做好功课，仔细阅读GB&#x2F;T 12241-2021《安全阀 一般要求》和GB&#x2F;T 12243-2021 《弹簧直接载荷式安全阀》两本规范。同时也不会站在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蒸汽安全阀相关计算">
+<meta property="og:url" content="https://3roman.github.io/2022/04/09/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E8%92%B8%E6%B1%BD%E5%AE%89%E5%85%A8%E9%98%80%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/index.html">
+<meta property="og:site_name" content="昼锦堂小记">
+<meta property="og:description" content="前言安全阀是各行各业都会用到的重要安全泄放装置，大到运载火箭，小到家用高压锅，都出现了安全阀的身影。另一种常见安全泄放装置是爆破片或者两者的组合。 本文的目的不在于扫盲，不会介绍安全阀的入门知识。读者如果不具备相关背景知识，请提前做好功课，仔细阅读GB&#x2F;T 12241-2021《安全阀 一般要求》和GB&#x2F;T 12243-2021 《弹簧直接载荷式安全阀》两本规范。同时也不会站在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/PRV2SIZE.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/PRV2SIZE%25E6%258E%2592%25E6%25B1%25BD%25E5%258F%258D%25E5%258A%259B.png">
+<meta property="article:published_time" content="2022-04-09T07:52:53.151Z">
+<meta property="article:modified_time" content="2022-04-09T08:52:21.796Z">
+<meta property="article:author" content="3roman">
+<meta property="article:tag" content="糊口生计">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/PRV2SIZE.png">
+  
+  
+  <title>蒸汽安全阀相关计算 - 昼锦堂小记</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"3roman.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昼锦堂小记</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="蒸汽安全阀相关计算">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      3roman
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-09 15:52" pubdate>
+        2022年4月9日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">蒸汽安全阀相关计算</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：5 分钟前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>安全阀是各行各业都会用到的重要安全泄放装置，大到运载火箭，小到家用高压锅，都出现了安全阀的身影。另一种常见安全泄放装置是爆破片或者两者的组合。</p>
+<p>本文的目的不在于扫盲，不会介绍安全阀的入门知识。读者如果不具备相关背景知识，请提前做好功课，仔细阅读<a target="_blank" rel="noopener" href="http://std.samr.gov.cn/gb/search/gbDetailed?id=BD89DE8E079C3D08E05397BE0A0A4FAD">GB&#x2F;T 12241-2021《安全阀 一般要求》</a>和<a target="_blank" rel="noopener" href="http://std.samr.gov.cn/gb/search/gbDetailed?id=C1A814733B2C7A48E05397BE0A0A1C8D">GB&#x2F;T 12243-2021 《弹簧直接载荷式安全阀》</a>两本规范。同时也不会站在制造商的角度，阐述安全阀该如何设计、制造、检验。本文只针对<strong>蒸汽用弹簧直接荷载式安全阀</strong>，谈谈排放面积、出口压力及排放反力的计算[^1]。</p>
+<h2 id="手工计算"><a href="#手工计算" class="headerlink" title="手工计算"></a>手工计算</h2><p>国内涉及安全阀相关计算的规范主要有两本：HG&#x2F;T 20570.02-1995《安全阀的设置和选用》及DL&#x2F;T 5054-2016 《火力发电厂汽水管道设计规范》，GB&#x2F;T 12243-2021附录B也介绍了排放面积的计算。另外，强烈推荐读读ASME规范、API规范，顺便还提高英语水平。</p>
+<h3 id="排放面积计算"><a href="#排放面积计算" class="headerlink" title="排放面积计算"></a>排放面积计算</h3><p>经过收集对比，排放面积（也称喉部面积）计算公式无一例外如下：<br>$$<br>A_c &#x3D; \frac {W_r}  {5.25 \times  P_{dr} \times K_{dr} \times K_{sh} \times K_n \times K_b \times K_c}<br>$$</p>
+<p>式中：</p>
+<ul>
+<li><p>A<sub>c</sub>—计算排放面积，mm<sup>2</sup>；</p>
+</li>
+<li><p>W<sub>r</sub> —需要排放量，kg&#x2F;h；</p>
+</li>
+<li><p>P<sub>dr</sub>—额定排放压力，MPaA(绝对压力)；</p>
+</li>
+<li><p>K<sub>dr</sub>—额定排量系数，其实就是裕度系数，全启式安全阀取值范围为0.6~0.7，制造商数据一般不低于0.75；</p>
+</li>
+<li><p>K<sub>sh</sub>—过热修正系数，查GB&#x2F;T 12243-2021附表B.1；</p>
+</li>
+<li><p>K<sub>n</sub>—Napier修正系数（也称高压系数），当P<sub>dr</sub>≤10.44时，K<sub>n</sub>&#x3D;1；当10.44Mpa&lt;P≤22.17时，<br>$$<br>K_n &#x3D; \frac {27.637-1000} {33.234P_{dr}-1061}<br>$$</p>
+</li>
+<li><p>K<sub>b</sub>—背压修正系数，该系数仅用于波纹管平衡式安全阀，对于弹簧直接荷载式安全阀，K<sub>b</sub>&#x3D;1；</p>
+</li>
+<li><p>K<sub>c</sub>—爆破片修正系数，不带爆破片时，K<sub>c</sub>&#x3D;1  。</p>
+</li>
+</ul>
+<p>上述参数中，除额定排放压力外，其余参数要么用户给定，要么取默认值，要么查表。仅额定排放压力需单独计算，计算公式如下：<br>$$<br>P_{dr} &#x3D; P_s \times (1+\Delta P_o) + P_{atm}<br>$$<br>式中：</p>
+<ul>
+<li><p>P<sub>s</sub>—整定压力，MPag；</p>
+</li>
+<li><p>ΔP<sub>o</sub> —允许超压百分比，查GB&#x2F;T 12243-2021表6；</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">蒸汽锅炉用</th>
+<th align="center">其它蒸汽设备用</th>
+<th align="center">气体用</th>
+<th align="center">液体用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">3%</td>
+<td align="center">10%</td>
+<td align="center">10%</td>
+<td align="center">10%</td>
+</tr>
+</tbody></table>
+<ul>
+<li>P<sub>atm</sub>—当地大气压，平原地区可取0.101</li>
+</ul>
+<p>下面将某项目真实数据依次代入上述两个公式，求解排放面积 。此安全阀位于减温减压器二次蒸汽管道，选用弹簧直接荷载式，设计输入如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th align="center">单位</th>
+<th align="center">数值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>需要排放量</td>
+<td align="center">kg&#x2F;h</td>
+<td align="center">10000</td>
+</tr>
+<tr>
+<td>整定压力</td>
+<td align="center">MPag</td>
+<td align="center">1.7</td>
+</tr>
+<tr>
+<td>排放温度</td>
+<td align="center">℃</td>
+<td align="center">250</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p>排放压力<br>$$<br>P_{dr} &#x3D; P_s \times (1+\Delta P_o) + P_{atm} &#x3D; 1.7 \times {(1+0.1)} + 0.101 &#x3D;1.971  MPaA<br>$$</p>
+</li>
+<li><p>排放面积 </p>
+<p>查表得到过热蒸汽修正系数为0.963，代入数据：<br>$$<br>A_c &#x3D; \frac {W_r}  {5.25 \times  P_{dr} \times K_{dr} \times K_{sh} \times K_b \times K_c \times K_n} &#x3D; \frac {10000}  {5.25 \times  1.971 \times 0.87 \times 0.963 \times 1 \times 1 \times 1} &#x3D; 1153.5mm^2<br>$$</p>
+</li>
+</ol>
+<p>得到计算面积后就可以选择具体型号，保证流道面积满足要求，流道系列详下表。选型完成后，再根据实际排放面积反算额定排放量，以校核排放能力是否满足要求。</p>
+<center>国标安全阀流道直径—流道面积对应表</center>
+
+<table>
+<thead>
+<tr>
+<th align="center">流道直径(mm)</th>
+<th align="center">流道面积(mm<sup>2</sup>)</th>
+<th align="center">全启式进口公称直径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">12</td>
+<td align="center">113.1</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">16</td>
+<td align="center">201.1</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">20</td>
+<td align="center">314.2</td>
+<td align="center">32</td>
+</tr>
+<tr>
+<td align="center">25</td>
+<td align="center">490.9</td>
+<td align="center">40</td>
+</tr>
+<tr>
+<td align="center">32</td>
+<td align="center">804.2</td>
+<td align="center">50</td>
+</tr>
+<tr>
+<td align="center">40</td>
+<td align="center">1256.6</td>
+<td align="center">65</td>
+</tr>
+<tr>
+<td align="center">50</td>
+<td align="center">1963.5</td>
+<td align="center">80</td>
+</tr>
+<tr>
+<td align="center">65</td>
+<td align="center">3318.3</td>
+<td align="center">100</td>
+</tr>
+<tr>
+<td align="center">80</td>
+<td align="center">5026.5</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">100</td>
+<td align="center">7854.0</td>
+<td align="center">150</td>
+</tr>
+<tr>
+<td align="center">125</td>
+<td align="center">12271.8</td>
+<td align="center">200</td>
+</tr>
+</tbody></table>
+<center>美标安全阀流道直径—流道面积对应表</center>
+
+<table>
+<thead>
+<tr>
+<th align="center">流道代号</th>
+<th align="center">流道直径(mm)</th>
+<th align="center">流道面积(mm<sup>2</sup>)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">D</td>
+<td align="center">9.5</td>
+<td align="center">70.9</td>
+</tr>
+<tr>
+<td align="center">E</td>
+<td align="center">12.7</td>
+<td align="center">126.7</td>
+</tr>
+<tr>
+<td align="center">F</td>
+<td align="center">15.9</td>
+<td align="center">198.6</td>
+</tr>
+<tr>
+<td align="center">G</td>
+<td align="center">20.3</td>
+<td align="center">323.7</td>
+</tr>
+<tr>
+<td align="center">H</td>
+<td align="center">25.4</td>
+<td align="center">506.7</td>
+</tr>
+<tr>
+<td align="center">J</td>
+<td align="center">32.5</td>
+<td align="center">829.6</td>
+</tr>
+<tr>
+<td align="center">K</td>
+<td align="center">38.9</td>
+<td align="center">1188.5</td>
+</tr>
+<tr>
+<td align="center">L</td>
+<td align="center">48.4</td>
+<td align="center">1839.8</td>
+</tr>
+<tr>
+<td align="center">M</td>
+<td align="center">54.4</td>
+<td align="center">2324.3</td>
+</tr>
+<tr>
+<td align="center">N</td>
+<td align="center">59.7</td>
+<td align="center">2799.2</td>
+</tr>
+<tr>
+<td align="center">P</td>
+<td align="center">72.4</td>
+<td align="center">4116.9</td>
+</tr>
+<tr>
+<td align="center">Q</td>
+<td align="center">95.3</td>
+<td align="center">7133.1</td>
+</tr>
+<tr>
+<td align="center">R</td>
+<td align="center">114.6</td>
+<td align="center">10386.9</td>
+</tr>
+<tr>
+<td align="center">T</td>
+<td align="center">146</td>
+<td align="center">16741.5</td>
+</tr>
+</tbody></table>
+<h3 id="出口压力计算"><a href="#出口压力计算" class="headerlink" title="出口压力计算"></a>出口压力计算</h3><p>安全阀出口排放压力影响排放管壁厚的计算，目前国内涉及的规范唯有DL&#x2F;T 5054-2016 《火力发电厂汽水管道设计规范》，但有研究显示其中的计算方法存在瑕疵，饱和蒸汽计算误差较大。笔者推荐几篇论文供大家赏析：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&dbname=CJFD2003&filename=RLFD200301006&uniplatform=NZKPT&v=%25mmd2BytLHo8%25mmd2Bl%25mmd2FwXd0Dd%25mmd2BtPmSi%25mmd2FuTvmorcycCbGeHF5M4f60FJ7YdsFk7g9YC2M2MpRC">火电厂安全阀排汽管道参数计算方法的讨论</a></li>
+<li><a target="_blank" rel="noopener" href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&dbname=CJFD2009&filename=GXDL200905028&uniplatform=NZKPT&v=cYQg794Gra%25mmd2BWG3KT1jDR4HXlFvjBswsk5efZJSSM98B7nosX8WB%25mmd2BN8qjcEqAa4d%25mmd2B">330MW机组锅炉安全阀排汽管道强度核算及探讨</a></li>
+<li><a target="_blank" rel="noopener" href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&dbname=CJFD2011&filename=SLDL201111005&uniplatform=NZKPT&v=IAA00VzThx10FU446oGtY5RAwiCWPDqxrJGGvuB1gZAV1JYwdITLBDnoutXnkyB%25mmd2B">电厂安全阀排汽管道热力计算及应用</a></li>
+</ol>
+<p>ASME B31.1《POWER PIPING》非强制附录II提供的计算方法按<strong>滞止焓</strong>计算，被认为适用性更广、计算精度更高。该规范中安全阀出口排放管压力计算公式如下：<br>$$<br>P &#x3D; \frac {G} {A} \cdot \frac {b-1}{b} \cdot \sqrt \frac {2(h_o-a)}{2b-1}<br>$$<br>式中：</p>
+<ul>
+<li>G—排放管流量，可取1.11倍安全阀额定排放量，kg&#x2F;s；</li>
+<li>A —排放管面积，m<sup>2</sup>；</li>
+<li>h<sub>0</sub>—安全阀进口滞止焓，J&#x2F;kg；</li>
+<li>a—蒸汽状态系数；</li>
+<li>b—蒸汽状态系数。</li>
+</ul>
+<ol>
+<li><p>滞止焓</p>
+<p>安全阀内达到稳定流动时的实际压力是排放压力，不是整定压力，因此滞止压力应取排放压力。滞止温度取蒸汽最高操作温度。根据滞止压力和滞止温度可计算得到滞止焓，常规计算公式为<a target="_blank" rel="noopener" href="https://web1.hszg.de/thermo_fpc/">IAPWS-IF97</a>。</p>
+</li>
+<li><p>蒸汽状态参数</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>排汽终态</th>
+<th align="center">a(j&#x2F;kg)</th>
+<th align="center">b</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>湿蒸汽，干度&lt;90%</td>
+<td align="center">677000</td>
+<td align="center">11</td>
+</tr>
+<tr>
+<td>饱和蒸汽，干度≥90%<br />0.15MPaA ≤ P ≤ 6.89MPaA</td>
+<td align="center">1913000</td>
+<td align="center">4.33</td>
+</tr>
+<tr>
+<td>过热蒸汽，干度≥90%<br />6.89MPaA ≤ P ≤ 13.79MPaA</td>
+<td align="center">1933000</td>
+<td align="center">4.33</td>
+</tr>
+</tbody></table>
+<p>结合下节安全阀实际数据得到：排放管流量为3.513kg&#x2F;s，排放管面积为0.00456㎡；1.971MPaA&#x2F;265℃蒸汽滞止焓为2941.94 kJ&#x2F;kg，代入上述公式：<br>$$<br>P &#x3D; \frac {G} {A} \cdot \frac {b-1}{b} \cdot \sqrt \frac {2(h_o-a)}{2b-1}&#x3D;\frac {3.513} {0.00456} \cdot \frac {4.33-1}{4.33} \cdot \sqrt \frac {2\times(2941.94-1933)\times1000}{2\times4.33-1}&#x3D;0.305MPaA<br>$$<br>在安全阀排放的刹那，管道内可能形成冲击波，因此<strong>B31.1规范要求管道设计压力取两倍计算值。</strong></p>
+<p>出口流速计算如下：<br>$$<br>W &#x3D; \sqrt \frac {2(h_o-a)}{2b-1}&#x3D;\sqrt \frac {2\times(2941.94-1933)\times1000}{2\times4.33-1}&#x3D;513.255m&#x2F;s<br>$$</p>
+<h3 id="排放反力计算"><a href="#排放反力计算" class="headerlink" title="排放反力计算"></a>排放反力计算</h3><p>尽管安全阀通常都是偶然、短暂排放，排放形成的反作用力对管系造成的不利影响却不容小觑，因此管道应力分析需要考虑安全阀排放工况。得到出口压力和出口流速后，即可计算出口反力，公式如下：<br>$$<br>F&#x3D;GW+1000\times({P-P_{atm}})A<br>$$<br>代入数据：<br>$$<br>F&#x3D;3.513\times513.255+({0.305-0.101})\times1000000\times0.00456&#x3D;2733N<br>$$</p>
+<h2 id="软件计算"><a href="#软件计算" class="headerlink" title="软件计算"></a>软件计算</h2><h3 id="软件简介"><a href="#软件简介" class="headerlink" title="软件简介"></a>软件简介</h3><p>艾默生是一家跨国电气公司，其旗下的Fisher调节阀、Crosby安全阀、DCS系统、各种仪表等在石化、电力行业应用广泛。下面我们使用其免费提供的PRV<sup>2</sup>SIZE软件进行安全阀选型计算，<a target="_blank" rel="noopener" href="https://valvesizing.emerson.com/Software/PRV2SIZEOverview.aspx">官方介绍</a>如下。软件具体包括哪些功能、怎么使用请参考官方<a target="_blank" rel="noopener" href="https://valvesizing.emerson.com/ReferenceDocuments/PRV2SIZEQuickStartGuide.pdf">快速上手</a>，这里不再累述。</p>
+<blockquote>
+<p>PRV<sup>2</sup>SIZE software is an easy to use and comprehensive program that offers sizing, selection and configuration capabilities for Anderson Greenwood, Crosby and Varec brand Over Pressure Protection Valves and for Yarway brand Automatic Recirculation Control Valves</p>
+<p>PRV<sup>2</sup>SIZE是一款功能全面且易于上手的阀门计算、选型软件，样本库包括了：Anderson Greenwood、Crosby 、Varec品牌安全阀和Yarway品牌最小流量阀。</p>
+</blockquote>
+<p>现在基于<strong>ASME Section VIII(API 520 Part I,9th edition)<strong>规范新建一个蒸汽安全阀计算实例，如果用于蒸汽锅炉，请选择</strong>ASME Section I</strong>规范。</p>
+<h3 id="计算过程"><a href="#计算过程" class="headerlink" title="计算过程"></a>计算过程</h3><p>输入上节的排放温度、需要排放量、整定压力三个参数，运行后，软件很快给出了选型列表。我们选择列表第2项：Crosby的HSL系列安全阀，结构型式为常规式，阀盖型式为敞开式。对比发现，手算结果与软件计算结果差别很小。</p>
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/PRV2SIZE.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>其实计算方法都是公开统一的，唯一的区别就在于额定排放系数的取值，这对于选型有直接影响。在没有得到制造商数据的前提下，HG规范推荐取值0.6~0.7，DL规范推荐取值0.6，笔者认为都偏保守。当然最终应以制造商计算书为准。</strong></p>
+<p>确定具体型号之后，接着要设置安全阀本体参数，包括材质、管口参数等。当红色警告消失，即可输出排汽反力。</p>
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/PRV2SIZE%25E6%258E%2592%25E6%25B1%25BD%25E5%258F%258D%25E5%258A%259B.png" srcset="/img/loading.gif" lazyload></p>
+<p>由于软件计算得到的出口压力与按B31.1手工计算结果出入较大，这里不再介绍此功能，读者可以自行发掘研究。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/">糊口生计</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/">糊口生计</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/09/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E9%92%A2%E9%93%81%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">钢铁的一些知识</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/09/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E7%AE%A1%E9%81%93%E5%BA%94%E5%8A%9B%E5%88%86%E6%9E%90/">
+                        <span class="hidden-mobile">管道应力分析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

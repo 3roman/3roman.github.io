@@ -1,0 +1,815 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="3roman">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="原文地址：Memory Layout Of A C Program 理解 C 程序及其进程的内存布局对于程序员学习内存管理至关重要。Java、Python、C#这类高级语言由 GC 自动释放堆内存，但 C 和 C++ 没有 GC 机制，因此需要程序员手动申请、释放。C 代码先被编译成可执行文件，运行后可执行文件被载入内存，然后 CPU 开始逐条读取、执行指令。注意：在被载入前，可执行文件不占用内存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C程序的内存布局">
+<meta property="og:url" content="https://3roman.github.io/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/C/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/index.html">
+<meta property="og:site_name" content="昼锦堂小记">
+<meta property="og:description" content="原文地址：Memory Layout Of A C Program 理解 C 程序及其进程的内存布局对于程序员学习内存管理至关重要。Java、Python、C#这类高级语言由 GC 自动释放堆内存，但 C 和 C++ 没有 GC 机制，因此需要程序员手动申请、释放。C 代码先被编译成可执行文件，运行后可执行文件被载入内存，然后 CPU 开始逐条读取、执行指令。注意：在被载入前，可执行文件不占用内存">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hackthedeveloper.com/wp-content/uploads/2020/11/Memory-layout.png.webp">
+<meta property="og:image" content="https://hackthedeveloper.com/wp-content/uploads/2020/11/Memory-Management-in-C-768x251.png.webp">
+<meta property="og:image" content="https://hackthedeveloper.com/wp-content/uploads/2020/11/Stack-Layout.png.webp">
+<meta property="og:image" content="https://hackthedeveloper.com/wp-content/uploads/2020/11/heap-layout.png.webp">
+<meta property="article:published_time" content="2022-04-09T07:52:53.175Z">
+<meta property="article:modified_time" content="2022-04-09T08:52:20.048Z">
+<meta property="article:author" content="3roman">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="C">
+<meta property="article:tag" content="译文">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hackthedeveloper.com/wp-content/uploads/2020/11/Memory-layout.png.webp">
+  
+  
+  <title>C程序的内存布局 - 昼锦堂小记</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"3roman.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昼锦堂小记</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="C程序的内存布局">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      3roman
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-09 15:52" pubdate>
+        2022年4月9日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C程序的内存布局</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：5 分钟前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>原文地址：<a target="_blank" rel="noopener" href="https://hackthedeveloper.com/memory-layout-c-program/">Memory Layout Of A C Program</a></p>
+<p>理解 C 程序及其进程的内存布局对于程序员学习内存管理至关重要。Java、Python、C#这类高级语言由 GC 自动释放堆内存，但 C 和 C++ 没有 GC 机制，因此需要程序员手动申请、释放。C 代码先被编译成可执行文件，运行后可执行文件被载入内存，然后 CPU 开始逐条读取、执行指令。注意：在被载入前，可执行文件不占用内存空间。如果您想了解从 C 代码到二进制文件的编译过程，可阅读此文章<a target="_blank" rel="noopener" href="https://hackthedeveloper.com/c-program-compilation-process/">C Program Compilation Process - Source To Binary</a>。</p>
+<p>C 程序的典型内存布局含以下几个区段：</p>
+<ul>
+<li><p>命令行参数</p>
+</li>
+<li><p>栈</p>
+</li>
+<li><p>堆</p>
+</li>
+<li><p>未初始化数据段（BSS）</p>
+</li>
+<li><p>已初始化数据段</p>
+</li>
+<li><p>代码段</p>
+<p><img src="https://hackthedeveloper.com/wp-content/uploads/2020/11/Memory-layout.png.webp" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<p>按内存分配方式不同，上述区段可分为：</p>
+<ol>
+<li>静态内存区域：代码段、已初始化数据段、未初始化数据段</li>
+<li>动态内存区域：堆、栈</li>
+</ol>
+<p>在编译期静态内存区域就已划分，动态内存区域必须等到程序跑起来才会形成。下面具体学习下各个区段。</p>
+<h2 id="静态内存区域"><a href="#静态内存区域" class="headerlink" title="静态内存区域"></a>静态内存区域</h2><p>静态内存区域由代码段、已初始化数据段和未初始化数据段组成。这些区段最初划分在可执行文件中，加载时再由操作系统加载器将其从硬盘映射到内存。</p>
+<p>最简单的 C 程序代码如下：</p>
+<div class="code-wrapper"><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 1.c</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>**size **是 Linux 下用于查看目标文件、库文件和可执行文件中各个区段信息及其大小的工具。将上述代码编译后用该工具查看生成的可执行文件。</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ gcc <span class="token number">1</span>.c -o <span class="token number">1</span>.out
+
+$ size <span class="token number">1</span>.out
+text    data     bss     dec     hex filename
+<span class="token number">785</span>     <span class="token number">276</span>       <span class="token number">4</span>      <span class="token number">1065</span>     <span class="token number">429</span> <span class="token number">1</span>.out <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h3 id="代码段"><a href="#代码段" class="headerlink" title="代码段"></a>代码段</h3><p>代码段是静态内存区域的核心段，该区段包含了程序的机器指令、常量和字面量，这些指令实现了程序的逻辑。</p>
+<p>代码段在堆和数据段之下，可读、可执行。为了避免遭受<strong>堆栈溢出</strong>的破坏，防止代码被意外修改，代码段不可写。</p>
+<p>**objdump **是 Linux 下反汇编目标文件和可执行文件的工具。以下反汇编代码中的<code>&lt;main&gt;</code>函数对应了示例代码中的<code>main</code>函数。限于篇幅原因，只截取了部分代码展示。</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ objdump -d <span class="token number">1</span>.out
+
+
+<span class="token number">1</span>.out:     <span class="token function">file</span> <span class="token function">format</span> elf32-littlearm
+
+
+Disassembly of section .init:
+
+0001029c <span class="token operator">&lt;</span>_init<span class="token operator">></span>:
+   1029c:       e92d4008        push    <span class="token punctuation">&#123;</span>r3, lr<span class="token punctuation">&#125;</span>
+   102a0:       eb00001d        bl      1031c <span class="token operator">&lt;</span>call_weak_fn<span class="token operator">></span>
+   102a4:       e8bd8008        pop     <span class="token punctuation">&#123;</span>r3, pc<span class="token punctuation">&#125;</span>
+
+Disassembly of section .plt:
+
+000102a8 <span class="token operator">&lt;</span>.plt<span class="token operator">></span>:
+   102a8:       e52de004        push    <span class="token punctuation">&#123;</span>lr<span class="token punctuation">&#125;</span>            <span class="token punctuation">;</span> <span class="token punctuation">(</span>str lr, <span class="token punctuation">[</span>sp, <span class="token comment">#-4]!)</span>
+   102ac:       e59fe004        ldr     lr, <span class="token punctuation">[</span>pc, <span class="token comment">#4]    ; 102b8 &lt;.plt+0x10></span>
+   102b0:       e08fe00e        <span class="token function">add</span>     lr, pc, lr
+   102b4:       e5bef008        ldr     pc, <span class="token punctuation">[</span>lr, <span class="token comment">#8]!</span>
+   102b8:       00010d48        .word   0x00010d48
+
+000102bc <span class="token operator">&lt;</span>__libc_start_main@plt<span class="token operator">></span>:
+   102bc:       e28fc600        <span class="token function">add</span>     ip, pc, <span class="token comment">#0, 12</span>
+   102c0:       e28cca10        <span class="token function">add</span>     ip, ip, <span class="token comment">#16, 20 ; 0x10000</span>
+   102c4:       e5bcfd48        ldr     pc, <span class="token punctuation">[</span>ip, <span class="token comment">#3400]!        ; 0xd48</span>
+
+000102c8 <span class="token operator">&lt;</span>__gmon_start__@plt<span class="token operator">></span>:
+   102c8:       e28fc600        <span class="token function">add</span>     ip, pc, <span class="token comment">#0, 12</span>
+   102cc:       e28cca10        <span class="token function">add</span>     ip, ip, <span class="token comment">#16, 20 ; 0x10000</span>
+   102d0:       e5bcfd40        ldr     pc, <span class="token punctuation">[</span>ip, <span class="token comment">#3392]!        ; 0xd40</span>
+
+000102d4 <span class="token operator">&lt;</span>abort@plt<span class="token operator">></span>:
+   102d4:       e28fc600        <span class="token function">add</span>     ip, pc, <span class="token comment">#0, 12</span>
+   102d8:       e28cca10        <span class="token function">add</span>     ip, ip, <span class="token comment">#16, 20 ; 0x10000</span>
+   102dc:       e5bcfd38        ldr     pc, <span class="token punctuation">[</span>ip, <span class="token comment">#3384]!        ; 0xd38</span>
+
+Disassembly of section .text:
+
+000102e0 <span class="token operator">&lt;</span>_start<span class="token operator">></span>:
+   102e0:       e3a0b000        mov     fp, <span class="token comment">#0</span>
+   102e4:       e3a0e000        mov     lr, <span class="token comment">#0</span>
+   102e8:       e49d1004        pop     <span class="token punctuation">&#123;</span>r1<span class="token punctuation">&#125;</span>            <span class="token punctuation">;</span> <span class="token punctuation">(</span>ldr r1, <span class="token punctuation">[</span>sp<span class="token punctuation">]</span>, <span class="token comment">#4)</span>
+   102ec:       e1a0200d        mov     r2, sp
+   102f0:       e52d2004        push    <span class="token punctuation">&#123;</span>r2<span class="token punctuation">&#125;</span>            <span class="token punctuation">;</span> <span class="token punctuation">(</span>str r2, <span class="token punctuation">[</span>sp, <span class="token comment">#-4]!)</span>
+   102f4:       e52d0004        push    <span class="token punctuation">&#123;</span>r0<span class="token punctuation">&#125;</span>            <span class="token punctuation">;</span> <span class="token punctuation">(</span>str r0, <span class="token punctuation">[</span>sp, <span class="token comment">#-4]!)</span>
+   102f8:       e59fc010        ldr     ip, <span class="token punctuation">[</span>pc, <span class="token comment">#16]   ; 10310 &lt;_start+0x30></span>
+   102fc:       e52dc004        push    <span class="token punctuation">&#123;</span>ip<span class="token punctuation">&#125;</span>            <span class="token punctuation">;</span> <span class="token punctuation">(</span>str ip, <span class="token punctuation">[</span>sp, <span class="token comment">#-4]!)</span>
+   <span class="token number">10300</span>:       e59f000c        ldr     r0, <span class="token punctuation">[</span>pc, <span class="token comment">#12]   ; 10314 &lt;_start+0x34></span>
+   <span class="token number">10304</span>:       e59f300c        ldr     r3, <span class="token punctuation">[</span>pc, <span class="token comment">#12]   ; 10318 &lt;_start+0x38></span>
+   <span class="token number">10308</span>:       ebffffeb        bl      102bc <span class="token operator">&lt;</span>__libc_start_main@plt<span class="token operator">></span>
+   1030c:       ebfffff0        bl      102d4 <span class="token operator">&lt;</span>abort@plt<span class="token operator">></span>
+   <span class="token number">10310</span>:       0001044c        .word   0x0001044c
+   <span class="token number">10314</span>:       000103d0        .word   0x000103d0
+   <span class="token number">10318</span>:       000103ec        .word   0x000103ec
+
+0001031c <span class="token operator">&lt;</span>call_weak_fn<span class="token operator">></span>:
+   1031c:       e59f3014        ldr     r3, <span class="token punctuation">[</span>pc, <span class="token comment">#20]   ; 10338 &lt;call_weak_fn+0x1c></span>
+   <span class="token number">10320</span>:       e59f2014        ldr     r2, <span class="token punctuation">[</span>pc, <span class="token comment">#20]   ; 1033c &lt;call_weak_fn+0x20></span>
+   <span class="token number">10324</span>:       e08f3003        <span class="token function">add</span>     r3, pc, r3
+   <span class="token number">10328</span>:       e7932002        ldr     r2, <span class="token punctuation">[</span>r3, r2<span class="token punctuation">]</span>
+   1032c:       e3520000        <span class="token function">cmp</span>     r2, <span class="token comment">#0</span>
+   <span class="token number">10330</span>:       012fff1e        bxeq    lr
+   <span class="token number">10334</span>:       eaffffe3        b       102c8 <span class="token operator">&lt;</span>__gmon_start__@plt<span class="token operator">></span>
+   <span class="token number">10338</span>:       00010cd4        .word   0x00010cd4
+   1033c:       00000018        .word   0x00000018
+
+00010340 <span class="token operator">&lt;</span>deregister_tm_clones<span class="token operator">></span>:
+   <span class="token number">10340</span>:       e59f0018        ldr     r0, <span class="token punctuation">[</span>pc, <span class="token comment">#24]   ; 10360 &lt;deregister_tm_clones+0x20></span>
+   <span class="token number">10344</span>:       e59f3018        ldr     r3, <span class="token punctuation">[</span>pc, <span class="token comment">#24]   ; 10364 &lt;deregister_tm_clones+0x24></span>
+   <span class="token number">10348</span>:       e1530000        <span class="token function">cmp</span>     r3, r0
+   1034c:       012fff1e        bxeq    lr
+   <span class="token number">10350</span>:       e59f3010        ldr     r3, <span class="token punctuation">[</span>pc, <span class="token comment">#16]   ; 10368 &lt;deregister_tm_clones+0x28></span>
+   <span class="token number">10354</span>:       e3530000        <span class="token function">cmp</span>     r3, <span class="token comment">#0</span>
+   <span class="token number">10358</span>:       012fff1e        bxeq    lr
+   1035c:       e12fff13        bx      r3
+   <span class="token number">10360</span>:       00021024        .word   0x00021024
+   <span class="token number">10364</span>:       00021024        .word   0x00021024
+   <span class="token number">10368</span>:       00000000        .word   0x00000000
+
+0001036c <span class="token operator">&lt;</span>register_tm_clones<span class="token operator">></span>:
+   1036c:       e59f0024        ldr     r0, <span class="token punctuation">[</span>pc, <span class="token comment">#36]   ; 10398 &lt;register_tm_clones+0x2c></span>
+   <span class="token number">10370</span>:       e59f1024        ldr     r1, <span class="token punctuation">[</span>pc, <span class="token comment">#36]   ; 1039c &lt;register_tm_clones+0x30></span>
+   <span class="token number">10374</span>:       e0411000        sub     r1, r1, r0
+   <span class="token number">10378</span>:       e1a01141        asr     r1, r1, <span class="token comment">#2</span>
+   1037c:       e0811fa1        <span class="token function">add</span>     r1, r1, r1, lsr <span class="token comment">#31</span>
+   <span class="token number">10380</span>:       e1b010c1        asrs    r1, r1, <span class="token comment">#1</span>
+   <span class="token number">10384</span>:       012fff1e        bxeq    lr
+   <span class="token number">10388</span>:       e59f3010        ldr     r3, <span class="token punctuation">[</span>pc, <span class="token comment">#16]   ; 103a0 &lt;register_tm_clones+0x34></span>
+   1038c:       e3530000        <span class="token function">cmp</span>     r3, <span class="token comment">#0</span>
+   <span class="token number">10390</span>:       012fff1e        bxeq    lr
+   <span class="token number">10394</span>:       e12fff13        bx      r3
+   <span class="token number">10398</span>:       00021024        .word   0x00021024
+   1039c:       00021024        .word   0x00021024
+   103a0:       00000000        .word   0x00000000
+
+000103a4 <span class="token operator">&lt;</span>__do_global_dtors_aux<span class="token operator">></span>:
+   103a4:       e92d4010        push    <span class="token punctuation">&#123;</span>r4, lr<span class="token punctuation">&#125;</span>
+   103a8:       e59f4018        ldr     r4, <span class="token punctuation">[</span>pc, <span class="token comment">#24]   ; 103c8 &lt;__do_global_dtors_aux+0x24></span>
+   103ac:       e5d43000        ldrb    r3, <span class="token punctuation">[</span>r4<span class="token punctuation">]</span>
+   103b0:       e3530000        <span class="token function">cmp</span>     r3, <span class="token comment">#0</span>
+   103b4:       18bd8010        popne   <span class="token punctuation">&#123;</span>r4, pc<span class="token punctuation">&#125;</span>
+   103b8:       ebffffe0        bl      <span class="token number">10340</span> <span class="token operator">&lt;</span>deregister_tm_clones<span class="token operator">></span>
+   103bc:       e3a03001        mov     r3, <span class="token comment">#1</span>
+   103c0:       e5c43000        strb    r3, <span class="token punctuation">[</span>r4<span class="token punctuation">]</span>
+   103c4:       e8bd8010        pop     <span class="token punctuation">&#123;</span>r4, pc<span class="token punctuation">&#125;</span>
+   103c8:       00021024        .word   0x00021024
+
+000103cc <span class="token operator">&lt;</span>frame_dummy<span class="token operator">></span>:
+   103cc:       eaffffe6        b       1036c <span class="token operator">&lt;</span>register_tm_clones<span class="token operator">></span>
+
+000103d0 <span class="token operator">&lt;</span>main<span class="token operator">></span>:
+   103d0:       e52db004        push    <span class="token punctuation">&#123;</span>fp<span class="token punctuation">&#125;</span>            <span class="token punctuation">;</span> <span class="token punctuation">(</span>str fp, <span class="token punctuation">[</span>sp, <span class="token comment">#-4]!)</span>
+   103d4:       e28db000        <span class="token function">add</span>     fp, sp, <span class="token comment">#0</span>
+   103d8:       e3a03000        mov     r3, <span class="token comment">#0</span>
+   103dc:       e1a00003        mov     r0, r3
+   103e0:       e28bd000        <span class="token function">add</span>     sp, fp, <span class="token comment">#0</span>
+   103e4:       e49db004        pop     <span class="token punctuation">&#123;</span>fp<span class="token punctuation">&#125;</span>            <span class="token punctuation">;</span> <span class="token punctuation">(</span>ldr fp, <span class="token punctuation">[</span>sp<span class="token punctuation">]</span>, <span class="token comment">#4)</span>
+   103e8:       e12fff1e        bx      lr<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h3 id="已初始化数据段"><a href="#已初始化数据段" class="headerlink" title="已初始化数据段"></a>已初始化数据段</h3><p>已初始化数据段存储了代码中所有已初始化的全局变量和已初始化的静态变量。</p>
+<p>已初始化数据段可读、可写，储存在该段的数据可被实时修改。在上节代码中各增加一个全局变量和一个静态局部变量。</p>
+<div class="code-wrapper"><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 2.c</span>
+<span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">static</span> <span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token number">456</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>对比可知，新文件的 data 段增加了8个字节，正好等于32位平台下2个 <code>int</code>型变量的字节数。</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ size <span class="token number">1</span>.out <span class="token number">2</span>.out  
+
+   text    data     bss     dec     hex filename
+    <span class="token number">785</span>     <span class="token number">276</span>       <span class="token number">4</span>    <span class="token number">1065</span>     <span class="token number">429</span> <span class="token number">1</span>.out
+    <span class="token number">785</span>     <span class="token number">284</span>       <span class="token number">4</span>    <span class="token number">1073</span>     <span class="token number">431</span> <span class="token number">2</span>.out <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h3 id="未初始化数据段（BSS）"><a href="#未初始化数据段（BSS）" class="headerlink" title="未初始化数据段（BSS）"></a>未初始化数据段（BSS）</h3><p>未初始化数据段也叫<code>BSS</code>段，其名称来源于一个古老的汇编操作符，该操作符代表 <strong>block started by the symbol</strong>（以符号开始的块）。</p>
+<p>未初始化数据段存储了代码中所有未初始化的全局变量和未初始化的静态变量，本段同样可读、可写。</p>
+<p>去掉上节代码中的初始化语句，只留下变量的声明。</p>
+<div class="code-wrapper"><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 3.c</span>
+<span class="token keyword">int</span> a<span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">static</span> <span class="token keyword">int</span> b<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>对比可知，新文件的 data 段减少了8个字节，bss 段恰好增加了8个字节。</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ size <span class="token number">1</span>.out  <span class="token number">2</span>.out <span class="token number">3</span>.out 
+	 
+  text    data     bss     dec     hex filename
+    <span class="token number">785</span>     <span class="token number">276</span>       <span class="token number">4</span>    <span class="token number">1065</span>     <span class="token number">429</span> <span class="token number">1</span>.out
+    <span class="token number">785</span>     <span class="token number">284</span>       <span class="token number">4</span>    <span class="token number">1073</span>     <span class="token number">431</span> <span class="token number">2</span>.out
+    <span class="token number">785</span>     <span class="token number">276</span>      <span class="token number">12</span>    <span class="token number">1073</span>     <span class="token number">431</span> <span class="token number">3</span>.out  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="动态分配的内存"><a href="#动态分配的内存" class="headerlink" title="动态分配的内存"></a>动态分配的内存</h2><p>下图是在程序运行期间对应进程的内存情况：</p>
+<p><img src="https://hackthedeveloper.com/wp-content/uploads/2020/11/Memory-Management-in-C-768x251.png.webp" srcset="/img/loading.gif" lazyload></p>
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>栈是进程虚拟地址空间中的一块区域，该区域按先进后出、后进先出的方式增加、移除数据，并且增加数据时地址从高往低增长。程序运行时可以没有堆，但不能没有栈，由此可见栈的重要性。</p>
+<p>调用新的一个函数将创建一个新栈帧，函数返回后对应栈帧将被自动清除。每个函数都有一个独立的栈帧，也称为<strong>活动记录</strong>。栈帧的总大小是浮动的，这取决于局部变量、形参和函数调用情况。</p>
+<p>每个进程都有自己固定或可配置的栈空间，栈空间中可容纳多个栈帧，操作系统会在进程结束后回收这些栈空间。使用<code>ulimit -s</code>命令查看当前 Linux 系统支持的最大栈空间。</p>
+<div class="code-wrapper"><pre class="line-numbers language-bas" data-language="bas"><code class="language-bas">$ ulimit -s
+8192<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+
+<p><code>cat /proc/xxx/limits</code>命令可查看某具体进程的栈空间限额。</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">cat</span> /proc/6673/limits
+Limit                     Soft Limit           Hard Limit           Units
+Max cpu <span class="token function">time</span>              unlimited            unlimited            seconds
+Max <span class="token function">file</span> size             unlimited            unlimited            bytes
+Max data size             unlimited            unlimited            bytes
+Max stack size            <span class="token number">8388608</span>              unlimited            bytes
+Max core <span class="token function">file</span> size        <span class="token number">0</span>                    unlimited            bytes
+Max resident <span class="token builtin class-name">set</span>          unlimited            unlimited            bytes
+Max processes             <span class="token number">6865</span>                 <span class="token number">6865</span>                 processes
+Max <span class="token function">open</span> files            <span class="token number">1024</span>                 <span class="token number">1048576</span>              files
+Max locked memory         <span class="token number">67108864</span>             <span class="token number">67108864</span>             bytes
+Max address space         unlimited            unlimited            bytes
+Max <span class="token function">file</span> locks            unlimited            unlimited            locks
+Max pending signals       <span class="token number">6865</span>                 <span class="token number">6865</span>                 signals
+Max msgqueue size         <span class="token number">819200</span>               <span class="token number">819200</span>               bytes
+Max <span class="token function">nice</span> priority         <span class="token number">0</span>                    <span class="token number">0</span>
+Max realtime priority     <span class="token number">2</span>                    <span class="token number">2</span>
+Max realtime <span class="token function">timeout</span>      unlimited            unlimited            us<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h4 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h4><p>栈帧存储了4类数据：</p>
+<ul>
+<li>传给被调用者的形参（按从右到左的顺序入栈）</li>
+<li>调用者的返回地址</li>
+<li>调用者的帧指针</li>
+<li>被调用者中的局部变量</li>
+</ul>
+<p>32位操作系统中，调用者的返回地址和帧指针各占4个字节，而64位操作系统中各占8个字节。</p>
+<p>以下代码用于展示栈的内存布局：</p>
+<div class="code-wrapper"><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// stack_layout.c</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token keyword">int</span> <span class="token function">sum</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">float</span> <span class="token function">avg</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> s <span class="token operator">=</span> <span class="token function">sum</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span>s <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average of %d, %d = %f\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> <span class="token function">avg</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>上述代码生成的程序运行起来后栈布局如下：</p>
+<p><img src="https://hackthedeveloper.com/wp-content/uploads/2020/11/Stack-Layout.png.webp" srcset="/img/loading.gif" lazyload></p>
+<p>当前函数的栈帧总是位于进程栈区段的顶部。指向当前栈帧起始的指针称为帧指针或基指针；指向当前栈帧末尾的指针称为栈指针。被调用者帧针指向的4字节的内存空间存储了调用者的帧指针，其作用是被调用者返回后能够重新定位调用者的帧指针，以此恢复调用者的栈帧。</p>
+<p>操作系统内存管理模块负责栈空间的分配与回收，程序员无法干涉。函数的栈帧被构造后，局部变量方能在此获得内存空间；若函数的栈帧被操作系统回收，局部变量也将随之消失；这就是所谓的变量作用域。</p>
+<h4 id="错误类型"><a href="#错误类型" class="headerlink" title="错误类型"></a>错误类型</h4><p>接下来谈一谈可能发生的栈错误。</p>
+<ol>
+<li>栈溢出</li>
+</ol>
+<p>这种错误通常发生在一长串函数调用时，相应的栈帧不断累加，直至超过程序的栈内存限额。具体分以下两种情况：</p>
+<ul>
+<li>函数的递归调用</li>
+<li>函数中声明了长数组</li>
+</ul>
+<p>因此，不推荐在栈中储存大对象。</p>
+<ol start="2">
+<li>栈损坏</li>
+</ol>
+<p>当向目标空间拷贝了过量的数据往往就会发生栈损坏。</p>
+<p>以下代码中先声明了一个10个元素的字符数组，再将命令行参数拷贝进来。命令行参数是人为给定的，当参数的字符总数超出了数组大小，多余字符将非法覆盖与数组相邻的栈空间，这就造成了栈损坏。</p>
+<div class="code-wrapper"><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">copy</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">strcpy</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> argv<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">copy</span><span class="token punctuation">(</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Exit\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>从上文可知，栈空间的大小存在限制，因此不能用来存储大数据，并且程序员无法控制。堆不存在这些问题，也不被操作系统管理，您可以随时申请或释放一段连续的内存地址空间。</p>
+<p><strong>Glibc</strong> 运行库提供了多个堆操作函数，详见 stdlib.h 头文件中相关函数的声明。其中，<code>malloc()</code>和<code>calloc()</code>函数用于向操作系统申请堆块，再通过返回指针访问堆块；<code>free()</code>函数用于释放堆块；这些函数底层都调用了<code>brk()</code>和<code>sbrk()</code>系统调用。以下代码展示了堆块申请和释放过程：</p>
+<div class="code-wrapper"><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+
+<span class="token keyword">void</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span><span class="token operator">*</span> aptr <span class="token operator">=</span> <span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+    <span class="token keyword">int</span><span class="token operator">*</span> ptr <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">*</span>ptr <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Pointing in Stack = %d\n"</span><span class="token punctuation">,</span>  <span class="token operator">*</span>aptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Heap Memory Value = %d\n"</span><span class="token punctuation">,</span>  <span class="token operator">*</span>ptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">free</span><span class="token punctuation">(</span>ptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p><code>malloc()</code>函数申请了4字节的堆块并返回一个指针（虚拟地址），通过该指针定位到区块，再将整型数20存储入其中。内存管理单元（MMU）会将虚拟地址转换成物理地址，因此20实际就存储在计算机的物理内存中。生成程序的堆、栈布局如下图。</p>
+<p><img src="https://hackthedeveloper.com/wp-content/uploads/2020/11/heap-layout.png.webp" srcset="/img/loading.gif" lazyload></p>
+<p>堆中存储的数据不涉及作用域的概念，也无法被自动释放，要求程序员及时、自行释放，否则会造成内存泄漏。</p>
+<p>感谢您的阅读，希望您喜欢这些有趣的知识。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/">遨游码海</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AF%91%E6%96%87/">译文</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/C/%E4%BB%8EC%E4%BB%A3%E7%A0%81%E5%88%B0%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">从C代码到二进制文件</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/C/C%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">
+                        <span class="hidden-mobile">C代码编译过程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
