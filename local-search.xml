@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>golang第三方包的定义与使用</title>
+    <link href="/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/Go/golang%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
+    <url>/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/Go/golang%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[<p>包可以有效组织代码并提高代码的复用率，JS、C#、Java 等语言中也采用包结构。Golang 被誉为21世纪的 C 语言，足以说明其与 C 语言一脉相承的关系。尽管 C 语言中的头文件在形式上扮演了包的角色，但是头文件的出现只是为了满足分开编译代码的需求，而包在 Golang 中是一堆同类功能代码的集合。</p><p>Golang 官方提供了丰富的内置包，这也是该语言能够流行的重要原因，大家可以去<a href="https://pkg.go.dev/">官网</a>检索使用。我们经常用到的第三方包一般托管在 Github 等代码平台，使用管理起来也很方便。</p><h2 id="GO111MODULE"><a href="#GO111MODULE" class="headerlink" title="GO111MODULE"></a>GO111MODULE</h2><p>GO111MODULE 环境变量随 Golang1.11 版本发布，是新的包管理方案的衍生物。变量可选择值有三个：<code>on</code>、<code>off</code>和<code>auto</code>，用如下命令修改：</p><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go <span class="token function">env</span> -w <span class="token assign-left variable">GO111MODULE</span><span class="token operator">=</span>on<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div><p>如果没有历史包袱，建议新的项目将该变量设为on。GO111MODULE 打开后，无论项目是否处于<code>$GOPATH\src</code>目录下，都将强制使用 Go modules，通过 go.mod 文件实现包版本和依赖管理，请阅读<a href="https://maelvls.dev/go111module-everywhere/">此文</a>了解更多。</p><h2 id="包的定义"><a href="#包的定义" class="headerlink" title="包的定义"></a>包的定义</h2><h3 id="创建远程库"><a href="#创建远程库" class="headerlink" title="创建远程库"></a>创建远程库</h3><p>新建一个 github Repo 并克隆到本地</p><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone https://github.com/3roman/helper<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div><h3 id="编写代码"><a href="#编写代码" class="headerlink" title="编写代码"></a>编写代码</h3><p>用 VSCode 打开项目目录，开始编写代码。一个项目可以包含多个包，并能相互引用。同一个包的代码也可分布在多个文件中，通过源文件头部的<code>package xxx</code>关键字自动识别组合。因此包一般没有生成可执行文件的需要，所以可以不声明<code>main</code>包。这里作一个简单的演示，代码如下：</p><div class="code-wrapper"><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// message.go</span><span class="token keyword">package</span> helper<span class="token keyword">import</span> <span class="token string">"fmt"</span><span class="token keyword">func</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"init function"</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token keyword">func</span> <span class="token function">PrintMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"hello world"</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><p>只有标识符首字母大写才能被外部访问，相当于别的语言中<code>public</code>访问控制符。init 函数是包的入口函数，常用于执行初始化操作，相当于类的构造函数。虽然允许存在多个 init 函数，但是不建议这么用。</p><h3 id="提交代码"><a href="#提交代码" class="headerlink" title="提交代码"></a>提交代码</h3><p>完成代码后首先 commit 到本地版本库</p><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span><span class="token function">git</span> commit -m <span class="token string">"add functions"</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div><p>如果当前 commit 版本将作为某个发行版，就要在 push 之前打上版本标签，这一步非常关键。</p><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> tag v0.0.2<span class="token function">git</span> push --tags // 连同tags一起提交到远程<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div><h2 id="包的使用"><a href="#包的使用" class="headerlink" title="包的使用"></a>包的使用</h2><p>新建示例项目引用刚发布的 helper 包，代码如下：</p><div class="code-wrapper"><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// main.go</span><span class="token keyword">package</span> main<span class="token keyword">import</span> <span class="token string">"github.com/3roman/helper"</span><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>helper<span class="token punctuation">.</span><span class="token function">PrintMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><p>正如前面提到的，新项目建议使用 Go modules，因此首先执行<code>go mod init XXX</code>命令生成 go.mod 文件。生成成功后继续执行<code>go mod tidy</code>命令，这一步会自动下载正确版本的直接依赖和间接依赖包。如果没有特别指明，默认下载使用最新版包。第三方包源码统一存放在<code>$GOPATH\go\pkg\mod\</code>目录下，按不同来源进行区分。</p><p>好了，可以将跑一下程序了。输出两行文字后，程序顺利结束！</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>遨游码海</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>编程</tag>
+      
+      <tag>Go</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Everything使用总结</title>
+    <link href="/2022/04/09/%E5%96%84%E7%94%A8%E4%BD%B3%E8%BD%AF/Everything%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/"/>
+    <url>/2022/04/09/%E5%96%84%E7%94%A8%E4%BD%B3%E8%BD%AF/Everything%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/</url>
+    
+    <content type="html"><![CDATA[<h2 id="筛选器"><a href="#筛选器" class="headerlink" title="筛选器"></a>筛选器</h2><h3 id="新建筛选器"><a href="#新建筛选器" class="headerlink" title="新建筛选器"></a>新建筛选器</h3><p>依次点击主界面中【搜索】→【管理筛选器】菜单项，打开管理筛选器对话框后新建一个筛选器。搜索关键字支持各种搜索语法，示例中就使用了<code>file:</code>函数。宏定义是可选的。</p><p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/202204091851156.png" alt="image-20220409185130046"></p><h3 id="使用筛选器"><a href="#使用筛选器" class="headerlink" title="使用筛选器"></a>使用筛选器</h3><p>依次点击主界面中【视图】→【筛选器】菜单项，筛选器将显示于主搜索框的右侧。</p><p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/202204091853493.png" alt="image-20220409185302449"></p><p>主搜索框也支持新定义的宏</p><p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/202204091854425.png" alt="image-20220409185411382"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>善用佳软</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>善用佳软</tag>
+      
+      <tag>办公软件</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Node无法执行使用import关键字的源文件</title>
     <link href="/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/JavaScript/Node%E6%97%A0%E6%B3%95%E6%89%A7%E8%A1%8C%E4%BD%BF%E7%94%A8import%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E6%BA%90%E6%96%87%E4%BB%B6/"/>
     <url>/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/JavaScript/Node%E6%97%A0%E6%B3%95%E6%89%A7%E8%A1%8C%E4%BD%BF%E7%94%A8import%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E6%BA%90%E6%96%87%E4%BB%B6/</url>
@@ -186,9 +240,9 @@
     
     <tags>
       
-      <tag>CSharp</tag>
-      
       <tag>编程</tag>
+      
+      <tag>CSharp</tag>
       
     </tags>
     
@@ -213,9 +267,9 @@
     
     <tags>
       
-      <tag>CSharp</tag>
-      
       <tag>编程</tag>
+      
+      <tag>CSharp</tag>
       
     </tags>
     
@@ -240,9 +294,9 @@
     
     <tags>
       
-      <tag>CSharp</tag>
-      
       <tag>编程</tag>
+      
+      <tag>CSharp</tag>
       
     </tags>
     
@@ -267,11 +321,11 @@
     
     <tags>
       
-      <tag>CSharp</tag>
-      
       <tag>编程</tag>
       
       <tag>译文</tag>
+      
+      <tag>CSharp</tag>
       
       <tag>MVVM</tag>
       
@@ -298,13 +352,13 @@
     
     <tags>
       
-      <tag>CSharp</tag>
-      
       <tag>编程</tag>
       
       <tag>译文</tag>
       
       <tag>ORM</tag>
+      
+      <tag>CSharp</tag>
       
     </tags>
     
@@ -425,16 +479,16 @@
   
   
   <entry>
-    <title>WinDbg快速入门</title>
-    <link href="/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/WinDbg%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"/>
-    <url>/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/WinDbg%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</url>
+    <title>Windbg入门</title>
+    <link href="/2022/04/09/%E5%96%84%E7%94%A8%E4%BD%B3%E8%BD%AF/Windbg%E5%85%A5%E9%97%A8/"/>
+    <url>/2022/04/09/%E5%96%84%E7%94%A8%E4%BD%B3%E8%BD%AF/Windbg%E5%85%A5%E9%97%A8/</url>
     
-    <content type="html"><![CDATA[<p>WinDbg 是 Windows 平台下的一款多用途调试器，由微软官方维护。区别于 OD，WinDbg  既可调试用户态代码，又能调试内核态代码及驱动程序。</p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Win10及以上系统可通过<a href="https://www.microsoft.com/en-us/p/windbg-preview/9pgjgd53tn86#activetab=pivot:overviewtab">微软商店</a>安装最新 Preview 程序，Win10以下只能下载安装包安装。</p><h2 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h2><p>PDB(Program Database Files) 符号表文件由链接器生成，它是调试器与源文件之间的桥梁，记录了变量及函数的名称与地址、参数和局部变量的堆栈偏移量、源码的文件名和行号等信息，一般用于调试目的。PDB 文件默认搜索路径如下：</p><ol><li>当前被调试文件所在目录</li><li>当前被调试文件硬编码记录的 build 目录</li><li>symbol server 的本地缓存</li><li>远程 symbol server</li></ol><p>指定3路径、4路径命令如下：</p><div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">.sympath SRV*c:<span class="token punctuation">\</span>windows<span class="token punctuation">\</span>localsymbols*http://msdl.microsoft.com/download/symbols<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div><h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="加载插件"><a href="#加载插件" class="headerlink" title="加载插件"></a>加载插件</h3><p>强大的程序大都支持插件，WinDbg 亦然。加载插件很简单，一句命令即可：</p><div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">.load C:<span class="token punctuation">\</span>Windows<span class="token punctuation">\</span>Microsoft.NET<span class="token punctuation">\</span>Framework<span class="token punctuation">\</span>v4.0.30319<span class="token punctuation">\</span>SOS.dll<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div><p>上述命令只能一次性加载，下次还得重新执行。解决方法是将加载命令添加到启动命令组中。</p><p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/202202031653402.png" alt="image-20220203165342328"></p><h3 id="查看插件"><a href="#查看插件" class="headerlink" title="查看插件"></a>查看插件</h3><p><code>.chain</code>命令查看当前已加载插件列表</p><h3 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h3><p>SOS 插件随 .NET Framework 一同发布，提供了查看托管堆的方法。其对应 dll 文件既分 x86 和 x64 版本，又分 .NET 版本，因此应根据具体调试对象区分加载。</p><ul><li>.NET 4.0及上32位程序集</li></ul><p>  C:\Windows\Microsoft.NET\Framework\v4.0.30319\clr.dll</p><ul><li>.NET 4.0及上64位程序集</li></ul><p>  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\clr.dll</p><p>该插件常用方法如下：</p><ol><li><p>Name2EE</p><p>根据名称查找类型、属性及方法，其原理是遍历对象的 <code>MethodTable</code>和<code>EEClass</code>结构体。</p><p>基本语法：<code>Name2EE &lt;module name&gt; !&lt;type or method name&gt;</code>，通配符 * 代表所有模块，名称区分大小写。</p><p>典型用法：<code>!name2ee *!Program.Main</code></p></li></ol>]]></content>
+    <content type="html"><![CDATA[<p>Windbg 是 Windows 平台下的一款多用途调试器，由微软官方维护。区别于 OD，WinDbg  既可调试用户态代码，又能调试内核态代码及驱动程序。</p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Win10及以上系统可通过<a href="https://www.microsoft.com/en-us/p/windbg-preview/9pgjgd53tn86#activetab=pivot:overviewtab">微软商店</a>安装最新 Preview 程序，Win10以下只能下载安装包安装。</p><h2 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h2><p>PDB(Program Database Files) 符号表文件由链接器生成，它是调试器与源文件之间的桥梁，记录了变量及函数的名称与地址、参数和局部变量的堆栈偏移量、源码的文件名和行号等信息，一般用于调试目的。PDB 文件默认搜索路径如下：</p><ol><li>当前被调试文件所在目录</li><li>当前被调试文件硬编码记录的 build 目录</li><li>symbol server 的本地缓存</li><li>远程 symbol server</li></ol><p>指定3路径、4路径命令如下：</p><div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">.sympath SRV*c:<span class="token punctuation">\</span>windows<span class="token punctuation">\</span>localsymbols*http://msdl.microsoft.com/download/symbols<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div><h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="加载插件"><a href="#加载插件" class="headerlink" title="加载插件"></a>加载插件</h3><p>强大的程序大都支持插件，WinDbg 亦然。加载插件很简单，一句命令即可：</p><div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">.load C:<span class="token punctuation">\</span>Windows<span class="token punctuation">\</span>Microsoft.NET<span class="token punctuation">\</span>Framework<span class="token punctuation">\</span>v4.0.30319<span class="token punctuation">\</span>SOS.dll<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div><p>上述命令只能一次性加载，下次还得重新执行。解决方法是将加载命令添加到启动命令组中。</p><p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/202202031653402.png" alt="image-20220203165342328"></p><h3 id="查看插件"><a href="#查看插件" class="headerlink" title="查看插件"></a>查看插件</h3><p><code>.chain</code>命令查看当前已加载插件列表</p><h3 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h3><p>SOS 插件随 .NET Framework 一同发布，提供了查看托管堆的方法。其对应 dll 文件既分 x86 和 x64 版本，又分 .NET 版本，因此应根据具体调试对象区分加载。</p><ul><li>.NET 4.0及上32位程序集</li></ul><p>  C:\Windows\Microsoft.NET\Framework\v4.0.30319\clr.dll</p><ul><li>.NET 4.0及上64位程序集</li></ul><p>  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\clr.dll</p><p>该插件常用方法如下：</p><ol><li><p>Name2EE</p><p>根据名称查找类型、属性及方法，其原理是遍历对象的 <code>MethodTable</code>和<code>EEClass</code>结构体。</p><p>基本语法：<code>Name2EE &lt;module name&gt; !&lt;type or method name&gt;</code>，通配符 * 代表所有模块，名称区分大小写。</p><p>典型用法：<code>!name2ee *!Program.Main</code></p></li></ol>]]></content>
     
     
     <categories>
       
-      <category>遨游码海</category>
+      <category>善用佳软</category>
       
     </categories>
     
@@ -443,7 +497,7 @@
       
       <tag>善用佳软</tag>
       
-      <tag>CSharp</tag>
+      <tag>编程软件</tag>
       
     </tags>
     
@@ -453,8 +507,8 @@
   
   <entry>
     <title>json 小抄</title>
-    <link href="/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/json%E5%B0%8F%E6%8A%84/"/>
-    <url>/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/json%E5%B0%8F%E6%8A%84/</url>
+    <link href="/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/Json/json%E5%B0%8F%E6%8A%84/"/>
+    <url>/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/Json/json%E5%B0%8F%E6%8A%84/</url>
     
     <content type="html"><![CDATA[<p>JSON(JavaScript Object Notation)即JS对象表示法，是一种脱胎于JS的轻量级数据交换语言，语法非常简单易学。JSON独立于JS语言，常用于WEB应用开发及程序配置信息存储，可被多种编程语言支持。</p><p>JSON由对象<code>&#123;…&#125;</code>和数组<code>[…]</code>构成，对象采用<code>键值对</code>的书写方式，具体约定如下：</p><ul><li>键用字符串表示</li><li>值类型为字符串、数字、布尔型</li><li>每对键值用逗号隔开，末尾键值对不加逗号</li><li>数组元素类型为字符串、数字、布尔型及JSON对象</li><li>每对元素用逗号隔开，末尾元素不加逗号</li></ul>]]></content>
     
@@ -593,9 +647,9 @@
     
     <tags>
       
-      <tag>糊口生计</tag>
-      
       <tag>善用佳软</tag>
+      
+      <tag>糊口生计</tag>
       
     </tags>
     
@@ -620,9 +674,9 @@
     
     <tags>
       
-      <tag>糊口生计</tag>
-      
       <tag>善用佳软</tag>
+      
+      <tag>糊口生计</tag>
       
     </tags>
     
@@ -647,9 +701,9 @@
     
     <tags>
       
-      <tag>糊口生计</tag>
-      
       <tag>善用佳软</tag>
+      
+      <tag>糊口生计</tag>
       
     </tags>
     
@@ -674,9 +728,9 @@
     
     <tags>
       
-      <tag>糊口生计</tag>
-      
       <tag>善用佳软</tag>
+      
+      <tag>糊口生计</tag>
       
     </tags>
     

@@ -16,27 +16,22 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="优化设置关闭信息中心、FTPSites将注册表HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A001:804\InfoCenter项下键InfoCenterOn键的值改为1，如此界面右上角信息中心就会消失；  删除注册表HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A00">
+    <meta name="description" content="包可以有效组织代码并提高代码的复用率，JS、C#、Java 等语言中也采用包结构。Golang 被誉为21世纪的 C 语言，足以说明其与 C 语言一脉相承的关系。尽管 C 语言中的头文件在形式上扮演了包的角色，但是头文件的出现只是为了满足分开编译代码的需求，而包在 Golang 中是一堆同类功能代码的集合。 Golang 官方提供了丰富的内置包，这也是该语言能够流行的重要原因，大家可以去官网检索使">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AutoCAD 葵花宝典">
-<meta property="og:url" content="https://3roman.github.io/2022/04/09/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/AutoCAD%E8%91%B5%E8%8A%B1%E5%AE%9D%E5%85%B8/index.html">
+<meta property="og:title" content="golang第三方包的定义与使用">
+<meta property="og:url" content="https://3roman.github.io/2022/04/09/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/Go/golang%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="优化设置关闭信息中心、FTPSites将注册表HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A001:804\InfoCenter项下键InfoCenterOn键的值改为1，如此界面右上角信息中心就会消失；  删除注册表HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A00">
+<meta property="og:description" content="包可以有效组织代码并提高代码的复用率，JS、C#、Java 等语言中也采用包结构。Golang 被誉为21世纪的 C 语言，足以说明其与 C 语言一脉相承的关系。尽管 C 语言中的头文件在形式上扮演了包的角色，但是头文件的出现只是为了满足分开编译代码的需求，而包在 Golang 中是一堆同类功能代码的集合。 Golang 官方提供了丰富的内置包，这也是该语言能够流行的重要原因，大家可以去官网检索使">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/CAD%25E4%25BF%25A1%25E6%2581%25AF%25E4%25B8%25AD%25E5%25BF%2583.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%25E5%2590%2588%25E5%25B9%25B6%25E5%259B%25BE%25E5%25B1%2582.gif">
-<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%25E6%25B8%2585%25E7%2590%2586%25E5%258A%25A0%25E5%25BC%25BA%25E7%2589%2588.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%E7%BC%A9%E6%94%BE.gif">
-<meta property="article:published_time" content="2022-04-09T07:52:53.135Z">
-<meta property="article:modified_time" content="2022-04-09T08:52:21.012Z">
+<meta property="article:published_time" content="2022-04-09T11:43:53.765Z">
+<meta property="article:modified_time" content="2022-04-09T14:49:43.984Z">
 <meta property="article:author" content="3roman">
-<meta property="article:tag" content="善用佳软">
-<meta property="article:tag" content="糊口生计">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/CAD%25E4%25BF%25A1%25E6%2581%25AF%25E4%25B8%25AD%25E5%25BF%2583.png">
   
   
-  <title>AutoCAD 葵花宝典 - 昼锦堂小记</title>
+  <title>golang第三方包的定义与使用 - 昼锦堂小记</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -178,7 +173,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="AutoCAD 葵花宝典">
+            <span class="h2" id="subtitle" title="golang第三方包的定义与使用">
               
             </span>
 
@@ -193,8 +188,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-04-09 15:52" pubdate>
-        2022年4月9日 下午
+      <time datetime="2022-04-09 19:43" pubdate>
+        2022年4月9日 晚上
       </time>
     </span>
   
@@ -230,26 +225,59 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">AutoCAD 葵花宝典</h1>
+            <h1 style="display: none">golang第三方包的定义与使用</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：6 小时前
+                  本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="优化设置"><a href="#优化设置" class="headerlink" title="优化设置"></a>优化设置</h2><h3 id="关闭信息中心、FTPSites"><a href="#关闭信息中心、FTPSites" class="headerlink" title="关闭信息中心、FTPSites"></a>关闭信息中心、FTPSites</h3><p>将注册表<code>HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A001:804\InfoCenter</code>项下键<code>InfoCenterOn</code>键的值改为1，如此界面右上角信息中心就会消失；</p>
-<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/CAD%25E4%25BF%25A1%25E6%2581%25AF%25E4%25B8%25AD%25E5%25BF%2583.png" srcset="/img/loading.gif" lazyload></p>
-<p>删除注册表<code>HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A001:804\FileNavExtensions</code>项下的<code>ACPROJECT</code>和<code>FTPSites</code>键值对。</p>
-<h2 id="清理图层"><a href="#清理图层" class="headerlink" title="清理图层"></a>清理图层</h2><p>将多个图层合并成到一个图层，成功合并后自动删除原图层。</p>
-<img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%25E5%2590%2588%25E5%25B9%25B6%25E5%259B%25BE%25E5%25B1%2582.gif" srcset="/img/loading.gif" lazyload alt="合并图层" style="zoom:67%;" />
+              <p>包可以有效组织代码并提高代码的复用率，JS、C#、Java 等语言中也采用包结构。Golang 被誉为21世纪的 C 语言，足以说明其与 C 语言一脉相承的关系。尽管 C 语言中的头文件在形式上扮演了包的角色，但是头文件的出现只是为了满足分开编译代码的需求，而包在 Golang 中是一堆同类功能代码的集合。</p>
+<p>Golang 官方提供了丰富的内置包，这也是该语言能够流行的重要原因，大家可以去<a target="_blank" rel="noopener" href="https://pkg.go.dev/">官网</a>检索使用。我们经常用到的第三方包一般托管在 Github 等代码平台，使用管理起来也很方便。</p>
+<h2 id="GO111MODULE"><a href="#GO111MODULE" class="headerlink" title="GO111MODULE"></a>GO111MODULE</h2><p>GO111MODULE 环境变量随 Golang1.11 版本发布，是新的包管理方案的衍生物。变量可选择值有三个：<code>on</code>、<code>off</code>和<code>auto</code>，用如下命令修改：</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go <span class="token function">env</span> -w <span class="token assign-left variable">GO111MODULE</span><span class="token operator">=</span>on<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
-<h2 id="清理图纸"><a href="#清理图纸" class="headerlink" title="清理图纸"></a>清理图纸</h2><p>常规方法为<code>PU</code>大法或者网上介绍的另存<code>DXF</code>后再存回<code>DWG</code>；对于图层还可采用<code>LAYDEL</code>强制删除或<code>LAYMRG</code>合并到0层。但碰到顽固对象时，上述方法要么无法清理，要么存在丢失图元的风险。AutoCAD2020及以上版本强化了清理功能，新增支持查看对象关联关系，现在可通过处理关联对象的方法间接清理顽固对象，不失为一剂<strong>治标治本</strong>的良药。</p>
-<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%25E6%25B8%2585%25E7%2590%2586%25E5%258A%25A0%25E5%25BC%25BA%25E7%2589%2588.png" srcset="/img/loading.gif" lazyload alt="清理加强版"></p>
-<h2 id="动态块"><a href="#动态块" class="headerlink" title="动态块"></a>动态块</h2><p>双击参数可以快速调出动作</p>
-<h3 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h3><p>可根据需要选择缩放动作的基准类型：依赖（参数的起点或终点）、独立（x、y坐标确定的具体点）。</p>
-<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%E7%BC%A9%E6%94%BE.gif" srcset="/img/loading.gif" lazyload></p>
+<p>如果没有历史包袱，建议新的项目将该变量设为on。GO111MODULE 打开后，无论项目是否处于<code>$GOPATH\src</code>目录下，都将强制使用 Go modules，通过 go.mod 文件实现包版本和依赖管理，请阅读<a target="_blank" rel="noopener" href="https://maelvls.dev/go111module-everywhere/">此文</a>了解更多。</p>
+<h2 id="包的定义"><a href="#包的定义" class="headerlink" title="包的定义"></a>包的定义</h2><h3 id="创建远程库"><a href="#创建远程库" class="headerlink" title="创建远程库"></a>创建远程库</h3><p>新建一个 github Repo 并克隆到本地</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone https://github.com/3roman/helper<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<h3 id="编写代码"><a href="#编写代码" class="headerlink" title="编写代码"></a>编写代码</h3><p>用 VSCode 打开项目目录，开始编写代码。一个项目可以包含多个包，并能相互引用。同一个包的代码也可分布在多个文件中，通过源文件头部的<code>package xxx</code>关键字自动识别组合。因此包一般没有生成可执行文件的需要，所以可以不声明<code>main</code>包。这里作一个简单的演示，代码如下：</p>
+<div class="code-wrapper"><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// message.go</span>
+<span class="token keyword">package</span> helper
+
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+
+<span class="token keyword">func</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"init function"</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">func</span> <span class="token function">PrintMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"hello world"</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>只有标识符首字母大写才能被外部访问，相当于别的语言中<code>public</code>访问控制符。init 函数是包的入口函数，常用于执行初始化操作，相当于类的构造函数。虽然允许存在多个 init 函数，但是不建议这么用。</p>
+<h3 id="提交代码"><a href="#提交代码" class="headerlink" title="提交代码"></a>提交代码</h3><p>完成代码后首先 commit 到本地版本库</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span>
+<span class="token function">git</span> commit -m <span class="token string">"add functions"</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+
+<p>如果当前 commit 版本将作为某个发行版，就要在 push 之前打上版本标签，这一步非常关键。</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> tag v0.0.2
+<span class="token function">git</span> push --tags // 连同tags一起提交到远程<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+
+<h2 id="包的使用"><a href="#包的使用" class="headerlink" title="包的使用"></a>包的使用</h2><p>新建示例项目引用刚发布的 helper 包，代码如下：</p>
+<div class="code-wrapper"><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// main.go</span>
+<span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">"github.com/3roman/helper"</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	helper<span class="token punctuation">.</span><span class="token function">PrintMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>正如前面提到的，新项目建议使用 Go modules，因此首先执行<code>go mod init XXX</code>命令生成 go.mod 文件。生成成功后继续执行<code>go mod tidy</code>命令，这一步会自动下载正确版本的直接依赖和间接依赖包。如果没有特别指明，默认下载使用最新版包。第三方包源码统一存放在<code>$GOPATH\go\pkg\mod\</code>目录下，按不同来源进行区分。</p>
+<p>好了，可以将跑一下程序了。输出两行文字后，程序顺利结束！</p>
 
             </div>
             <hr>
@@ -259,7 +287,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/">糊口生计</a>
+                      <a class="hover-with-bg" href="/categories/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/">遨游码海</a>
                     
                   </div>
                 
@@ -267,9 +295,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%96%84%E7%94%A8%E4%BD%B3%E8%BD%AF/">善用佳软</a>
+                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/">糊口生计</a>
+                      <a class="hover-with-bg" href="/tags/Go/">Go</a>
                     
                   </div>
                 
@@ -286,18 +314,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/09/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/SP3D%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SP3D学习笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/09/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/AUP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="hidden-mobile">AUP 学习笔记</span>
+                      <a href="/2022/04/09/%E5%96%84%E7%94%A8%E4%BD%B3%E8%BD%AF/Everything%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">
+                        <span class="hidden-mobile">Everything使用总结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
