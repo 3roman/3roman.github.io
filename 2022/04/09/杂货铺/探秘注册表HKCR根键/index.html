@@ -229,12 +229,6 @@
             <!-- SEO header -->
             <h1 style="display: none">探秘注册表 HKCR 根键</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：4 小时前
-                
-              </p>
-            
             <div class="markdown-body">
               <p>无论是计算机老鸟还是小白，多少都接触过点注册表，这里俨然就是 Windows 操作系统的藏宝库。注册表由单词<code>Registry</code>直译而来，不过笔者认为译作<strong>配置信息数据库</strong>更加贴切。注册表是一种集中存储方式，linux 系统采用配置文件存储配置信息，比如<code>bash.rc</code>、<code>my.cnf</code>等等，这种方式是松散的。</p>
 <p>注册表包含五个根键，根键、子健、键值对的概念这里不再累述。排在第一个的根键为<code>HKEY_CLASSES_ROOT</code>，它是<code>HKEY_LOCAL_MACHINE\Software\Classes</code>子健和<code>HKEY_CURRENT_USER\Software\Classes</code>子健的合并视图，主要存储了文件类型、右键菜单和COM组件等信息。展开该根键后，出现一大堆后缀名和 GUID 序列，下面将谈谈这些内容的用途。</p>
