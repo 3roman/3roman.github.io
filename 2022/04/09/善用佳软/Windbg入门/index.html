@@ -240,10 +240,10 @@
 <li>远程 symbol server</li>
 </ol>
 <p>指定3路径、4路径命令如下：</p>
-<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">.sympath SRV*c:<span class="token punctuation">\</span>windows<span class="token punctuation">\</span>localsymbols*http://msdl.microsoft.com/download/symbols<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">.sympath SRV*c:\windows\localsymbols*http:&#x2F;&#x2F;msdl.microsoft.com&#x2F;download&#x2F;symbols<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="加载插件"><a href="#加载插件" class="headerlink" title="加载插件"></a>加载插件</h3><p>强大的程序大都支持插件，WinDbg 亦然。加载插件很简单，一句命令即可：</p>
-<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">.load C:<span class="token punctuation">\</span>Windows<span class="token punctuation">\</span>Microsoft.NET<span class="token punctuation">\</span>Framework<span class="token punctuation">\</span>v4.0.30319<span class="token punctuation">\</span>SOS.dll<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">.load C:\Windows\Microsoft.NET\Framework\v4.0.30319\SOS.dll<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <p>上述命令只能一次性加载，下次还得重新执行。解决方法是将加载命令添加到启动命令组中。</p>
 <p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/202202031653402.png" srcset="/img/loading.gif" lazyload alt="image-20220203165342328"></p>
