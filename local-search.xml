@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>小汽轮机负荷阀</title>
+    <link href="/2022/07/02/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E5%B0%8F%E6%B1%BD%E8%BD%AE%E6%9C%BA%E8%B4%9F%E8%8D%B7%E9%98%80/"/>
+    <url>/2022/07/02/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E5%B0%8F%E6%B1%BD%E8%BD%AE%E6%9C%BA%E8%B4%9F%E8%8D%B7%E9%98%80/</url>
+    
+    <content type="html"><![CDATA[<p>调节汽门通过调节进汽量和进汽压力使得汽机输出给定功率并维持转速稳定，然而伴随发生的节流现象会降低蒸汽的作功能力，由此造成的效率损失将影响调节汽门和汽机总压比的设计。 基于上述原因，低负荷工况下，多调门比单调门高效。当节流汽量已给定时，高压比汽机比低压比汽机高效。</p><blockquote><p>Inlet control valves regulate steam flow and pressure to provide the appropriate power and speed. Throttling, which occurs across the control valve(s), reduces the thermal performance of the turbine. The efficiency loss will be a function of the control valve design and overall turbine pressure ratio. For this reason, multiple valves allow for more efficient operation under partial loads than a single valve. Turbines with larger pressure ratios usually experience smaller efficiency losses for a given amount of throttling than turbines with smaller pressure ratios.</p></blockquote><p>负荷阀通常用于切断一组单独喷嘴的进汽， 以此减少低负荷工况下的节流损失，提高单调门调节系统的整体效率。随着汽机负荷的降低，依次关闭负荷阀即可切断更多调节级喷嘴的进汽，减少了蒸汽的节流损失。 随着调节级喷嘴通流面积的减小，调速器必须憋起调节级后蒸汽压力以输出所需功率。 蒸汽压力的提高意味着蒸汽比焓的增加，所需汽量就随之减少。 若要求汽机恢复到满负荷状态，先前关闭的负荷阀应被重新打开。</p><blockquote><p>The term hand valves is commonly used to refer to valves for individual nozzle sets. Hand values are often used to reduce throttling losses under partial loads and can improve efficiency in systems that include a single modulating control valve. As the load on the turbine is reduced, one or more hand valves can be closed to reduce throttling loss by closing off nozzle compartments in the first stage of the turbine. With reduced nozzle area, the governor must increase the ring pressure to allow the turbine to carry the load. The increased ring pressure results in more energy per lbm (or kg) of steam, thereby reducing the steam flow required to do the required amount of work. In order to bring the turbine back up to full load, the hand valve must be reopened.</p></blockquote><p>负荷阀可被设计成手阀，也可被设计成远程手动操作或自动调节。 下图的单级汽机配备了多个负荷阀， 这些负阀门确保汽机能够适应低负荷、过负荷和最小进汽压力&#x2F;最大背压等非正常工况。</p><p><img src="https://www.beyonddiscovery.org/heat-recovery/images/7583_195_312.jpg" alt="img"></p><p>下图对应了2个负荷阀打开、1个负荷阀关闭、2个负荷阀关闭时的<strong>调节级后压力—蒸汽流量</strong>的性能曲线。</p><p><img src="https://www.beyonddiscovery.org/heat-recovery/images/7583_195_313.jpg" alt="img"></p><p>配置多个调门可代替上述负荷阀方案，每个调门控制一组喷嘴的进汽。 调速器依次打开或关闭这些调门，任何时候应只有一个调门处于调节状态，其它调门要么全开要么全关，以最大限度地减少蒸汽节流损失。</p><blockquote><p>Valves may be operated manually or actuated by remote or automatic control. Figure 11-20 shows a single-stage steam turbine model featuring multiple-hand valves. These nozzle hand valves provide control for part load, overload, and minimum inlet&#x2F;maximum back-pressure operation. Figure 11-21 shows a representative steam turbine performance curve in steam flow versus ring pressure. Performance is indicated for turbine operation with zero, one, and two hand valves closed.</p><p>Multi-valve turbines are an alternative to hand valves for improving efficiency at reduced load. Several valves exist, each of which controls steam flow to an individual nozzle compartment. The governor linkage is configured to sequentially open and close these valves to minimize throttling loss. At any time, only one valve is throttling and the other values are either fully open or closed.</p></blockquote><p>以上内容节选自：<a href="https://www.taylorfrancis.com/books/mono/10.1201/9781003151692/combined-heating-cooling-power-handbook-technologies-applications-neil-petchers">Combined Heating, Cooling &amp; Power Handbook</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>糊口生计</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>糊口生计</tag>
+      
+      <tag>翻译</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>热电技术未来发展方向刍议</title>
     <link href="/2022/06/29/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E7%83%AD%E7%94%B5%E6%8A%80%E6%9C%AF%E6%9C%AA%E6%9D%A5%E5%8F%91%E5%B1%95%E6%96%B9%E5%90%91%E5%88%8D%E8%AE%AE/"/>
     <url>/2022/06/29/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E7%83%AD%E7%94%B5%E6%8A%80%E6%9C%AF%E6%9C%AA%E6%9D%A5%E5%8F%91%E5%B1%95%E6%96%B9%E5%90%91%E5%88%8D%E8%AE%AE/</url>
@@ -51,9 +78,9 @@
       
       <tag>CSharp</tag>
       
-      <tag>MVVM</tag>
-      
       <tag>Nuget</tag>
+      
+      <tag>MVVM</tag>
       
     </tags>
     
