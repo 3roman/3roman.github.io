@@ -1,0 +1,834 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="3roman">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="诸如Visual Studio这类集成开发环境使得编程越发便捷，但也失去很多“捯饬”的乐趣。我很喜欢侯捷先生的一段话，简单朴素却又发人深省。  使用一个东西，却不明白它的道理，不高明！  当然，凡事没有绝对。发一封电子邮件却要事先把CPU的工作原理搞清楚，不把人逼疯才怪！ 从C源代码到可执行程序一般经历四个主要过程：预处理(preprocess)、编译(compile)、汇编(assemble)、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从C代码到二进制文件">
+<meta property="og:url" content="https://3roman.github.io/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/C/%E4%BB%8EC%E4%BB%A3%E7%A0%81%E5%88%B0%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:site_name" content="昼锦堂小记">
+<meta property="og:description" content="诸如Visual Studio这类集成开发环境使得编程越发便捷，但也失去很多“捯饬”的乐趣。我很喜欢侯捷先生的一段话，简单朴素却又发人深省。  使用一个东西，却不明白它的道理，不高明！  当然，凡事没有绝对。发一封电子邮件却要事先把CPU的工作原理搞清楚，不把人逼疯才怪！ 从C源代码到可执行程序一般经历四个主要过程：预处理(preprocess)、编译(compile)、汇编(assemble)、">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/1_wHKe6W4opLmk6pb7sxZz6w.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210915211625676.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210904212117898.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210915211033509.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210913221603348.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210905222202793.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210915221225990.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210914224528225.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210915223026614.png">
+<meta property="article:published_time" content="2022-12-27T12:11:42.083Z">
+<meta property="article:modified_time" content="2022-01-03T12:34:16.622Z">
+<meta property="article:author" content="3roman">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/1_wHKe6W4opLmk6pb7sxZz6w.png">
+  
+  
+  
+  <title>从C代码到二进制文件 - 昼锦堂小记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"3roman.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昼锦堂小记</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="从C代码到二进制文件"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-27 20:11" pubdate>
+          2022年12月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">从C代码到二进制文件</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>诸如Visual Studio这类集成开发环境使得编程越发便捷，但也失去很多“捯饬”的乐趣。我很喜欢侯捷先生的一段话，简单朴素却又发人深省。</p>
+<blockquote>
+<p>使用一个东西，却不明白它的道理，<em>不高明</em>！</p>
+</blockquote>
+<p>当然，凡事没有绝对。发一封电子邮件却要事先把CPU的工作原理搞清楚，不把人逼疯才怪！</p>
+<p>从C源代码到可执行程序一般经历四个主要过程：预处理(preprocess)、编译(compile)、汇编(assemble)、链接(link)，下面使用gcc工具详细剖析下。在集成开发环境中，这4个过程直接合为<strong>构建</strong>（Build）操作。</p>
+<span id="more"></span>
+
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/1_wHKe6W4opLmk6pb7sxZz6w.png" srcset="/img/loading.gif" lazyload></p>
+<p>gcc(GNU C Compiler)是一套开源、跨平台的C/C++编译器，它是Linux平台编译器的事实标准。gcc通过后台调用各子程序完成各项具体任务，比如汇编子程序as、链接子程序ldd。本文中用到的的命令如下：</p>
+<ul>
+<li><p>预处理</p>
+<p>gcc默认不保存预处理后的文件（很少用到），可使用重定向保存结果。</p>
+<p>-E</p>
+<blockquote>
+<p>Preprocess only; do not compile, assemble or link.</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc -E main.cpp &gt; main.i<br></code></pre></td></tr></table></figure></li>
+<li><p>编译</p>
+<p>-S </p>
+<blockquote>
+<p>Compile only; do not assemble or link.</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc -S main.cpp<br></code></pre></td></tr></table></figure></li>
+<li><p>编译+汇编</p>
+<p>-c</p>
+<blockquote>
+<p>Compile and assemble, but do not link.  </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc -c main.cpp<br></code></pre></td></tr></table></figure></li>
+<li><p>AIO</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc main.cpp base.cpp<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h2><h3 id="过程描述"><a href="#过程描述" class="headerlink" title="过程描述"></a>过程描述</h3><p>预处理的主要任务是处理源码中除编译器指令<code>#pragma</code>外其它以“#”打头的指令，具体如下：</p>
+<ul>
+<li><p>宏替换</p>
+<p>替换<code>#define</code>自定义宏及编译器内置调试宏，比如将<code>PI</code>替换成<code>3.1415926</code></p>
+</li>
+<li><p>文件包含</p>
+<p>插入头文件的内容到当前文件，注意文件包含是递归进行的，即<code>main.c</code>包含了<code>utility.h</code>，<code>utility.h</code>包含了<code>base.h</code>，最终<code>base.h</code>也会出现在<code>main.c</code>预编译结果中，可能带来的问题稍后再议。</p>
+<blockquote>
+<p>带后缀名的<strong>iostream.h</strong>和不带后缀名的<strong>iostream</strong>是不同的两个头文件，C++程序建议使用<strong>iostream</strong>，后者引入了命名空间且更现代、更安全。</p>
+</blockquote>
+</li>
+<li><p>条件编译</p>
+<p>根据<code>#if、#ifndef、#ifdef、#endif、#undef</code>条件编译指令，保留部分代码，抛弃一些代码，以实现版本控制、防止重复包含等目的。</p>
+</li>
+<li><p>添加行号和文件名标识符</p>
+<p>供编译器生成pdb调试文件及输出错误或警告的具体位置。比如<code>main.c</code>包含的头文件<code>base.h</code>中<code>int</code>关键字笔误，编译器给出了详细的错误定位，以便查找修改。</p>
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210915211625676.png" srcset="/img/loading.gif" lazyload alt="image-20210915211625676"></p>
+</li>
+<li><p>移除注释</p>
+<p>移除所有块注释和行注释，因此注释的多少并不不影响可执行文件的体积。</p>
+</li>
+</ul>
+<h3 id="代码清单"><a href="#代码清单" class="headerlink" title="代码清单"></a>代码清单</h3><p><em>mian.cpp</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;base.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PI 3.1415926</span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">// 地球体积</span><br>    <span class="hljs-type">double</span> earth = <span class="hljs-number">4</span> / <span class="hljs-number">3</span> * PI * <span class="hljs-number">6378.137e3</span> * <span class="hljs-number">6378.137e3</span> * <span class="hljs-number">6378.137e3</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><em>base.h</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">LoveWithFreedom</span><span class="hljs-params">()</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p>处理后的文件内容如下：</p>
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210904212117898.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="防卫式声明"><a href="#防卫式声明" class="headerlink" title="防卫式声明"></a>防卫式声明</h3><p>设想这么一个场景，main.cpp直接包含了animal.h和person.h，person.h也包含了animal.h，这就意味着main.cpp包含animal.h两次，造成animal.h声明的变量在main.cpp中重复声明。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// main.cpp</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;animal.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;person.h&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-comment">// person.h</span><br><span class="hljs-meta"># <span class="hljs-keyword">include</span> <span class="hljs-string">&quot;animal.h&quot;</span></span><br><br><span class="hljs-comment">// animal.h</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span><br>&#123;<br><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>预处理阶段只是简单的替换，因此此阶段不会报错，但后续必然无法通过编译。为了避免这种情况，头文件应采用<strong>防卫式声明</strong>。因为部分编译器不兼容，所以不推荐使用<code>#pragma once</code>指令的方法，推荐方法如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> __animal__</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> __animal__</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span><br>&#123;<br><br>&#125;;<br><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
+
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>编译是整个过程最核心、最复杂的步骤，可分为两个子阶段：预编译和优化。</p>
+<h3 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a>预编译</h3><p>预编译阶段执行词法分析、语法分析、语义分析并生成汇编文件。预编译大致流程如下：</p>
+<blockquote>
+<p>基本词法元素包括：标识符（identifier）、关键字（keyword）、操作符（operator）、分隔符（delimiter）、字面量（literal）。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210915211033509.png" srcset="/img/loading.gif" lazyload alt="image-20210915211033509"></p>
+<ol>
+<li>词法分析将整个源代码拆分成独立的记号，然后给这些记号归类、编码。当碰到无法归类的记号时，编译器就会报错，典型例子就是不合法的变量名。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210913221603348.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="2">
+<li><p>语法分析根据语法规则识别出语法单位（赋值语句、条件语句之类），并检查语法单位结构的正确性。诸如行末缺少分号等错误都会被查出。</p>
+</li>
+<li><p>语义分析是对语法单位进行静态的语义审查（比如声明与类型是否匹配），动态的在运行时才可确定（比如除0的错误），分析其含义，下一步就会用另一种接近目标语言（比如汇编语言）或直接用目标语言去描述这个含义。此阶段要求语句的含义和使用规则正确。</p>
+</li>
+</ol>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>优化目的是提高代码执行效率，过程非常复杂、艰深。常见优化有：将乘法循环转换为多次加法循环；避免函数频繁调用造成入栈、出栈开销过大，使用内联直接将函数调用替换为函数体本身；等等。</p>
+<h3 id="跨平台"><a href="#跨平台" class="headerlink" title="跨平台"></a>跨平台</h3><p>CPU架构不同指令集可能不同。即使同一份代码，在X86和ARM架构下生成的汇编代码就不同，这直接造成了纯编译型语言无法实现跨平台。</p>
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210905222202793.png" srcset="/img/loading.gif" lazyload alt="image-20210905222202793"></p>
+<h2 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h2><p>汇编语言实际就是用助记符代替机器指令，用符号代替内存地址。汇编过程只是机械地将每一条汇编指令翻译成相对应的机器指令，通俗点讲就是将人看的懂的汇编代码转换成机器看的懂的二进制代码，因此过程并不复杂。汇编生成后缀名为.o的目标文件（object file）。</p>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><h3 id="重定位"><a href="#重定位" class="headerlink" title="重定位"></a>重定位</h3><p>链接是整个流程的最后一步，主要任务是处理模块间的符号引用问题。如果当前文件引用了外部函数或全局变量，编译及汇编阶段无法确定其偏移量，只能暂保留原始符号。链接器将多个目标文件的各个段捆绑到一起后就能确定所有符号的最终段内偏移，这个过程称为重定位（Relocation）。CRT标准静态库也会打包到最终可执行程序中，文件大小对比见下图：</p>
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210915221225990.png" srcset="/img/loading.gif" lazyload alt="image-20210915221225990"></p>
+<p>以下示例代码中，main函数分别调用了内部的<code>foo</code>和<code>bar</code>函数，以及外部<code>help</code>函数、标准库函数<code>puts</code>，使用<code>gcc -c main.c</code>命令编译、汇编生成目标文件main.o。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;help.h&quot;</span></span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">foo</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">bar</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>    foo();<br>    bar();<br>    help();<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;hello world&quot;</span>);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过命令<code>nm -n main.o</code>查看目标文件的符号信息，结果一目了然，内部函数都具有**.text<strong>段内偏移地址，而<code>help</code>和<code>puts</code>函数显示为未定义的符号</strong>U**。</p>
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210914224528225.png" srcset="/img/loading.gif" lazyload alt="image-20210914224528225"></p>
+<blockquote>
+<p>nm工具可列出目标文件的符号信息，包括：段内偏移地址，段名，符号</p>
+</blockquote>
+<p>根据类型和时机不同，重定位分为三类：</p>
+<ul>
+<li>程序内部跨文件引用，链接时重定位（其它目标文件、静态库）</li>
+<li>引用外部库文件，程序装载时重定位（静态调用动态链接库 #pragma comment）</li>
+<li>引用外部库文件，程序运行期重定位（动态调用动态链接库 LoadLibrary）</li>
+</ul>
+<h3 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h3><p>为了便于链接阶段重定位，汇编器在生成的目标文件中嵌入了一个符号表（sysmbol table），表里保存了两部分信息：</p>
+<ul>
+<li>该目标文件<strong>本身定义的</strong>函数和全局变量</li>
+<li>该目标文件<strong>引用的外部</strong>函数和全局变量</li>
+</ul>
+<h3 id="入口函数"><a href="#入口函数" class="headerlink" title="入口函数"></a>入口函数</h3><p>从代码角度而言，<code>main</code>是大家公认的入口函数，程序从硬盘映射到内存后应该从<code>main</code>函数的第一句代码开始执行，但是大家有没有想过：是谁给main函数传递了命令行参数？</p>
+<p>事实上，程序被加载后，首先执行的是入口函数<code>mainCRTStartup</code>（针对MSVC控制台程序），随之控制权也由操作系统转移过来。接下来该函数需完成以下工作：</p>
+<ol>
+<li>初始化CRT库和程序运行环境，包括初始化堆、线程、IO、全局变量等；</li>
+<li>调用main函数（可自定义）并传递命令行参数；</li>
+<li>main函数执行完毕后，返回到入口函数，完成善后清理工作，包括销毁堆、关闭I/O、全局变量析构等；</li>
+<li>呼叫操作系统结束进程。</li>
+</ol>
+<p>使用olldbg动态反汇编一个简单的C语言helloword程序，程序加载后停在了<code>0x0044125B</code>的位置，此处即调用了入口点函数<code>mainCRTStartup</code>。</p>
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210915223026614.png" srcset="/img/loading.gif" lazyload alt="image-20210915223026614"></p>
+<h2 id="番外篇"><a href="#番外篇" class="headerlink" title="番外篇"></a>番外篇</h2><p>节选了网上的一篇文章，比较全面的描述了PE文件的加载、运行过程：</p>
+<blockquote>
+<p>WinMain函数被执行之前，有一系列复杂的加载动作，还要执行一大段启动代码。运行程序MyApp.exe时，操作系统的加载程序首先为进程分配一个4GB的虚拟地址空间，然后把程序MyApp.exe所占用的磁盘空间作为虚拟内存映射到这个4GB的虚拟地址空间中。一般情况下，映射到虚拟地址空间中0X00400000的位置。加载一个应用程序所花的时间比想象的要少，因为加载一个PE文件并不是把整个文件一次性的从磁盘读到内存中，而是简单的做一下内存映射，因此映射一个大文件和映射一个小文件所花费的时间相差无几。当然，真正执行文件中的代码时，操作系统还是要把存在于磁盘上的虚拟内存中的代码交换到物理内存(RAM)中。但是，这种交换也不是把整个文件所占用的虚拟地址空间一次性的全部从磁盘交换到物理内存中，操作系统会根据需要和内存占用情况交换一页或多页。当然，这种交换是双向的，即存在于物理内存中的一部分当前没有被使用的页也可能被交换到磁盘中。接着，系统在内核中创建进程对象和主线程对象以及其它内容。然后操作系统的加载程序搜索PE文件中的输入表，加载所有应用程序所使用的动态链接库。动态链接库的加载与对应用程序的加载完全类似。</p>
+<p>所有加载完成后，操作系统执行PE文件头部所指定地址（入口点）处的代码，开始应用程序主线程的执行。首先被执行的代码并不是MyApp.exe中的WinMain函数，而是被称为C Runtime startup code的WinMainCRTStartup函数，该函数是链接时由链接程序附加到MyApp.exe中的。在MSVC下，链接器对控制台程序设置的入口函数是 mainCRTStartup，mainCRTStartup 再调用main 函数；对图形界面程序设置的入口函数是 WinMainCRTStartup，WinMainCRTStartup 调用你自己写的 WinMain 函数。具体设置哪个入口点函数由链接器的“/subsystem:”选项确定的，它告诉操作系统如何加载运行EXE文件。可指定四种方式：CONSOLE|WINDOWS|NATIVE|POSIX。</p>
+<p>WinMainCRTStartup函数获得本进程的全部命令行指针和环境变量的指针，完成一些全局变量以及C运行时内存分配函数的初始化工作。如果使用C++，还要执行全局对象的构造函数。最后，WinMainCRTStartup函数调用WinMain函数， 并传给WinMain函数的4个参数：hInstance、hPrevInstance、lpCmdline、nCmdShow。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/" class="category-chain-item">遨游码海</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BC%96%E7%A8%8B/">#编程</a>
+      
+        <a href="/tags/C/">#C</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>从C代码到二进制文件</div>
+      <div>https://3roman.github.io/遨游码海/C/从C代码到二进制文件/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>3roman</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/C/%E7%90%86%E8%A7%A3%E4%BD%9C%E7%94%A8%E5%9F%9F/" title="理解作用域">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">理解作用域</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/C/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/" title="C程序的内存布局">
+                        <span class="hidden-mobile">C程序的内存布局</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

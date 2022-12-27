@@ -1,0 +1,780 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="3roman">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Dapper 是一款 .Net 平台下的微型 ORM 框架，特点是：轻量、高效、简单、灵活并适用于 SQL Server、SQLite、MySQL等多款数据库。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dapper框架非官方中文文档">
+<meta property="og:url" content="https://3roman.github.io/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/Dapper%E6%A1%86%E6%9E%B6%E9%9D%9E%E5%AE%98%E6%96%B9%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/index.html">
+<meta property="og:site_name" content="昼锦堂小记">
+<meta property="og:description" content="Dapper 是一款 .Net 平台下的微型 ORM 框架，特点是：轻量、高效、简单、灵活并适用于 SQL Server、SQLite、MySQL等多款数据库。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-27T12:11:42.101Z">
+<meta property="article:modified_time" content="2022-02-11T14:07:51.738Z">
+<meta property="article:author" content="3roman">
+<meta property="article:tag" content="CSharp">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="译文">
+<meta property="article:tag" content="ORM">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Dapper框架非官方中文文档 - 昼锦堂小记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"3roman.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昼锦堂小记</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Dapper框架非官方中文文档"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-27 20:11" pubdate>
+          2022年12月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          50 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Dapper框架非官方中文文档</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Dapper 是一款 .Net 平台下的微型 ORM 框架，特点是：轻量、高效、简单、灵活并适用于 SQL Server、SQLite、MySQL等多款数据库。</p>
+<span id="more"></span>
+
+<p>Dapper 以 NuGet 包的形式提供，其扩展了 IDbConnection 接口的方法。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="Query方法：强类型返回值"><a href="#Query方法：强类型返回值" class="headerlink" title="Query方法：强类型返回值"></a>Query方法：强类型返回值</h3><p>方法原型如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-title">IEnumerable</span>&lt;<span class="hljs-title">T</span>&gt; <span class="hljs-title">Query</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params"><span class="hljs-keyword">this</span> IDbConnection cnn,</span></span><br><span class="hljs-params"><span class="hljs-function">               <span class="hljs-built_in">string</span> sql,</span></span><br><span class="hljs-params"><span class="hljs-function">               <span class="hljs-built_in">object</span> param = <span class="hljs-literal">null</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">               IDbTransaction transaction = <span class="hljs-literal">null</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">               <span class="hljs-built_in">bool</span> buffered = <span class="hljs-literal">true</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">               <span class="hljs-built_in">int</span>? commandTimeout = <span class="hljs-literal">null</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">               CommandType? commandType = <span class="hljs-literal">null</span></span>)</span><br></code></pre></td></tr></table></figure>
+
+<p>示例代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span>? Age &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> Guid Id &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">float</span>? Weight &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> IgnoredProperty &#123; <span class="hljs-keyword">get</span> &#123; <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>; &#125; &#125;  <span class="hljs-comment">// 被忽略的字段直接返回固定值</span><br>&#125;<br><br><span class="hljs-keyword">var</span> guid = Guid.NewGuid();<br><span class="hljs-keyword">var</span> dog = connection.Query&lt;Dog&gt;(<span class="hljs-string">&quot;SELECT Age = @Age, Id = @Id&quot;</span>,<br>                <span class="hljs-keyword">new</span> &#123; Age = (<span class="hljs-built_in">int</span>?)<span class="hljs-literal">null</span>, Id = guid &#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="Query方法：动态类型返回值"><a href="#Query方法：动态类型返回值" class="headerlink" title="Query方法：动态类型返回值"></a>Query方法：动态类型返回值</h3><p>方法原型如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> IEnumerable&lt;<span class="hljs-built_in">dynamic</span>&gt; <span class="hljs-title">Query</span> (<span class="hljs-params"><span class="hljs-keyword">this</span> IDbConnection cnn, </span></span><br><span class="hljs-params"><span class="hljs-function">               <span class="hljs-built_in">string</span> sql,</span></span><br><span class="hljs-params"><span class="hljs-function">               <span class="hljs-built_in">object</span> param = <span class="hljs-literal">null</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">               IDbTransaction transaction = <span class="hljs-literal">null</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">               <span class="hljs-built_in">bool</span> buffered = <span class="hljs-literal">true</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">               <span class="hljs-built_in">int</span>? commandTimeout = <span class="hljs-literal">null</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">               CommandType? commandType = <span class="hljs-literal">null</span></span>)</span><br></code></pre></td></tr></table></figure>
+
+<p>示例代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> rows = connection.Query(<span class="hljs-string">&quot;SELECT 1 A, 2 B UNION ALL SELECT 3, 4&quot;</span>).AsList();<br></code></pre></td></tr></table></figure>
+
+<h3 id="Excute方法：返回受影响行数"><a href="#Excute方法：返回受影响行数" class="headerlink" title="Excute方法：返回受影响行数"></a>Excute方法：返回受影响行数</h3><p>Excute 方法返回受影响的行数，一般用于增、删、改操作。</p>
+<p>方法原型如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">int</span> <span class="hljs-title">Execute</span>(<span class="hljs-params"><span class="hljs-keyword">this</span> IDbConnection cnn,</span></span><br><span class="hljs-params"><span class="hljs-function">            <span class="hljs-built_in">string</span> sql,</span></span><br><span class="hljs-params"><span class="hljs-function">            <span class="hljs-built_in">object</span> param = <span class="hljs-literal">null</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">            IDbTransaction transaction = <span class="hljs-literal">null</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">            <span class="hljs-built_in">int</span>? commandTimeout = <span class="hljs-literal">null</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">            CommandType? commandType = <span class="hljs-literal">null</span></span>)</span><br></code></pre></td></tr></table></figure>
+
+<p>示例代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> count = connection.Execute(<span class="hljs-string">@&quot;</span><br><span class="hljs-string">      SET NOCOUNT ON</span><br><span class="hljs-string">      CREATE TABLE #t(i int)</span><br><span class="hljs-string">      SET NOCOUNT OFF</span><br><span class="hljs-string">      INSERT #t</span><br><span class="hljs-string">      SELECT @a a UNION ALL SELECT @b</span><br><span class="hljs-string">      SET NOCOUNT ON</span><br><span class="hljs-string">      DROP TABLE #t&quot;</span>, <br>      <span class="hljs-keyword">new</span> &#123;a=<span class="hljs-number">1</span>, b=<span class="hljs-number">2</span> &#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="Excute方法：反复执行"><a href="#Excute方法：反复执行" class="headerlink" title="Excute方法：反复执行"></a>Excute方法：反复执行</h3><p>该特性支持反复执行同一 SQL 语句，传递对象数组或对象集合（实现了<code>IEnumerable&lt;T&gt;</code>集合）作为参数，常用于批量插数据。 </p>
+<p>示例代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-comment">// 示例1</span><br><span class="hljs-keyword">var</span> count = connection.Execute(<span class="hljs-string">@&quot;INSERT MyTable VALUES (@a, @b)&quot;</span>,<br>    <span class="hljs-keyword">new</span>[] &#123; <span class="hljs-keyword">new</span> &#123; a = <span class="hljs-number">1</span>, b = <span class="hljs-number">1</span> &#125;, <span class="hljs-keyword">new</span> &#123; a = <span class="hljs-number">2</span>, b = <span class="hljs-number">2</span> &#125;, <span class="hljs-keyword">new</span> &#123; a = <span class="hljs-number">3</span>, b = <span class="hljs-number">3</span> &#125; &#125;);<br><span class="hljs-comment">// 示例2</span><br><span class="hljs-keyword">var</span> foos = <span class="hljs-keyword">new</span> List&lt;Foo&gt;<br>&#123;<br>    <span class="hljs-keyword">new</span> Foo &#123; A = <span class="hljs-number">1</span>, B = <span class="hljs-number">1</span> &#125;,<br>    <span class="hljs-keyword">new</span> Foo &#123; A = <span class="hljs-number">2</span>, B = <span class="hljs-number">2</span> &#125;,<br>    <span class="hljs-keyword">new</span> Foo &#123; A = <span class="hljs-number">3</span>, B = <span class="hljs-number">3</span> &#125;<br><br>&#125;;<br><span class="hljs-keyword">var</span> count = connection.Execute(<span class="hljs-string">@&quot;INSERT MyTable(colA, colB) VALUES (@a, @b)&quot;</span>, foos);<br>Assert.Equal(foos.Count, count);<br></code></pre></td></tr></table></figure>
+
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><h3 id="参数化查询"><a href="#参数化查询" class="headerlink" title="参数化查询"></a>参数化查询</h3><p>SQL 语句采用匿名对象作为参数可实现参数化查询，且与 SQL Server 的参数化查询语法一致。参数化查询有两个好处：</p>
+<ol>
+<li>防止 SQL 注入</li>
+<li>提高代码复用率</li>
+</ol>
+<p>111111111111111111111111111111111111111111</p>
+<h3 id="单个参数"><a href="#单个参数" class="headerlink" title="单个参数"></a>单个参数</h3><p>Dapper 采用匿名对象作为查询参数，对象属性应与 SQL 语句中@符号打头的参数名称一致。参数化查询可以有效地抵御 <strong>SQL注入攻击</strong>。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> rows = connection.Query&lt;User&gt;(<span class="hljs-string">&quot;SELECT * FROM user WHERE username = @UserName And password = @PassWord&quot;</span>,<br>   <span class="hljs-keyword">new</span> &#123;UserName = <span class="hljs-string">&quot;admin&quot;</span>, PassWord = <span class="hljs-string">&quot;xxxxxxx&quot;</span>&#125;)  <span class="hljs-comment">// UserName属性值给到参数@UserName, PassWord属性值给到参数@PassWord </span><br></code></pre></td></tr></table></figure>
+
+<h3 id="多条查询"><a href="#多条查询" class="headerlink" title="多条查询"></a>多条查询</h3><p>Dapper 同时支持<code>IEnumerable&lt;T&gt;</code>类型的多参数查询，集合中的元素被拆开后依次传入参数会被自动展开。</p>
+<p>原始代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> rows = connection.Query&lt;<span class="hljs-built_in">int</span>&gt;(<span class="hljs-string">&quot;SELECT * FROM (SELECT 1 AS Id UNION ALL SELECT 2 UNION ALL SELECT 3) AS x WHERE Id IN @Ids&quot;</span>,<br>  <span class="hljs-keyword">new</span> &#123; Ids = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>[] &#123; <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> &#125; &#125;);<br></code></pre></td></tr></table></figure>
+
+<p>展开后代码如下</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">SELECT * FROM (SELECT <span class="hljs-number">1</span> AS Id UNION ALL SELECT <span class="hljs-number">2</span> UNION ALL SELECT <span class="hljs-number">3</span>) <span class="hljs-function">AS x WHERE Id <span class="hljs-title">IN</span> (<span class="hljs-params">@Ids1, @Ids2, @Ids3</span>)&quot; <span class="hljs-comment">// @Ids1 = 1 , @Ids2 = 2 , @Ids2 = 3</span></span><br></code></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><h3 id="一对多映射"><a href="#一对多映射" class="headerlink" title="一对多映射"></a>一对多映射</h3><p>Dapper 支持将一条数据库记录映射到多个对象，这个关键特性可以减少额外查询。</p>
+<p>相关联的两个实体类如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">class</span> <span class="hljs-title">Post</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> Id &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Title &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Content &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> User Owner &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title">User</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> Id &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>// TODO</p>
+<h3 id="区别映射"><a href="#区别映射" class="headerlink" title="区别映射"></a>区别映射</h3><p>一般情况下，同一个表的返回数据都被映射到同一个实体类，但偶尔也需要映射到不同的实体类，这时<code>IDataReader.GetRowParser</code>方法就派上用场了。</p>
+<p>Shapes 表包含 Id、Type 和 Data 三个字段，依据 Type 字段值分别映射给 <code>Circle</code>、<code>Square</code>、<code>Triangle</code>三个实体类。</p>
+<p>示例代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> shapes = <span class="hljs-keyword">new</span> List&lt;IShape&gt;();<br><span class="hljs-keyword">using</span> (<span class="hljs-keyword">var</span> reader = connection.ExecuteReader(<span class="hljs-string">&quot;SELECT * FROM Shapes&quot;</span>))<br>&#123;<br>    <span class="hljs-comment">// Generate a row parser for each type you expect.</span><br>    <span class="hljs-comment">// The generic type &lt;IShape&gt; is what the parser will return.</span><br>    <span class="hljs-comment">// The argument (typeof(*)) is the concrete type to parse.</span><br>    <span class="hljs-keyword">var</span> circleParser = reader.GetRowParser&lt;IShape&gt;(<span class="hljs-keyword">typeof</span>(Circle));<br>    <span class="hljs-keyword">var</span> squareParser = reader.GetRowParser&lt;IShape&gt;(<span class="hljs-keyword">typeof</span>(Square));<br>    <span class="hljs-keyword">var</span> triangleParser = reader.GetRowParser&lt;IShape&gt;(<span class="hljs-keyword">typeof</span>(Triangle));<br><br>    <span class="hljs-keyword">var</span> typeColumnIndex = reader.GetOrdinal(<span class="hljs-string">&quot;Type&quot;</span>);<br><br>    <span class="hljs-keyword">while</span> (reader.Read())<br>    &#123;<br>        IShape shape;<br>        <span class="hljs-keyword">var</span> type = (ShapeType)reader.GetInt32(typeColumnIndex);<br>        <span class="hljs-keyword">switch</span> (type)<br>        &#123;<br>            <span class="hljs-keyword">case</span> ShapeType.Circle:<br>            	shape = circleParser(reader);<br>            	<span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> ShapeType.Square:<br>            	shape = squareParser(reader);<br>            	<span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> ShapeType.Triangle:<br>            	shape = triangleParser(reader);<br>            	<span class="hljs-keyword">break</span>;<br>            <span class="hljs-literal">default</span>:<br>            	<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> NotImplementedException();<br>        &#125;<br><br>      	shapes.Add(shape);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="多参数重复执行"><a href="#多参数重复执行" class="headerlink" title="多参数重复执行"></a>多参数重复执行</h3><p>Dapper 支持一次函数调用中执行多条查询语句，并将返回结果分别映射到对应的实体类。</p>
+<p>示例代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> sql =<br><span class="hljs-string">@&quot;</span><br><span class="hljs-string">SELECT * FROM Customers WHERE CustomerId = @id</span><br><span class="hljs-string">SELECT * FROM Orders WHERE CustomerId = @id</span><br><span class="hljs-string">SELECT * FROM Returns WHERE CustomerId = @id&quot;</span>;<br><br><span class="hljs-keyword">using</span> (<span class="hljs-keyword">var</span> multi = connection.QueryMultiple(sql, <span class="hljs-keyword">new</span> &#123;id=selectedId&#125;))<br>&#123;<br>   <span class="hljs-keyword">var</span> customer = multi.Read&lt;Customer&gt;().Single();<br>   <span class="hljs-keyword">var</span> orders = multi.Read&lt;Order&gt;().ToList();<br>   <span class="hljs-keyword">var</span> returns = multi.Read&lt;Return&gt;().ToList();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="字面量替换"><a href="#字面量替换" class="headerlink" title="字面量替换"></a>字面量替换</h3><p>// TODO</p>
+<h3 id="流式读取"><a href="#流式读取" class="headerlink" title="流式读取"></a>流式读取</h3><p>首先了解一下数据适配器 <strong>SqlDataAdapter</strong> 和 数据读取器 **SqlDataReader **的主要区别：</p>
+<ol>
+<li>SqlDataAdapter 在建立数据库连接后一次性读取所有查询数据到内存，然后就关闭了连接。适用于少量查询结果。</li>
+<li>SqlDataReader  在建立数据库连接后流式读取数据，待发送缓存装满再返回查询数据，如此重复多次直至所有数据被返回。期间数据库连接一直处于 open 状态，且被当前 SqlDataReader 独占。适用于大量查询结果。</li>
+</ol>
+<p>Dapper 默认一次性读取所有查询结果，这样有利于最小化共享锁的占用时长和数据库的连接时长。这种读取方式的弊端也很明显：返回大量结果时内存耗费巨大。未解决此弊端，调用<code>Query</code>方法时<code>buffered</code>形参应传递<code>false</code>，改用流式读取方式。</p>
+<h3 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h3><p>Dapper 支持使用存储过程。</p>
+<p>示例代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> user = cnn.Query&lt;User&gt;(<span class="hljs-string">&quot;spGetUser&quot;</span>, <span class="hljs-keyword">new</span> &#123;Id = <span class="hljs-number">1</span>&#125;,<br>        commandType: CommandType.StoredProcedure).SingleOrDefault();<br></code></pre></td></tr></table></figure>
+
+<p>花哨点的写法如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> p = <span class="hljs-keyword">new</span> DynamicParameters();<br>p.Add(<span class="hljs-string">&quot;@a&quot;</span>, <span class="hljs-number">11</span>);<br>p.Add(<span class="hljs-string">&quot;@b&quot;</span>, dbType: DbType.Int32, direction: ParameterDirection.Output);<br>p.Add(<span class="hljs-string">&quot;@c&quot;</span>, dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);<br><br>cnn.Execute(<span class="hljs-string">&quot;spMagicProc&quot;</span>, p, commandType: CommandType.StoredProcedure);<br><br><span class="hljs-keyword">var</span> b = p.Get&lt;<span class="hljs-built_in">int</span>&gt;(<span class="hljs-string">&quot;@b&quot;</span>);<br><span class="hljs-keyword">var</span> c = p.Get&lt;<span class="hljs-built_in">int</span>&gt;(<span class="hljs-string">&quot;@c&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="varchar-类型支持"><a href="#varchar-类型支持" class="headerlink" title="varchar 类型支持"></a>varchar 类型支持</h3><p>Dapper 支持 varchar 类型，当对 varchar 类型字段执行 <code>WHERE </code> 字句时，应这样传递参数：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> things = Query&lt;Thing&gt;(<span class="hljs-string">&quot;SELECT * FROM Thing WHERE Name = @Name&quot;</span>, <span class="hljs-keyword">new</span> &#123;Name = <span class="hljs-keyword">new</span> DbString &#123; Value = <span class="hljs-string">&quot;abcde&quot;</span>, IsFixedLength = <span class="hljs-literal">true</span>, Length = <span class="hljs-number">10</span>, IsAnsi = <span class="hljs-literal">true</span> &#125;);<br></code></pre></td></tr></table></figure>
+
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>正如上文所述，Dapper 默认一次性缓存所有查询结果，这样可加快映射到实体类的进度。当前缓存机制依赖于<code>ConcurrentDictionary</code>对象，一次性的查询语句会经常刷新该对象缓存。另外，如果没有查询字句的约束，一下子取回整表数据可能造成内存暴涨。</p>
+<p>Dapper 之所以简约是因为剥离了传统 ORM 框架的很多功能。即便如此，也能应付大约95%的应用场景，千万不要期望本框架能处理所有问题。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/" class="category-chain-item">遨游码海</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CSharp/">#CSharp</a>
+      
+        <a href="/tags/%E7%BC%96%E7%A8%8B/">#编程</a>
+      
+        <a href="/tags/%E8%AF%91%E6%96%87/">#译文</a>
+      
+        <a href="/tags/ORM/">#ORM</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Dapper框架非官方中文文档</div>
+      <div>https://3roman.github.io/遨游码海/CSharp/Dapper框架非官方中文文档/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>3roman</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/Stylet%E6%A1%86%E6%9E%B6%E9%9D%9E%E5%AE%98%E6%96%B9%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/" title="Stylet框架非官方中文文档">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Stylet框架非官方中文文档</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/C/%E7%90%86%E8%A7%A3%E4%BD%9C%E7%94%A8%E5%9F%9F/" title="理解作用域">
+                        <span class="hidden-mobile">理解作用域</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

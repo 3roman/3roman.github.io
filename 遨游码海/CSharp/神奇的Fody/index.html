@@ -1,0 +1,734 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="3roman">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="AOP编程范式世界观与方法论是一个宏大的话题，世界观决定了方法论，方法论影响了世界观。在计算机的世界里，编程范式就是程序员的方法论。从时间维度看待编程，面向过程是自然而然的选择。从空间角度去看，必然会提炼出面对对象的编程方法。 面向过程、面向对象、函数式编程等都是常见的编程范式，AOP 也属于编程范式的一种，笔者认为这是一种面向补充需求的编程范式。AOP 的字面翻译为面向切片编程，它其实是对面向对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="神奇的Fody">
+<meta property="og:url" content="https://3roman.github.io/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/%E7%A5%9E%E5%A5%87%E7%9A%84Fody/index.html">
+<meta property="og:site_name" content="昼锦堂小记">
+<meta property="og:description" content="AOP编程范式世界观与方法论是一个宏大的话题，世界观决定了方法论，方法论影响了世界观。在计算机的世界里，编程范式就是程序员的方法论。从时间维度看待编程，面向过程是自然而然的选择。从空间角度去看，必然会提炼出面对对象的编程方法。 面向过程、面向对象、函数式编程等都是常见的编程范式，AOP 也属于编程范式的一种，笔者认为这是一种面向补充需求的编程范式。AOP 的字面翻译为面向切片编程，它其实是对面向对">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/202204122108221.png">
+<meta property="article:published_time" content="2022-12-27T12:11:42.118Z">
+<meta property="article:modified_time" content="2022-04-13T00:50:50.675Z">
+<meta property="article:author" content="3roman">
+<meta property="article:tag" content="CSharp">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="Nuget">
+<meta property="article:tag" content="MVVM">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/202204122108221.png">
+  
+  
+  
+  <title>神奇的Fody - 昼锦堂小记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"3roman.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昼锦堂小记</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="神奇的Fody"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-27 20:11" pubdate>
+          2022年12月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">神奇的Fody</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="AOP编程范式"><a href="#AOP编程范式" class="headerlink" title="AOP编程范式"></a>AOP编程范式</h2><p>世界观与方法论是一个宏大的话题，世界观决定了方法论，方法论影响了世界观。在计算机的世界里，编程范式就是程序员的方法论。从时间维度看待编程，面向过程是自然而然的选择。从空间角度去看，必然会提炼出面对对象的编程方法。</p>
+<p>面向过程、面向对象、函数式编程等都是常见的编程范式，AOP 也属于编程范式的一种，笔者认为这是一种面向<strong>补充需求</strong>的编程范式。AOP 的字面翻译为面向切片编程，它其实是对面向对象编程的补充。AOP 的核心思想是将程序的功能点独立出来，使程序具备更高的模块化特性。就好比提供了红点瞄准器、倍镜、消音器、枪口制退器、扩容弹夹等枪械部件，根据任务需要搭配，最终组成一把功能齐备的步枪。</p>
+<p>AOP 常见实现方式有三种：</p>
+<ul>
+<li>中间件</li>
+<li>过滤器</li>
+<li>代码织入</li>
+</ul>
+<p>本文将只谈代码织入，代码织入分动态织入和静态织入。静态织入在编译时就将各种涉及 AOP 拦截的代码注入到符合一定规则的类中，最终效果与直接在源码中给类增加属性或方法相同，只是这个工作交由编译器和框架完成。动态织入借助反射特性，动态生成代理类达成 AOP。</p>
+<h2 id="Fody框架"><a href="#Fody框架" class="headerlink" title="Fody框架"></a>Fody框架</h2><p><a target="_blank" rel="noopener" href="https://github.com/FODY">Fody</a> 是 .NET 平台下一款优秀的开源静态织入框架，以插件的方式灵活地为程序增加功能。</p>
+<p>Fody 并没有对织入源码，而是直接织入编译好的程序集，其中至关重要的 ILRepack 功能由 <a target="_blank" rel="noopener" href="https://github.com/Fody/cecil">Ceil</a> 库实现。这样处理使得框架更具通用性，毕竟 .Net 平台下的编程语言包括 C#、VB.Net和 F#三种，不过它们生成的 IL 代码格式一致。只针对 IL 代码，不针对具体语言，无形中降低了框架的开发难度。织入流程图如下。</p>
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/202204122108221.png" srcset="/img/loading.gif" lazyload alt="Code weaving using Fody"></p>
+<p>打包资源，参数 Null 检查，通知属性等个性化需求以往都在源码层面通过大量的 plumbing code 完成，这些代码通常高度一致。编写这些模板代码工作量很大，要求程序员掌握诸如反射、编译等多方面知识，如此重复性的工作意义不大，还造成代码冗余。插件解决了上述痛点，程序员可以用一种傻瓜化的方式实现各种需求，还避免了造轮子。目前官方提供10多个插件，具体用法见<a target="_blank" rel="noopener" href="https://github.com/Fody/FodyAddinSamples">示例项目</a>。</p>
+<h2 id="PropertyChanged插件"><a href="#PropertyChanged插件" class="headerlink" title="PropertyChanged插件"></a>PropertyChanged插件</h2><p>PropertyChanged 是一款非常方便的插件，省去了 MVVM 编程中大量冗余代码。众所周知，属性要具备通知功能，传统做法是所属类先继承<code>INotifyPropertyChanged</code>接口，再在<code>setter</code>访问器中引发通知事件。事件的第一个参数是<code>this</code>指针，第二个参数是对应属性名（ C#6.0新增的<code>nameof</code>关键字可代替硬编码属性名）。示例代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> : <span class="hljs-title">INotifyPropertyChanged</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> PropertyChangedEventHandler PropertyChanged;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-built_in">string</span> _fullName;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> FullName<br>    &#123;<br>        <span class="hljs-keyword">get</span> &#123; <span class="hljs-keyword">return</span> _fullName; &#125;<br>        <span class="hljs-keyword">set</span> <br>        &#123; <br>            <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">string</span>.Equals(<span class="hljs-keyword">value</span>, _fullName))<br>            &#123;<br>                _fullName = <span class="hljs-keyword">value</span>;<br>                OnPropertyChanged(<span class="hljs-keyword">nameof</span>(FullName)); <span class="hljs-comment">// C#6.0新增关键字</span><br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnPropertyChanged</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> propertyName = <span class="hljs-literal">null</span></span>)</span><br>    &#123;<br>        PropertyChanged?.Invoke(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">new</span> PropertyChangedEventArgs(propertyName));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>试想一下，如果有几十个通知属性，写起来多么麻烦！在没有<code>nameof</code>关键字的情况下，一旦属性名拼写错误，排错也不是件易事。这些弊端在引入 PropertyChanged 插件后将完全根除，插件安装命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Install-Package PropertyChanged.Fody<br></code></pre></td></tr></table></figure>
+
+<p>随之将上述代码简化为：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> : <span class="hljs-title">INotifyPropertyChanged</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> PropertyChangedEventHandler PropertyChanged;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> FullName &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>只要某个类实现了<code>INotifyPropertyChanged</code>接口，插件就可根据此规则自动注入相关 IL 代码，将其所属全部属性升级为通知属性。如无必要的话，也可给属性单独设置<code>[DoNotNotifyAttribute]</code>特性以跳过代码注入，更多细节用法见<a target="_blank" rel="noopener" href="https://github.com/Fody/PropertyChanged/wiki">官方wiki</a>。</p>
+<p>知其然而知其所有然，我们用 ILSpy 查看一下反编译后的代码：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> : <span class="hljs-title">INotifyPropertyChanged</span><br>&#123;<br>	<span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> FullName<br>	&#123;<br>		[<span class="hljs-meta">CompilerGenerated</span>]<br>		<span class="hljs-keyword">get</span><br>		&#123;<br>			<span class="hljs-keyword">return</span> &lt;FullName&gt;k__BackingField;<br>		&#125;<br>		[<span class="hljs-meta">CompilerGenerated</span>]<br>		<span class="hljs-keyword">set</span><br>		&#123;<br>			<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">string</span>.Equals(&lt;FullName&gt;k__BackingField, <span class="hljs-keyword">value</span>, StringComparison.Ordinal))<br>			&#123;<br>				&lt;FullName&gt;k__BackingField = <span class="hljs-keyword">value</span>;<br>				&lt;&gt;OnPropertyChanged(&lt;&gt;PropertyChangedEventArgs.FullName);<br>			&#125;<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> PropertyChangedEventHandler PropertyChanged;<br><br>	[<span class="hljs-meta">GeneratedCode(<span class="hljs-string">&quot;PropertyChanged.Fody&quot;</span>, <span class="hljs-string">&quot;3.4.0.0&quot;</span>)</span>]<br>	[<span class="hljs-meta">DebuggerNonUserCode</span>]<br>	<span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> &lt;&gt;OnPropertyChanged(PropertyChangedEventArgs eventArgs)<br>	&#123;<br>		<span class="hljs-keyword">this</span>.PropertyChanged?.Invoke(<span class="hljs-keyword">this</span>, eventArgs);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上述自动生成的代码与传统方式编写的代码并无二致，笔者认为这是目前实现通知属性最优雅的方式。</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p>1、<a target="_blank" rel="noopener" href="https://codingcanvas.com/code-weaving-using-fody/">https://codingcanvas.com/code-weaving-using-fody/</a><br>2、<a target="_blank" rel="noopener" href="https://www.cnblogs.com/weidaorisun/p/15627183.html">https://www.cnblogs.com/weidaorisun/p/15627183.html</a><br>3、<a target="_blank" rel="noopener" href="https://github.com/Fody/Home">https://github.com/Fody/Home</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/" class="category-chain-item">遨游码海</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CSharp/">#CSharp</a>
+      
+        <a href="/tags/%E7%BC%96%E7%A8%8B/">#编程</a>
+      
+        <a href="/tags/Nuget/">#Nuget</a>
+      
+        <a href="/tags/MVVM/">#MVVM</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>神奇的Fody</div>
+      <div>https://3roman.github.io/遨游码海/CSharp/神奇的Fody/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>3roman</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/%E8%AF%95%E8%AF%95nameof%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="试试nameof表达式">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">试试nameof表达式</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/%E6%89%98%E7%AE%A1%E4%BB%A3%E7%A0%81%E7%AE%80%E4%BB%8B/" title="托管代码简介">
+                        <span class="hidden-mobile">托管代码简介</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

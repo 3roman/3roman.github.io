@@ -1,0 +1,809 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="3roman">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="原文地址：Memory Layout Of A C Program 理解 C 程序及其进程的内存布局对于程序员学习内存管理至关重要。Java、Python、C#这类高级语言由 GC 自动释放堆内存，但 C 和 C++ 没有 GC 机制，因此需要程序员手动申请、释放。C 代码先被编译成可执行文件，运行后可执行文件被载入内存，然后 CPU 开始逐条读取、执行指令。注意：在被载入前，可执行文件不占用内存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C程序的内存布局">
+<meta property="og:url" content="https://3roman.github.io/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/C/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/index.html">
+<meta property="og:site_name" content="昼锦堂小记">
+<meta property="og:description" content="原文地址：Memory Layout Of A C Program 理解 C 程序及其进程的内存布局对于程序员学习内存管理至关重要。Java、Python、C#这类高级语言由 GC 自动释放堆内存，但 C 和 C++ 没有 GC 机制，因此需要程序员手动申请、释放。C 代码先被编译成可执行文件，运行后可执行文件被载入内存，然后 CPU 开始逐条读取、执行指令。注意：在被载入前，可执行文件不占用内存">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hackthedeveloper.com/wp-content/uploads/2020/11/Memory-layout.png.webp">
+<meta property="og:image" content="https://hackthedeveloper.com/wp-content/uploads/2020/11/Memory-Management-in-C-768x251.png.webp">
+<meta property="og:image" content="https://hackthedeveloper.com/wp-content/uploads/2020/11/Stack-Layout.png.webp">
+<meta property="og:image" content="https://hackthedeveloper.com/wp-content/uploads/2020/11/heap-layout.png.webp">
+<meta property="article:published_time" content="2022-12-27T12:11:42.077Z">
+<meta property="article:modified_time" content="2022-01-03T12:34:34.075Z">
+<meta property="article:author" content="3roman">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="C">
+<meta property="article:tag" content="译文">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hackthedeveloper.com/wp-content/uploads/2020/11/Memory-layout.png.webp">
+  
+  
+  
+  <title>C程序的内存布局 - 昼锦堂小记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"3roman.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昼锦堂小记</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C程序的内存布局"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-27 20:11" pubdate>
+          2022年12月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          66 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C程序的内存布局</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>原文地址：<a target="_blank" rel="noopener" href="https://hackthedeveloper.com/memory-layout-c-program/">Memory Layout Of A C Program</a></p>
+<p>理解 C 程序及其进程的内存布局对于程序员学习内存管理至关重要。Java、Python、C#这类高级语言由 GC 自动释放堆内存，但 C 和 C++ 没有 GC 机制，因此需要程序员手动申请、释放。C 代码先被编译成可执行文件，运行后可执行文件被载入内存，然后 CPU 开始逐条读取、执行指令。注意：在被载入前，可执行文件不占用内存空间。如果您想了解从 C 代码到二进制文件的编译过程，可阅读此文章<a target="_blank" rel="noopener" href="https://hackthedeveloper.com/c-program-compilation-process/">C Program Compilation Process - Source To Binary</a>。</p>
+<span id="more"></span>
+
+<p>C 程序的典型内存布局含以下几个区段：</p>
+<ul>
+<li><p>命令行参数</p>
+</li>
+<li><p>栈</p>
+</li>
+<li><p>堆</p>
+</li>
+<li><p>未初始化数据段（BSS）</p>
+</li>
+<li><p>已初始化数据段</p>
+</li>
+<li><p>代码段</p>
+<p><img src="https://hackthedeveloper.com/wp-content/uploads/2020/11/Memory-layout.png.webp" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<p>按内存分配方式不同，上述区段可分为：</p>
+<ol>
+<li>静态内存区域：代码段、已初始化数据段、未初始化数据段</li>
+<li>动态内存区域：堆、栈</li>
+</ol>
+<p>在编译期静态内存区域就已划分，动态内存区域必须等到程序跑起来才会形成。下面具体学习下各个区段。</p>
+<h2 id="静态内存区域"><a href="#静态内存区域" class="headerlink" title="静态内存区域"></a>静态内存区域</h2><p>静态内存区域由代码段、已初始化数据段和未初始化数据段组成。这些区段最初划分在可执行文件中，加载时再由操作系统加载器将其从硬盘映射到内存。</p>
+<p>最简单的 C 程序代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 1.c</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>**size **是 Linux 下用于查看目标文件、库文件和可执行文件中各个区段信息及其大小的工具。将上述代码编译后用该工具查看生成的可执行文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ gcc 1.c -o 1.out<br><br>$ size 1.out<br>text    data     bss     dec     hex filename<br>785     276       4      1065     429 1.out <br></code></pre></td></tr></table></figure>
+
+<h3 id="代码段"><a href="#代码段" class="headerlink" title="代码段"></a>代码段</h3><p>代码段是静态内存区域的核心段，该区段包含了程序的机器指令、常量和字面量，这些指令实现了程序的逻辑。</p>
+<p>代码段在堆和数据段之下，可读、可执行。为了避免遭受<strong>堆栈溢出</strong>的破坏，防止代码被意外修改，代码段不可写。</p>
+<p>**objdump **是 Linux 下反汇编目标文件和可执行文件的工具。以下反汇编代码中的<code>&lt;main&gt;</code>函数对应了示例代码中的<code>main</code>函数。限于篇幅原因，只截取了部分代码展示。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ objdump -d 1.out<br><br><br>1.out:     file format elf32-littlearm<br><br><br>Disassembly of section .init:<br><br>0001029c &lt;_init&gt;:<br>   1029c:       e92d4008        push    &#123;r3, lr&#125;<br>   102a0:       eb00001d        bl      1031c &lt;call_weak_fn&gt;<br>   102a4:       e8bd8008        pop     &#123;r3, pc&#125;<br><br>Disassembly of section .plt:<br><br>000102a8 &lt;.plt&gt;:<br>   102a8:       e52de004        push    &#123;lr&#125;            ; (str lr, [sp, <span class="hljs-comment">#-4]!)</span><br>   102ac:       e59fe004        ldr     lr, [pc, <span class="hljs-comment">#4]    ; 102b8 &lt;.plt+0x10&gt;</span><br>   102b0:       e08fe00e        add     lr, pc, lr<br>   102b4:       e5bef008        ldr     pc, [lr, <span class="hljs-comment">#8]!</span><br>   102b8:       00010d48        .word   0x00010d48<br><br>000102bc &lt;__libc_start_main@plt&gt;:<br>   102bc:       e28fc600        add     ip, pc, <span class="hljs-comment">#0, 12</span><br>   102c0:       e28cca10        add     ip, ip, <span class="hljs-comment">#16, 20 ; 0x10000</span><br>   102c4:       e5bcfd48        ldr     pc, [ip, <span class="hljs-comment">#3400]!        ; 0xd48</span><br><br>000102c8 &lt;__gmon_start__@plt&gt;:<br>   102c8:       e28fc600        add     ip, pc, <span class="hljs-comment">#0, 12</span><br>   102cc:       e28cca10        add     ip, ip, <span class="hljs-comment">#16, 20 ; 0x10000</span><br>   102d0:       e5bcfd40        ldr     pc, [ip, <span class="hljs-comment">#3392]!        ; 0xd40</span><br><br>000102d4 &lt;abort@plt&gt;:<br>   102d4:       e28fc600        add     ip, pc, <span class="hljs-comment">#0, 12</span><br>   102d8:       e28cca10        add     ip, ip, <span class="hljs-comment">#16, 20 ; 0x10000</span><br>   102dc:       e5bcfd38        ldr     pc, [ip, <span class="hljs-comment">#3384]!        ; 0xd38</span><br><br>Disassembly of section .text:<br><br>000102e0 &lt;_start&gt;:<br>   102e0:       e3a0b000        mov     fp, <span class="hljs-comment">#0</span><br>   102e4:       e3a0e000        mov     lr, <span class="hljs-comment">#0</span><br>   102e8:       e49d1004        pop     &#123;r1&#125;            ; (ldr r1, [sp], <span class="hljs-comment">#4)</span><br>   102ec:       e1a0200d        mov     r2, sp<br>   102f0:       e52d2004        push    &#123;r2&#125;            ; (str r2, [sp, <span class="hljs-comment">#-4]!)</span><br>   102f4:       e52d0004        push    &#123;r0&#125;            ; (str r0, [sp, <span class="hljs-comment">#-4]!)</span><br>   102f8:       e59fc010        ldr     ip, [pc, <span class="hljs-comment">#16]   ; 10310 &lt;_start+0x30&gt;</span><br>   102fc:       e52dc004        push    &#123;ip&#125;            ; (str ip, [sp, <span class="hljs-comment">#-4]!)</span><br>   10300:       e59f000c        ldr     r0, [pc, <span class="hljs-comment">#12]   ; 10314 &lt;_start+0x34&gt;</span><br>   10304:       e59f300c        ldr     r3, [pc, <span class="hljs-comment">#12]   ; 10318 &lt;_start+0x38&gt;</span><br>   10308:       ebffffeb        bl      102bc &lt;__libc_start_main@plt&gt;<br>   1030c:       ebfffff0        bl      102d4 &lt;abort@plt&gt;<br>   10310:       0001044c        .word   0x0001044c<br>   10314:       000103d0        .word   0x000103d0<br>   10318:       000103ec        .word   0x000103ec<br><br>0001031c &lt;call_weak_fn&gt;:<br>   1031c:       e59f3014        ldr     r3, [pc, <span class="hljs-comment">#20]   ; 10338 &lt;call_weak_fn+0x1c&gt;</span><br>   10320:       e59f2014        ldr     r2, [pc, <span class="hljs-comment">#20]   ; 1033c &lt;call_weak_fn+0x20&gt;</span><br>   10324:       e08f3003        add     r3, pc, r3<br>   10328:       e7932002        ldr     r2, [r3, r2]<br>   1032c:       e3520000        cmp     r2, <span class="hljs-comment">#0</span><br>   10330:       012fff1e        bxeq    lr<br>   10334:       eaffffe3        b       102c8 &lt;__gmon_start__@plt&gt;<br>   10338:       00010cd4        .word   0x00010cd4<br>   1033c:       00000018        .word   0x00000018<br><br>00010340 &lt;deregister_tm_clones&gt;:<br>   10340:       e59f0018        ldr     r0, [pc, <span class="hljs-comment">#24]   ; 10360 &lt;deregister_tm_clones+0x20&gt;</span><br>   10344:       e59f3018        ldr     r3, [pc, <span class="hljs-comment">#24]   ; 10364 &lt;deregister_tm_clones+0x24&gt;</span><br>   10348:       e1530000        cmp     r3, r0<br>   1034c:       012fff1e        bxeq    lr<br>   10350:       e59f3010        ldr     r3, [pc, <span class="hljs-comment">#16]   ; 10368 &lt;deregister_tm_clones+0x28&gt;</span><br>   10354:       e3530000        cmp     r3, <span class="hljs-comment">#0</span><br>   10358:       012fff1e        bxeq    lr<br>   1035c:       e12fff13        bx      r3<br>   10360:       00021024        .word   0x00021024<br>   10364:       00021024        .word   0x00021024<br>   10368:       00000000        .word   0x00000000<br><br>0001036c &lt;register_tm_clones&gt;:<br>   1036c:       e59f0024        ldr     r0, [pc, <span class="hljs-comment">#36]   ; 10398 &lt;register_tm_clones+0x2c&gt;</span><br>   10370:       e59f1024        ldr     r1, [pc, <span class="hljs-comment">#36]   ; 1039c &lt;register_tm_clones+0x30&gt;</span><br>   10374:       e0411000        sub     r1, r1, r0<br>   10378:       e1a01141        asr     r1, r1, <span class="hljs-comment">#2</span><br>   1037c:       e0811fa1        add     r1, r1, r1, lsr <span class="hljs-comment">#31</span><br>   10380:       e1b010c1        asrs    r1, r1, <span class="hljs-comment">#1</span><br>   10384:       012fff1e        bxeq    lr<br>   10388:       e59f3010        ldr     r3, [pc, <span class="hljs-comment">#16]   ; 103a0 &lt;register_tm_clones+0x34&gt;</span><br>   1038c:       e3530000        cmp     r3, <span class="hljs-comment">#0</span><br>   10390:       012fff1e        bxeq    lr<br>   10394:       e12fff13        bx      r3<br>   10398:       00021024        .word   0x00021024<br>   1039c:       00021024        .word   0x00021024<br>   103a0:       00000000        .word   0x00000000<br><br>000103a4 &lt;__do_global_dtors_aux&gt;:<br>   103a4:       e92d4010        push    &#123;r4, lr&#125;<br>   103a8:       e59f4018        ldr     r4, [pc, <span class="hljs-comment">#24]   ; 103c8 &lt;__do_global_dtors_aux+0x24&gt;</span><br>   103ac:       e5d43000        ldrb    r3, [r4]<br>   103b0:       e3530000        cmp     r3, <span class="hljs-comment">#0</span><br>   103b4:       18bd8010        popne   &#123;r4, pc&#125;<br>   103b8:       ebffffe0        bl      10340 &lt;deregister_tm_clones&gt;<br>   103bc:       e3a03001        mov     r3, <span class="hljs-comment">#1</span><br>   103c0:       e5c43000        strb    r3, [r4]<br>   103c4:       e8bd8010        pop     &#123;r4, pc&#125;<br>   103c8:       00021024        .word   0x00021024<br><br>000103cc &lt;frame_dummy&gt;:<br>   103cc:       eaffffe6        b       1036c &lt;register_tm_clones&gt;<br><br>000103d0 &lt;main&gt;:<br>   103d0:       e52db004        push    &#123;fp&#125;            ; (str fp, [sp, <span class="hljs-comment">#-4]!)</span><br>   103d4:       e28db000        add     fp, sp, <span class="hljs-comment">#0</span><br>   103d8:       e3a03000        mov     r3, <span class="hljs-comment">#0</span><br>   103dc:       e1a00003        mov     r0, r3<br>   103e0:       e28bd000        add     sp, fp, <span class="hljs-comment">#0</span><br>   103e4:       e49db004        pop     &#123;fp&#125;            ; (ldr fp, [sp], <span class="hljs-comment">#4)</span><br>   103e8:       e12fff1e        bx      lr<br></code></pre></td></tr></table></figure>
+
+<h3 id="已初始化数据段"><a href="#已初始化数据段" class="headerlink" title="已初始化数据段"></a>已初始化数据段</h3><p>已初始化数据段存储了代码中所有已初始化的全局变量和已初始化的静态变量。</p>
+<p>已初始化数据段可读、可写，储存在该段的数据可被实时修改。在上节代码中各增加一个全局变量和一个静态局部变量。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 2.c</span><br><span class="hljs-type">int</span> a = <span class="hljs-number">123</span>;<br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-type">static</span> <span class="hljs-type">int</span> b = <span class="hljs-number">456</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>对比可知，新文件的 data 段增加了8个字节，正好等于32位平台下2个 <code>int</code>型变量的字节数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ size 1.out 2.out  <br><br>   text    data     bss     dec     hex filename<br>    785     276       4    1065     429 1.out<br>    785     284       4    1073     431 2.out <br></code></pre></td></tr></table></figure>
+
+<h3 id="未初始化数据段（BSS）"><a href="#未初始化数据段（BSS）" class="headerlink" title="未初始化数据段（BSS）"></a>未初始化数据段（BSS）</h3><p>未初始化数据段也叫<code>BSS</code>段，其名称来源于一个古老的汇编操作符，该操作符代表 <strong>block started by the symbol</strong>（以符号开始的块）。</p>
+<p>未初始化数据段存储了代码中所有未初始化的全局变量和未初始化的静态变量，本段同样可读、可写。</p>
+<p>去掉上节代码中的初始化语句，只留下变量的声明。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 3.c</span><br><span class="hljs-type">int</span> a;<br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-type">static</span> <span class="hljs-type">int</span> b;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>对比可知，新文件的 data 段减少了8个字节，bss 段恰好增加了8个字节。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ size 1.out  2.out 3.out <br>	 <br>  text    data     bss     dec     hex filename<br>    785     276       4    1065     429 1.out<br>    785     284       4    1073     431 2.out<br>    785     276      12    1073     431 3.out  <br></code></pre></td></tr></table></figure>
+
+<h2 id="动态分配的内存"><a href="#动态分配的内存" class="headerlink" title="动态分配的内存"></a>动态分配的内存</h2><p>下图是在程序运行期间对应进程的内存情况：</p>
+<p><img src="https://hackthedeveloper.com/wp-content/uploads/2020/11/Memory-Management-in-C-768x251.png.webp" srcset="/img/loading.gif" lazyload></p>
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>栈是进程虚拟地址空间中的一块区域，该区域按先进后出、后进先出的方式增加、移除数据，并且增加数据时地址从高往低增长。程序运行时可以没有堆，但不能没有栈，由此可见栈的重要性。</p>
+<p>调用新的一个函数将创建一个新栈帧，函数返回后对应栈帧将被自动清除。每个函数都有一个独立的栈帧，也称为<strong>活动记录</strong>。栈帧的总大小是浮动的，这取决于局部变量、形参和函数调用情况。</p>
+<p>每个进程都有自己固定或可配置的栈空间，栈空间中可容纳多个栈帧，操作系统会在进程结束后回收这些栈空间。使用<code>ulimit -s</code>命令查看当前 Linux 系统支持的最大栈空间。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bas">$ ulimit -s<br>8192<br></code></pre></td></tr></table></figure>
+
+<p><code>cat /proc/xxx/limits</code>命令可查看某具体进程的栈空间限额。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">cat</span> /proc/6673/limits<br>Limit                     Soft Limit           Hard Limit           Units<br>Max cpu time              unlimited            unlimited            seconds<br>Max file size             unlimited            unlimited            bytes<br>Max data size             unlimited            unlimited            bytes<br>Max stack size            8388608              unlimited            bytes<br>Max core file size        0                    unlimited            bytes<br>Max resident <span class="hljs-built_in">set</span>          unlimited            unlimited            bytes<br>Max processes             6865                 6865                 processes<br>Max open files            1024                 1048576              files<br>Max locked memory         67108864             67108864             bytes<br>Max address space         unlimited            unlimited            bytes<br>Max file locks            unlimited            unlimited            locks<br>Max pending signals       6865                 6865                 signals<br>Max msgqueue size         819200               819200               bytes<br>Max <span class="hljs-built_in">nice</span> priority         0                    0<br>Max realtime priority     2                    2<br>Max realtime <span class="hljs-built_in">timeout</span>      unlimited            unlimited            us<br></code></pre></td></tr></table></figure>
+
+<h4 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h4><p>栈帧存储了4类数据：</p>
+<ul>
+<li>传给被调用者的形参（按从右到左的顺序入栈）</li>
+<li>调用者的返回地址</li>
+<li>调用者的帧指针</li>
+<li>被调用者中的局部变量</li>
+</ul>
+<p>32位操作系统中，调用者的返回地址和帧指针各占4个字节，而64位操作系统中各占8个字节。</p>
+<p>以下代码用于展示栈的内存布局：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// stack_layout.c</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-type">int</span> <span class="hljs-title function_">sum</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span><br>&#123;<br>    <span class="hljs-keyword">return</span> a + b;<br>&#125;<br><br><span class="hljs-type">float</span> <span class="hljs-title function_">avg</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span><br>&#123;<br>    <span class="hljs-type">int</span> s = sum(a, b);<br>    <span class="hljs-keyword">return</span> (<span class="hljs-type">float</span>)s / <span class="hljs-number">2</span>;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-type">int</span> a = <span class="hljs-number">10</span>;<br>    <span class="hljs-type">int</span> b = <span class="hljs-number">20</span>;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Average of %d, %d = %f\n&quot;</span>, a, b, avg(a, b));<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上述代码生成的程序运行起来后栈布局如下：</p>
+<p><img src="https://hackthedeveloper.com/wp-content/uploads/2020/11/Stack-Layout.png.webp" srcset="/img/loading.gif" lazyload></p>
+<p>当前函数的栈帧总是位于进程栈区段的顶部。指向当前栈帧起始的指针称为帧指针或基指针；指向当前栈帧末尾的指针称为栈指针。被调用者帧针指向的4字节的内存空间存储了调用者的帧指针，其作用是被调用者返回后能够重新定位调用者的帧指针，以此恢复调用者的栈帧。</p>
+<p>操作系统内存管理模块负责栈空间的分配与回收，程序员无法干涉。函数的栈帧被构造后，局部变量方能在此获得内存空间；若函数的栈帧被操作系统回收，局部变量也将随之消失；这就是所谓的变量作用域。</p>
+<h4 id="错误类型"><a href="#错误类型" class="headerlink" title="错误类型"></a>错误类型</h4><p>接下来谈一谈可能发生的栈错误。</p>
+<ol>
+<li>栈溢出</li>
+</ol>
+<p>这种错误通常发生在一长串函数调用时，相应的栈帧不断累加，直至超过程序的栈内存限额。具体分以下两种情况：</p>
+<ul>
+<li>函数的递归调用</li>
+<li>函数中声明了长数组</li>
+</ul>
+<p>因此，不推荐在栈中储存大对象。</p>
+<ol start="2">
+<li>栈损坏</li>
+</ol>
+<p>当向目标空间拷贝了过量的数据往往就会发生栈损坏。</p>
+<p>以下代码中先声明了一个10个元素的字符数组，再将命令行参数拷贝进来。命令行参数是人为给定的，当参数的字符总数超出了数组大小，多余字符将非法覆盖与数组相邻的栈空间，这就造成了栈损坏。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">copy</span><span class="hljs-params">(<span class="hljs-type">char</span> *argv)</span><br>&#123;<br>    <span class="hljs-type">char</span> name[<span class="hljs-number">10</span>];<br>    <span class="hljs-built_in">strcpy</span>(name, argv);<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv)</span><br>&#123;<br>    copy(argv[<span class="hljs-number">1</span>]);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Exit\n&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>从上文可知，栈空间的大小存在限制，因此不能用来存储大数据，并且程序员无法控制。堆不存在这些问题，也不被操作系统管理，您可以随时申请或释放一段连续的内存地址空间。</p>
+<p><strong>Glibc</strong> 运行库提供了多个堆操作函数，详见 stdlib.h 头文件中相关函数的声明。其中，<code>malloc()</code>和<code>calloc()</code>函数用于向操作系统申请堆块，再通过返回指针访问堆块；<code>free()</code>函数用于释放堆块；这些函数底层都调用了<code>brk()</code>和<code>sbrk()</code>系统调用。以下代码展示了堆块申请和释放过程：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">func</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-type">int</span> a = <span class="hljs-number">10</span>;<br>    <span class="hljs-type">int</span>* aptr = &amp;a;<br>    <span class="hljs-type">int</span>* ptr = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));<br>    *ptr = <span class="hljs-number">20</span>;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Pointing in Stack = %d\n&quot;</span>,  *aptr);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Heap Memory Value = %d\n&quot;</span>,  *ptr);<br>    <span class="hljs-built_in">free</span>(ptr);<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>    func();<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>malloc()</code>函数申请了4字节的堆块并返回一个指针（虚拟地址），通过该指针定位到区块，再将整型数20存储入其中。内存管理单元（MMU）会将虚拟地址转换成物理地址，因此20实际就存储在计算机的物理内存中。生成程序的堆、栈布局如下图。</p>
+<p><img src="https://hackthedeveloper.com/wp-content/uploads/2020/11/heap-layout.png.webp" srcset="/img/loading.gif" lazyload></p>
+<p>堆中存储的数据不涉及作用域的概念，也无法被自动释放，要求程序员及时、自行释放，否则会造成内存泄漏。</p>
+<p>感谢您的阅读，希望您喜欢这些有趣的知识。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/" class="category-chain-item">遨游码海</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BC%96%E7%A8%8B/">#编程</a>
+      
+        <a href="/tags/C/">#C</a>
+      
+        <a href="/tags/%E8%AF%91%E6%96%87/">#译文</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>C程序的内存布局</div>
+      <div>https://3roman.github.io/遨游码海/C/C程序的内存布局/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>3roman</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/C/%E4%BB%8EC%E4%BB%A3%E7%A0%81%E5%88%B0%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/" title="从C代码到二进制文件">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">从C代码到二进制文件</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/C/C%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/" title="C代码编译过程">
+                        <span class="hidden-mobile">C代码编译过程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
