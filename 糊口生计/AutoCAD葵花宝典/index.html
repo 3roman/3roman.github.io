@@ -23,17 +23,14 @@
 <meta property="og:site_name" content="昼锦堂小记">
 <meta property="og:description" content="优化设置关闭信息中心、FTPSites将注册表HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A001:804\InfoCenter项下键InfoCenterOn键的值改为1，如此界面右上角信息中心就会消失；  删除注册表HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A00">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/CAD%25E4%25BF%25A1%25E6%2581%25AF%25E4%25B8%25AD%25E5%25BF%2583.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%25E5%2590%2588%25E5%25B9%25B6%25E5%259B%25BE%25E5%25B1%2582.gif">
-<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%25E6%25B8%2585%25E7%2590%2586%25E5%258A%25A0%25E5%25BC%25BA%25E7%2589%2588.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%E7%BC%A9%E6%94%BE.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/autocad2-logo-1-300x158.png">
 <meta property="article:published_time" content="2022-12-27T12:11:42.007Z">
-<meta property="article:modified_time" content="2022-01-03T11:45:47.210Z">
+<meta property="article:modified_time" content="2022-12-28T12:04:31.361Z">
 <meta property="article:author" content="3roman">
 <meta property="article:tag" content="糊口生计">
 <meta property="article:tag" content="善用佳软">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/CAD%25E4%25BF%25A1%25E6%2581%25AF%25E4%25B8%25AD%25E5%25BF%2583.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/autocad2-logo-1-300x158.png">
   
   
   
@@ -143,33 +140,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
               </a>
             </li>
           
@@ -197,7 +170,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('https://raw.githubusercontent.com/3roman/PicBed/master/hexo/mountain.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -284,8 +257,6 @@
 <p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/CAD%25E4%25BF%25A1%25E6%2581%25AF%25E4%25B8%25AD%25E5%25BF%2583.png" srcset="/img/loading.gif" lazyload></p>
 <p>删除注册表<code>HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A001:804\FileNavExtensions</code>项下的<code>ACPROJECT</code>和<code>FTPSites</code>键值对。</p>
 <h2 id="清理图层"><a href="#清理图层" class="headerlink" title="清理图层"></a>清理图层</h2><p>将多个图层合并成到一个图层，成功合并后自动删除原图层。</p>
-<span id="more"></span>
-
 <img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%25E5%2590%2588%25E5%25B9%25B6%25E5%259B%25BE%25E5%25B1%2582.gif" srcset="/img/loading.gif" lazyload alt="合并图层" style="zoom:67%;" />
 
 <h2 id="清理图纸"><a href="#清理图纸" class="headerlink" title="清理图纸"></a>清理图纸</h2><p>常规方法为<code>PU</code>大法或者网上介绍的另存<code>DXF</code>后再存回<code>DWG</code>；对于图层还可采用<code>LAYDEL</code>强制删除或<code>LAYMRG</code>合并到0层。但碰到顽固对象时，上述方法要么无法清理，要么存在丢失图元的风险。AutoCAD2020及以上版本强化了清理功能，新增支持查看对象关联关系，现在可通过处理关联对象的方法间接清理顽固对象，不失为一剂<strong>治标治本</strong>的良药。</p>
@@ -300,27 +271,6 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/" class="category-chain-item">糊口生计</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
     <div class="post-meta">
