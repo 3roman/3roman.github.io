@@ -16,22 +16,22 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="原文地址：C Program Compilation Process 也许您能够熟练编写 C 程序，但是您未必了解如何由 C 代码得到二进制文件，本文将系统介绍下这个过程。">
+    <meta name="description" content="原文地址：C Program Compilation Process 也许您能够熟练编写 C 程序，但是您未必了解如何由 C 代码得到二进制文件，本文将系统介绍下这个过程。 编译器介绍编译器的定义维基百科关于编译器的定义如下：  编译器（compiler）是一种计算机程序，它会将某种编程语言写成的源代码（原始语言）转换成另一种编程语言（目标语言）。它的主要目的是将便于人类编写、阅读、维护的高级计算">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C代码编译过程">
 <meta property="og:url" content="https://3roman.github.io/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/C/C%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="原文地址：C Program Compilation Process 也许您能够熟练编写 C 程序，但是您未必了解如何由 C 代码得到二进制文件，本文将系统介绍下这个过程。">
+<meta property="og:description" content="原文地址：C Program Compilation Process 也许您能够熟练编写 C 程序，但是您未必了解如何由 C 代码得到二进制文件，本文将系统介绍下这个过程。 编译器介绍编译器的定义维基百科关于编译器的定义如下：  编译器（compiler）是一种计算机程序，它会将某种编程语言写成的源代码（原始语言）转换成另一种编程语言（目标语言）。它的主要目的是将便于人类编写、阅读、维护的高级计算">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nerdyelectronics.com/wp-content/uploads/2017/07/GCC_CompilationProcess.png">
 <meta property="og:image" content="https://hackthedeveloper.com/wp-content/uploads/2020/10/Object-File-Structure.png.webp">
 <meta property="og:image" content="https://hackthedeveloper.com/wp-content/uploads/2020/10/Structure.png.webp">
 <meta property="article:published_time" content="2022-12-27T12:11:42.072Z">
-<meta property="article:modified_time" content="2022-01-03T12:34:27.371Z">
+<meta property="article:modified_time" content="2022-12-29T05:18:28.000Z">
 <meta property="article:author" content="3roman">
 <meta property="article:tag" content="编程">
-<meta property="article:tag" content="C">
 <meta property="article:tag" content="译文">
+<meta property="article:tag" content="C">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nerdyelectronics.com/wp-content/uploads/2017/07/GCC_CompilationProcess.png">
   
@@ -119,18 +119,6 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>归档</span>
@@ -173,7 +161,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://raw.githubusercontent.com/3roman/PicBed/master/hexo/mountain.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://raw.githubusercontent.com/3roman/PicBed/master/hexo/sea.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -258,8 +246,6 @@
                 
                 <p>原文地址：<a target="_blank" rel="noopener" href="https://hackthedeveloper.com/c-program-compilation-process/">C Program Compilation Process</a></p>
 <p>也许您能够熟练编写 C 程序，但是您未必了解如何由 C 代码得到二进制文件，本文将系统介绍下这个过程。</p>
-<span id="more"></span>
-
 <h2 id="编译器介绍"><a href="#编译器介绍" class="headerlink" title="编译器介绍"></a>编译器介绍</h2><h3 id="编译器的定义"><a href="#编译器的定义" class="headerlink" title="编译器的定义"></a>编译器的定义</h3><p>维基百科关于编译器的定义如下：</p>
 <blockquote>
 <p>编译器（compiler）是一种计算机程序，它会将某种编程语言写成的源代码（原始语言）转换成另一种编程语言（目标语言）。它的主要目的是将便于人类编写、阅读、维护的高级计算机语言所写作的源代码程序，翻译为计算机能解读、运行的低级机器语言的程序，也就是可执行文件。</p>
@@ -402,36 +388,15 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/" class="category-chain-item">遨游码海</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
         <a href="/tags/%E7%BC%96%E7%A8%8B/">#编程</a>
       
-        <a href="/tags/C/">#C</a>
-      
         <a href="/tags/%E8%AF%91%E6%96%87/">#译文</a>
+      
+        <a href="/tags/C/">#C</a>
       
     </div>
   

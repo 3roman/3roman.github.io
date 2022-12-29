@@ -16,19 +16,19 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Stylet 是一款非常优秀的 MVVM 框架，配套 wiki 写的也很棒。为了让更多的人熟悉这款框架，同时也给自己一个全面学习 Stylet 的机会，笔者决定将其 wiki 译成中文。限于外语水平和专业知识有限，难免出现不到和纰漏之处，望读者海涵。">
+    <meta name="description" content="Stylet 是一款非常优秀的 MVVM 框架，配套 wiki 写的也很棒。为了让更多的人熟悉这款框架，同时也给自己一个全面学习 Stylet 的机会，笔者决定将其 wiki 译成中文。限于外语水平和专业知识有限，难免出现不到和纰漏之处，望读者海涵。 简介Stylet是一款小巧又强大的 MVVM 框架，它的诞生受到了Caliburn.Micro的启发。开发本框架的意图是尽量降低 MVVM 的复杂性">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Stylet框架非官方中文文档">
 <meta property="og:url" content="https://3roman.github.io/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/Stylet%E6%A1%86%E6%9E%B6%E9%9D%9E%E5%AE%98%E6%96%B9%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="Stylet 是一款非常优秀的 MVVM 框架，配套 wiki 写的也很棒。为了让更多的人熟悉这款框架，同时也给自己一个全面学习 Stylet 的机会，笔者决定将其 wiki 译成中文。限于外语水平和专业知识有限，难免出现不到和纰漏之处，望读者海涵。">
+<meta property="og:description" content="Stylet 是一款非常优秀的 MVVM 框架，配套 wiki 写的也很棒。为了让更多的人熟悉这款框架，同时也给自己一个全面学习 Stylet 的机会，笔者决定将其 wiki 译成中文。限于外语水平和专业知识有限，难免出现不到和纰漏之处，望读者海涵。 简介Stylet是一款小巧又强大的 MVVM 框架，它的诞生受到了Caliburn.Micro的启发。开发本框架的意图是尽量降低 MVVM 的复杂性">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-12-27T12:11:42.106Z">
-<meta property="article:modified_time" content="2022-01-03T11:51:42.182Z">
+<meta property="article:modified_time" content="2022-12-29T13:43:30.869Z">
 <meta property="article:author" content="3roman">
-<meta property="article:tag" content="CSharp">
 <meta property="article:tag" content="编程">
 <meta property="article:tag" content="译文">
+<meta property="article:tag" content="CSHARP">
 <meta property="article:tag" content="MVVM">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -116,18 +116,6 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>归档</span>
@@ -170,7 +158,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://raw.githubusercontent.com/3roman/PicBed/master/hexo/mountain.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://raw.githubusercontent.com/3roman/PicBed/master/hexo/sea.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -254,8 +242,6 @@
               <div class="markdown-body">
                 
                 <p>Stylet 是一款非常优秀的 MVVM 框架，配套 wiki 写的也很棒。为了让更多的人熟悉这款框架，同时也给自己一个全面学习 Stylet 的机会，笔者决定将其 wiki 译成中文。限于外语水平和专业知识有限，难免出现不到和纰漏之处，望读者海涵。</p>
-<span id="more"></span>
-
 <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Stylet是一款小巧又强大的 MVVM 框架，它的诞生受到了<a target="_blank" rel="noopener" href="http://caliburnmicro.com/">Caliburn.Micro</a>的启发。开发本框架的意图是尽量降低 MVVM 的复杂性和神秘性，让菜鸟也能快速上手。</p>
 <p>Stylet 的部分功能是 Caliburn.Micro 不具备的，比如：IoC  容器、简单的 ViewModel 验证，兼容 MVVM 的消息框（译者注：方便单元测试）。</p>
 <p>Stylet 项目源码经过全面的单元测试，LOC 指标优秀，非常适合一些由于使用和验证 SOUP 导致开销很大的项目。得益于模块化的设计，本框架提供功能可按需引入。</p>
@@ -824,36 +810,15 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/" class="category-chain-item">遨游码海</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/CSharp/">#CSharp</a>
-      
         <a href="/tags/%E7%BC%96%E7%A8%8B/">#编程</a>
       
         <a href="/tags/%E8%AF%91%E6%96%87/">#译文</a>
+      
+        <a href="/tags/CSHARP/">#CSHARP</a>
       
         <a href="/tags/MVVM/">#MVVM</a>
       

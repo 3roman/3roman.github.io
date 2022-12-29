@@ -16,22 +16,20 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="系统安装使用树莓派官方Raspberry Pi Imager工具安装系统非常简单。下载安装该软件后将SD卡（建议容量在32GB以上）插入读卡器，再来到我的电脑查看SD卡盘符。运行软件，先选择操作系统再选择SD卡（注意盘符是否对应），最后点击WRITE按钮自动下载安装。">
+    <meta name="description" content="系统安装使用树莓派官方Raspberry Pi Imager工具安装系统非常简单。下载安装该软件后将SD卡（建议容量在32GB以上）插入读卡器，再来到我的电脑查看SD卡盘符。运行软件，先选择操作系统再选择SD卡（注意盘符是否对应），最后点击WRITE按钮自动下载安装。 由于国内网络环境问题，从官网下载镜像非常慢，建议用IDM等下载工具将镜像文件单独下载下来。第一步操作系统选择自定义操作系统，然后找">
 <meta property="og:type" content="article">
 <meta property="og:title" content="玩转树莓派">
 <meta property="og:url" content="https://3roman.github.io/Linux/%E7%8E%A9%E8%BD%AC%E6%A0%91%E8%8E%93%E6%B4%BE/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="系统安装使用树莓派官方Raspberry Pi Imager工具安装系统非常简单。下载安装该软件后将SD卡（建议容量在32GB以上）插入读卡器，再来到我的电脑查看SD卡盘符。运行软件，先选择操作系统再选择SD卡（注意盘符是否对应），最后点击WRITE按钮自动下载安装。">
+<meta property="og:description" content="系统安装使用树莓派官方Raspberry Pi Imager工具安装系统非常简单。下载安装该软件后将SD卡（建议容量在32GB以上）插入读卡器，再来到我的电脑查看SD卡盘符。运行软件，先选择操作系统再选择SD卡（注意盘符是否对应），最后点击WRITE按钮自动下载安装。 由于国内网络环境问题，从官网下载镜像非常慢，建议用IDM等下载工具将镜像文件单独下载下来。第一步操作系统选择自定义操作系统，然后找">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210912151200974.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210912151834329.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/raspi.png">
 <meta property="article:published_time" content="2022-12-27T12:11:41.967Z">
-<meta property="article:modified_time" content="2021-12-10T13:28:03.179Z">
+<meta property="article:modified_time" content="2022-12-29T14:00:35.208Z">
 <meta property="article:author" content="3roman">
 <meta property="article:tag" content="Linux">
-<meta property="article:tag" content="树莓派">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210912151200974.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/raspi.png">
   
   
   
@@ -117,18 +115,6 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>归档</span>
@@ -171,7 +157,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://raw.githubusercontent.com/3roman/PicBed/master/hexo/mountain.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://raw.githubusercontent.com/3roman/PicBed/master/hexo/sea.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -255,8 +241,6 @@
               <div class="markdown-body">
                 
                 <h2 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h2><p>使用树莓派官方<a target="_blank" rel="noopener" href="https://www.raspberrypi.org/software/">Raspberry Pi Imager</a>工具安装系统非常简单。下载安装该软件后将SD卡（建议容量在32GB以上）插入读卡器，再来到我的电脑查看SD卡盘符。运行软件，先选择操作系统再选择SD卡（注意盘符是否对应），最后点击<strong>WRITE</strong>按钮自动下载安装。</p>
-<span id="more"></span>
-
 <p>由于国内网络环境问题，从官网下载镜像非常慢，建议用IDM等下载工具将<a target="_blank" rel="noopener" href="https://www.raspberrypi.org/software/operating-systems/">镜像文件</a>单独下载下来。第一步操作系统选择自定义操作系统，然后找到下载、解压好的<strong>img</strong>文件。</p>
 <p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210912151200974.png" srcset="/img/loading.gif" lazyload alt="image-20210912151200974"></p>
 <p>系统安装完成后可能需要设置无线网络、开启SSH服务等等。在点击<strong>Write</strong>按钮之前，按下<strong>Ctrl+Shift+X</strong>快捷键进行相关设置。</p>
@@ -288,34 +272,11 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
         <a href="/tags/Linux/">#Linux</a>
-      
-        <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">#树莓派</a>
       
     </div>
   

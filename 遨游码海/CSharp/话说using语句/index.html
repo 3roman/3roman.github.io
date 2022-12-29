@@ -16,18 +16,18 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="using 是 C# 程序员非常熟悉的关键字，概括起来有两个用途：引入命名空间；释放非托管资源。第一个用途就不多说了，下面剖析下释放非托管资源的前前后后。">
+    <meta name="description" content="using 是 C# 程序员非常熟悉的关键字，概括起来有两个用途：引入命名空间；释放非托管资源。第一个用途就不多说了，下面剖析下释放非托管资源的前前后后。 资源分类众所周知，C# 中的资源分托管资源和非托管资源。托管资源位于托管堆上，由 GC 自动回收。由于非托管资源不在托管堆上，GC 秉持“铁道警察各管一段”的职业道德，非托管资源它就不管了，交给程序员自己释放吧。 常见的非托管资源包括数据库连接">
 <meta property="og:type" content="article">
 <meta property="og:title" content="话说using语句">
 <meta property="og:url" content="https://3roman.github.io/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/%E8%AF%9D%E8%AF%B4using%E8%AF%AD%E5%8F%A5/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="using 是 C# 程序员非常熟悉的关键字，概括起来有两个用途：引入命名空间；释放非托管资源。第一个用途就不多说了，下面剖析下释放非托管资源的前前后后。">
+<meta property="og:description" content="using 是 C# 程序员非常熟悉的关键字，概括起来有两个用途：引入命名空间；释放非托管资源。第一个用途就不多说了，下面剖析下释放非托管资源的前前后后。 资源分类众所周知，C# 中的资源分托管资源和非托管资源。托管资源位于托管堆上，由 GC 自动回收。由于非托管资源不在托管堆上，GC 秉持“铁道警察各管一段”的职业道德，非托管资源它就不管了，交给程序员自己释放吧。 常见的非托管资源包括数据库连接">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-12-27T12:11:42.130Z">
-<meta property="article:modified_time" content="2022-01-03T12:33:18.243Z">
+<meta property="article:modified_time" content="2022-12-29T05:18:03.000Z">
 <meta property="article:author" content="3roman">
-<meta property="article:tag" content="CSharp">
 <meta property="article:tag" content="编程">
+<meta property="article:tag" content="CSHARP">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -114,18 +114,6 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>归档</span>
@@ -168,7 +156,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://raw.githubusercontent.com/3roman/PicBed/master/hexo/mountain.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://raw.githubusercontent.com/3roman/PicBed/master/hexo/sea.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -252,8 +240,6 @@
               <div class="markdown-body">
                 
                 <p>using 是 C# 程序员非常熟悉的关键字，概括起来有两个用途：引入命名空间；释放非托管资源。第一个用途就不多说了，下面剖析下释放非托管资源的前前后后。</p>
-<span id="more"></span>
-
 <h2 id="资源分类"><a href="#资源分类" class="headerlink" title="资源分类"></a>资源分类</h2><p>众所周知，C# 中的资源分托管资源和非托管资源。托管资源位于托管堆上，由 GC 自动回收。由于非托管资源不在托管堆上，GC 秉持“铁道警察各管一段”的职业道德，非托管资源它就不管了，交给程序员自己释放吧。</p>
 <p>常见的非托管资源包括数据库连接、文件流、网络套接字等等，它们往往比内存更宝贵，用完应尽早释放。鉴于非托管资源自身的多样性和复杂性，GC 也心有余而力不足。另外，GC 回收资源不是实时的，把非托管资源交给 GC 释放也存在滞后。对于托管资源，GC 早点、晚点来释放，无非就是多占点内存，没那么紧要。</p>
 <h2 id="释放方法"><a href="#释放方法" class="headerlink" title="释放方法"></a>释放方法</h2><p>.NET 提供了两个非托管资源的释放方法：类型自身的<code>Finalize()</code>方法和<code>IDispose</code>接口的<code>Dispose()</code>方法。</p>
@@ -282,34 +268,13 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/" class="category-chain-item">遨游码海</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/CSharp/">#CSharp</a>
-      
         <a href="/tags/%E7%BC%96%E7%A8%8B/">#编程</a>
+      
+        <a href="/tags/CSHARP/">#CSHARP</a>
       
     </div>
   
