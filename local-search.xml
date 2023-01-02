@@ -67,27 +67,6 @@
   
   
   <entry>
-    <title>JS简写之法</title>
-    <link href="/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/JavaScript/js%E7%AE%80%E5%86%99%E4%B9%8B%E6%B3%95/"/>
-    <url>/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/JavaScript/js%E7%AE%80%E5%86%99%E4%B9%8B%E6%B3%95/</url>
-    
-    <content type="html"><![CDATA[<ol><li><p>IF为真结构</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 常规写法</span><br><span class="hljs-keyword">if</span> (age &gt; <span class="hljs-number">18</span>) &#123;<br>    canDrink = <span class="hljs-literal">true</span>;<br>&#125;<br><span class="hljs-comment">// 简化写法</span><br>age &gt; <span class="hljs-number">18</span> &amp;&amp; (canDrink = <span class="hljs-literal">true</span>);<br></code></pre></td></tr></table></figure></li><li><p>交换变量</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> president = <span class="hljs-string">&#x27;Trump&#x27;</span>;<br><span class="hljs-keyword">let</span> candidate = <span class="hljs-string">&#x27;Biden&#x27;</span>;<br><span class="hljs-comment">// 常规写法</span><br><span class="hljs-keyword">const</span> temp = president;<br>president = candidate;<br>candidate = temp;<br><span class="hljs-comment">// 简化写法</span><br>[president, candidate] = [candidate, president];<br></code></pre></td></tr></table></figure></li><li><p>字符串转数值</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 常规写法</span><br><span class="hljs-keyword">let</span> age = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;18&#x27;</span>); <br><span class="hljs-keyword">let</span> weight = <span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;68.5&#x27;</span>); <br><span class="hljs-comment">// 简写</span><br><span class="hljs-keyword">let</span> age = +<span class="hljs-string">&#x27;18&#x27;</span>; <br><span class="hljs-keyword">let</span> weight = +<span class="hljs-string">&#x27;68.5&#x27;</span>;<br></code></pre></td></tr></table></figure></li><li><p>幂运算</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 常规写法</span><br><span class="hljs-keyword">const</span> n = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">pow</span>(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br><span class="hljs-comment">// 简化写法</span><br><span class="hljs-keyword">const</span> n = <span class="hljs-number">2</span> ** <span class="hljs-number">3</span>;<br></code></pre></td></tr></table></figure></li><li><p>提供默认值</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 常规写法</span><br>   <span class="hljs-keyword">let</span> dbHost;<br>   <span class="hljs-keyword">if</span> (process.<span class="hljs-property">env</span>.<span class="hljs-property">DB_HOST</span>) &#123; <br>       dbHost = process.<span class="hljs-property">env</span>.<span class="hljs-property">DB_HOST</span>;<br>   &#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// null or undefined</span><br>       dbHost = <span class="hljs-string">&#x27;localhost&#x27;</span>;<br>   &#125;<br>   <br>   <span class="hljs-comment">// 简化写法</span><br>   <span class="hljs-keyword">const</span> dbHost = process.<span class="hljs-property">env</span>.<span class="hljs-property">DB_HOST</span> || <span class="hljs-string">&#x27;localhost&#x27;</span>; <span class="hljs-comment">// </span><br></code></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>编程</tag>
-      
-      <tag>Javascript</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>JS入门</title>
     <link href="/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/JavaScript/js%E5%85%A5%E9%97%A8/"/>
     <url>/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/JavaScript/js%E5%85%A5%E9%97%A8/</url>
@@ -188,7 +167,7 @@
       
       <tag>编程</tag>
       
-      <tag>CSHARP</tag>
+      <tag>C#</tag>
       
     </tags>
     
@@ -209,7 +188,7 @@
       
       <tag>编程</tag>
       
-      <tag>CSHARP</tag>
+      <tag>C#</tag>
       
     </tags>
     
@@ -230,7 +209,7 @@
       
       <tag>编程</tag>
       
-      <tag>CSHARP</tag>
+      <tag>C#</tag>
       
       <tag>MVVM</tag>
       
@@ -253,7 +232,7 @@
       
       <tag>编程</tag>
       
-      <tag>CSHARP</tag>
+      <tag>C#</tag>
       
     </tags>
     
@@ -276,7 +255,7 @@
       
       <tag>译文</tag>
       
-      <tag>CSHARP</tag>
+      <tag>C#</tag>
       
       <tag>MVVM</tag>
       
@@ -301,7 +280,7 @@
       
       <tag>译文</tag>
       
-      <tag>CSHARP</tag>
+      <tag>C#</tag>
       
       <tag>ORM</tag>
       
