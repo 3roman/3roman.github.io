@@ -16,25 +16,25 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Δ 表示变化量，即$\Delta t &#x3D; t_2-t_1$。 d 表示一个趋向无穷小的变化量或表示全微分，等价于$\Delta t\to0$。该符号常见于表示变化率，因此导数表示为$\frac{dy}{dx}$。 ∂ 是偏微分符号，用于表示多元函数中对某个变量的偏微分。打个比方：大气压是地点和时间的函数，当需要确定珠穆朗玛峰峰顶（地点固定）每分钟的大气压变化规律时，就是可认为是大气压对时间的偏微分">
+    <meta name="description" content="平均数的概念在小学的时候都早已接触，后来念到初中，高中，大学我们碰到了更多的平均数，那么常用的平均数有哪些，又是怎么定义的，使用上有什么讲究呢？我想，有必要整理总结下，正所谓温故而知新。 算术平均在统计学意义上，算术平均分简单算术平均和加权算术平均两种。它们常用于数值型数据，不适用于品质数据。 简单算术平均简单算术平均最常用，这里不再累述，其定义如下：  n个数据相加再除以n  $$\overli">
 <meta property="og:type" content="article">
-<meta property="og:title" content="变化量的表示">
-<meta property="og:url" content="https://3roman.github.io/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E5%8F%98%E5%8C%96%E9%87%8F%E7%9A%84%E8%A1%A8%E7%A4%BA/index.html">
+<meta property="og:title" content="聊聊平均数">
+<meta property="og:url" content="https://3roman.github.io/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E8%81%8A%E8%81%8A%E5%B9%B3%E5%9D%87%E6%95%B0/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="Δ 表示变化量，即$\Delta t &#x3D; t_2-t_1$。 d 表示一个趋向无穷小的变化量或表示全微分，等价于$\Delta t\to0$。该符号常见于表示变化率，因此导数表示为$\frac{dy}{dx}$。 ∂ 是偏微分符号，用于表示多元函数中对某个变量的偏微分。打个比方：大气压是地点和时间的函数，当需要确定珠穆朗玛峰峰顶（地点固定）每分钟的大气压变化规律时，就是可认为是大气压对时间的偏微分">
+<meta property="og:description" content="平均数的概念在小学的时候都早已接触，后来念到初中，高中，大学我们碰到了更多的平均数，那么常用的平均数有哪些，又是怎么定义的，使用上有什么讲究呢？我想，有必要整理总结下，正所谓温故而知新。 算术平均在统计学意义上，算术平均分简单算术平均和加权算术平均两种。它们常用于数值型数据，不适用于品质数据。 简单算术平均简单算术平均最常用，这里不再累述，其定义如下：  n个数据相加再除以n  $$\overli">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/delta-logo.png">
-<meta property="article:published_time" content="2022-12-27T12:28:00.934Z">
-<meta property="article:modified_time" content="2022-12-31T12:44:15.706Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/20230131average.png">
+<meta property="article:published_time" content="2023-01-31T12:11:09.724Z">
+<meta property="article:modified_time" content="2023-02-01T12:38:13.500Z">
 <meta property="article:author" content="3roman">
 <meta property="article:tag" content="糊口生计">
 <meta property="article:tag" content="理论学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/delta-logo.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/20230131average.png">
   
   
   
-  <title>变化量的表示 - 昼锦堂小记</title>
+  <title>聊聊平均数 - 昼锦堂小记</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -164,7 +164,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="变化量的表示"></span>
+            <span id="subtitle" data-typed-text="聊聊平均数"></span>
           
         </div>
 
@@ -175,8 +175,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-27 20:28" pubdate>
-          2022年12月27日 晚上
+        <time datetime="2023-01-31 20:11" pubdate>
+          2023年1月31日 晚上
         </time>
       </span>
     
@@ -187,7 +187,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          278 字
+          2.1k 字
         
       </span>
     
@@ -198,7 +198,7 @@
         
         
         
-          3 分钟
+          18 分钟
         
       </span>
     
@@ -236,17 +236,79 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">变化量的表示</h1>
+            <h1 style="display: none">聊聊平均数</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Δ 表示变化量，即$\Delta t = t_2-t_1$。</p>
-<p>d 表示一个趋向无穷小的变化量或表示全微分，等价于$\Delta t\to0$。该符号常见于表示变化率，因此导数表示为$\frac{dy}{dx}$。</p>
-<p>∂ 是偏微分符号，用于表示多元函数中对某个变量的偏微分。打个比方：大气压是地点和时间的函数，当需要确定珠穆朗玛峰峰顶（地点固定）每分钟的大气压变化规律时，就是可认为是大气压对时间的偏微分。</p>
-<p>δ 是 Δ 的小写符号，具体意义取决于上下文。δ 通常也表示一个无穷小的变化量，但是它不区分是全微分还是偏微分。</p>
-<p>因此，除了 Δ  上述其它三个符号的区别不大，但是在使用时还是要具体区分。</p>
-
+                <p>平均数的概念在小学的时候都早已接触，后来念到初中，高中，大学我们碰到了更多的平均数，那么常用的平均数有哪些，又是怎么定义的，使用上有什么讲究呢？我想，有必要整理总结下，正所谓温故而知新。</p>
+<h2 id="算术平均"><a href="#算术平均" class="headerlink" title="算术平均"></a>算术平均</h2><p>在统计学意义上，算术平均分简单算术平均和加权算术平均两种。它们常用于数值型数据，不适用于品质数据。</p>
+<h3 id="简单算术平均"><a href="#简单算术平均" class="headerlink" title="简单算术平均"></a>简单算术平均</h3><p>简单算术平均最常用，这里不再累述，其定义如下：</p>
+<blockquote>
+<p>n个数据相加再除以n</p>
+</blockquote>
+<p>$$<br>\overline{x}=\frac{\sum_{i=1}^{n}x_i}{n}=\frac{x_1+x_2+\cdots+x_i}{n}<br>$$</p>
+<h3 id="加权算术平均"><a href="#加权算术平均" class="headerlink" title="加权算术平均"></a>加权算术平均</h3><p>加权算术平均考虑了个体对于整体的贡献程度/重要程度（权重）不同。如果大家的权重都一样（众生平等），加权算术平均数就等于简单算术平均数，即简单算术平均是加权算术平均的特例。加权算术平均定义如下：</p>
+<blockquote>
+<p>数值与其权重乘积之和再除以所有权重的之和</p>
+</blockquote>
+<p>$$<br>\overline{x}=\frac{\sum_{i=1}^{n}x_iw_i}{\sum_{i=1}^{n}w_i}=\frac{x_1w_1+x_2w_2+\cdots+x_nw_n}{w_1+w_2+\cdots+w_n}<br>$$</p>
+<p>规范要求工作时间段内有毒气体平均接触浓度采用加权算术平均数的计算方法。某天的测量数据如下表：</p>
+<table>
+<thead>
+<tr>
+<th align="center">平均接触浓度（mg/m³）</th>
+<th align="center">持续接触时间（h）</th>
+<th align="center">时间权重（0~1）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">400</td>
+<td align="center">1</td>
+<td align="center">1/8</td>
+</tr>
+<tr>
+<td align="center">60</td>
+<td align="center">2</td>
+<td align="center">2/8</td>
+</tr>
+<tr>
+<td align="center">120</td>
+<td align="center">5</td>
+<td align="center">5/8</td>
+</tr>
+</tbody></table>
+<p>时间加权算术平均数计算过程如下：<br>$$<br>C_{twa}=\frac{C_1W_1+C_2W_2+\cdots+C_nWn}{W_1+W_2+\cdots+W_n}=\frac{400\times\frac{1}{8}+60\times\frac{2}{8}+120\times\frac{5}{8}}{\frac{1}{8}+\frac{2}{8}+\frac{5}{8}}=140mg/m^3<br>$$<br>简单算术平均数计算结果为193.3，为什么会不一样呢？回到最初的需求，我们要算的是8小时内的平均接触浓度，这里强调的是对时间的平均。上述三个平均数中对应的时间段都不同，在时间维度上是不均匀的，也就是说对于整个时间段的贡献程度是不同的。如果使用简单算术平均数，就默认了它们在时间维度上是平等的，明显是不合理的。<strong>对于这些平均数再求平均数的场合，要特别注意采用哪种计算方法。</strong></p>
+<h2 id="几何平均"><a href="#几何平均" class="headerlink" title="几何平均"></a>几何平均</h2><p>几何平均一般用于品质类数据，反映了整体的平均变化率。<strong>数据不独立，存在前后依赖关系。</strong></p>
+<p>几何平均也分加权和不加权两种。之所以叫几何平均，是因为可以通过几何作图的方法求得两个数的几何平均数（平方根）。几何平均定义如下：</p>
+<blockquote>
+<p>n个数据相乘再开n次方</p>
+</blockquote>
+<p>$$<br>\overline{x}=\sqrt[n]{x_1 x_2 \cdots x_n}<br>$$</p>
+<p>为了方便理解，举个例子。工厂设有毛坯，初加工，精加工和装配4个连续作业车间，其产品合格率分别是97%，93%，99%，98.5%，求产品平均合格率。烂菜是不给上桌的，只有合格品才会被送到下一工段继续加工，以此类推，因此按下面的方法计算：<br>$$<br>\overline{x}=\sqrt[n]{x_1 x_2 \cdots x_n}=\sqrt[4]{0.97\times0.93\times0.99\times0.985}=0.968<br>$$</p>
+<h2 id="对数平均"><a href="#对数平均" class="headerlink" title="对数平均"></a>对数平均</h2><p>对数平均在传热学中应用深刻，笔者接触过的有圆管一维稳态导热计算和换热器对数平均温差计算。</p>
+<blockquote>
+<p>两数的差除以两数自然对数的差</p>
+</blockquote>
+<p>$$<br>\overline{x}=\frac{a-b}{\ln{a}-\ln{b}}<br>$$</p>
+<h3 id="圆管一维稳态导热"><a href="#圆管一维稳态导热" class="headerlink" title="圆管一维稳态导热"></a>圆管一维稳态导热</h3><p>我们来研究圆管一维稳态导热的问题，最典型的应用是隔热层厚度的计算。一段长L的保温管壳特征尺寸如下图：</p>
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/tubular_conductive_heat_transfer.png" srcset="/img/loading.gif" lazyload alt="tubular_conductive_heat_transfer"></p>
+<p>根据傅里叶定律，热导率方程推导过程如下：<br>$$<br>Q=-KA\frac{dt}{dr}=-K(2πrL)\frac{dt}{dr} \<br>$$</p>
+<p>$$<br>\Downarrow \<br>$$</p>
+<p>$$<br>Q\frac{1}{r}dr=-K2πLdt \<br>$$</p>
+<p>$$<br>\Downarrow \<br>$$</p>
+<p>$$<br>Q\int_{r_1}^{r_2}\frac{1}{r}dr=-K2πL\int_{t_1}^{t_2}dt \<br>$$</p>
+<p>$$<br>\Downarrow \<br>$$</p>
+<p>$$<br>Q(\ln{r_2}-\ln{r_1})=-K2πL(t_2-t_1) \<br>$$</p>
+<p>$$<br>\Downarrow \<br>$$</p>
+<p>$$<br>Q=-K2πL\frac{t_2-t_1}{\ln{r_2}-\ln{r_1}}=-K(2π\cdot\frac{r_2-r_1}{\ln{r_2}-\ln{r_1}} \cdot L)(\frac{t_2-t_1}{r_2-r_1})<br>$$</p>
+<p>从上式可知，圆管一维稳态导热计算中圆管换热面积由对数平均半径计算得到。</p>
+<h3 id="对数平均温差"><a href="#对数平均温差" class="headerlink" title="对数平均温差"></a>对数平均温差</h3><p>换热器中冷热流体的温差呈指数型变化规律<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Log Mean Temperature Difference](https://www.omnicalculator.com/physics/lmtd)">[1]</span></a></sup>，因此使用对数平均温差（LMTD）相对于算术平均温差更精确。</p>
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/LMTD.png" srcset="/img/loading.gif" lazyload alt="LMTD"></p>
+<p>上图的 LMTD 计算结果如下：<br>$$<br>LMTD=\frac{\Delta T_a-\Delta T_b}{\ln{\Delta T_a}-\ln{\Delta T_b}}=\frac{40-4}{\ln{40}-\ln{4}}=15.6<br>$$</p>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.omnicalculator.com/physics/lmtd">Log Mean Temperature Difference</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="http://tw.classf0001.uschoolnet.com/css000000237536/cm4k-1489068565-6972-9931.pdf">在热带遇见平均数</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -272,8 +334,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>变化量的表示</div>
-      <div>https://3roman.github.io/糊口生计/变化量的表示/</div>
+      <div>聊聊平均数</div>
+      <div>https://3roman.github.io/糊口生计/聊聊平均数/</div>
     </div>
     <div class="license-meta">
       
@@ -285,7 +347,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年12月27日</div>
+          <div>2023年1月31日</div>
         </div>
       
       
@@ -317,18 +379,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E8%81%8A%E8%81%8A%E5%B9%B3%E5%9D%87%E6%95%B0/" title="聊聊平均数">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">聊聊平均数</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E6%B1%BD%E8%BD%AE%E6%9C%BA%E8%B6%85%E9%80%9F%E4%BF%9D%E6%8A%A4/" title="汽轮机超速保护">
-                        <span class="hidden-mobile">汽轮机超速保护</span>
+                      <a href="/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E5%8F%98%E5%8C%96%E9%87%8F%E7%9A%84%E8%A1%A8%E7%A4%BA/" title="变化量的表示">
+                        <span class="hidden-mobile">变化量的表示</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
