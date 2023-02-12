@@ -16,12 +16,12 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="原文地址：C Program Compilation Process 也许您能够熟练编写 C 程序，但是您未必了解如何由 C 代码得到二进制文件，本文将系统介绍下这个过程。 编译器介绍编译器的定义维基百科关于编译器的定义如下：  编译器（compiler）是一种计算机程序，它会将某种编程语言写成的源代码（原始语言）转换成另一种编程语言（目标语言）。它的主要目的是将便于人类编写、阅读、维护的高级计算">
+    <meta name="description" content="原文地址：C Program Compilation Process 也许您能够熟练编写 C 程序，但是您未必了解如何由 C 代码得到二进制文件，本文将系统介绍下这个过程。 编译器介绍 编译器的定义 维基百科关于编译器的定义如下：  编译器（compiler）是一种计算机程序，它会将某种编程语言写成的源代码（原始语言）转换成另一种编程语言（目标语言）。它的主要目的是将便于人类编写、">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C代码编译过程">
 <meta property="og:url" content="https://3roman.github.io/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/C/C%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="原文地址：C Program Compilation Process 也许您能够熟练编写 C 程序，但是您未必了解如何由 C 代码得到二进制文件，本文将系统介绍下这个过程。 编译器介绍编译器的定义维基百科关于编译器的定义如下：  编译器（compiler）是一种计算机程序，它会将某种编程语言写成的源代码（原始语言）转换成另一种编程语言（目标语言）。它的主要目的是将便于人类编写、阅读、维护的高级计算">
+<meta property="og:description" content="原文地址：C Program Compilation Process 也许您能够熟练编写 C 程序，但是您未必了解如何由 C 代码得到二进制文件，本文将系统介绍下这个过程。 编译器介绍 编译器的定义 维基百科关于编译器的定义如下：  编译器（compiler）是一种计算机程序，它会将某种编程语言写成的源代码（原始语言）转换成另一种编程语言（目标语言）。它的主要目的是将便于人类编写、">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/c_cpmpile.gif">
 <meta property="article:published_time" content="2022-12-27T12:11:42.072Z">
@@ -242,70 +242,89 @@
             
               <div class="markdown-body">
                 
-                <p>原文地址：<a target="_blank" rel="noopener" href="https://hackthedeveloper.com/c-program-compilation-process/">C Program Compilation Process</a></p>
-<p>也许您能够熟练编写 C 程序，但是您未必了解如何由 C 代码得到二进制文件，本文将系统介绍下这个过程。</p>
-<h2 id="编译器介绍"><a href="#编译器介绍" class="headerlink" title="编译器介绍"></a>编译器介绍</h2><h3 id="编译器的定义"><a href="#编译器的定义" class="headerlink" title="编译器的定义"></a>编译器的定义</h3><p>维基百科关于编译器的定义如下：</p>
+                <p>原文地址：<a
+target="_blank" rel="noopener" href="https://hackthedeveloper.com/c-program-compilation-process/">C
+Program Compilation Process</a></p>
+<p>也许您能够熟练编写 C 程序，但是您未必了解如何由 C
+代码得到二进制文件，本文将系统介绍下这个过程。</p>
+<h2 id="编译器介绍">编译器介绍</h2>
+<h3 id="编译器的定义">编译器的定义</h3>
+<p>维基百科关于编译器的定义如下：</p>
 <blockquote>
 <p>编译器（compiler）是一种计算机程序，它会将某种编程语言写成的源代码（原始语言）转换成另一种编程语言（目标语言）。它的主要目的是将便于人类编写、阅读、维护的高级计算机语言所写作的源代码程序，翻译为计算机能解读、运行的低级机器语言的程序，也就是可执行文件。</p>
 </blockquote>
-<h3 id="编译器的分类"><a href="#编译器的分类" class="headerlink" title="编译器的分类"></a>编译器的分类</h3><p>在正式讲编译过程之前，有必要提前了解下 C 编译器的分类。</p>
-<h4 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h4><p>GCC 是 <strong>GNU Compiler Collection</strong>  的缩写，也是 GNU 项目的重要一员。只要遵循 <strong>GPL</strong> 协议，任何人都可以免费使用它。本文将使用该编译器作演示。</p>
-<h4 id="Clang"><a href="#Clang" class="headerlink" title="Clang"></a>Clang</h4><p>Clang 编译器采用 LLVM 后端，可以编译C、C++、Object-C、Object-C++四种 C 系程序。该编译器基本用于 macOS 平台。</p>
+<h3 id="编译器的分类">编译器的分类</h3>
+<p>在正式讲编译过程之前，有必要提前了解下 C 编译器的分类。</p>
+<h4 id="gcc">GCC</h4>
+<p>GCC 是 <strong>GNU Compiler Collection</strong> 的缩写，也是 GNU
+项目的重要一员。只要遵循 <strong>GPL</strong>
+协议，任何人都可以免费使用它。本文将使用该编译器作演示。</p>
+<h4 id="clang">Clang</h4>
+<p>Clang 编译器采用 LLVM 后端，可以编译C、C++、Object-C、Object-C++四种
+C 系程序。该编译器基本用于 macOS 平台。</p>
 <blockquote>
-<p>当程序较大、较复杂时，GCC 在 macOS 上的表现欠佳，因此想到了 Clang。   —<a target="_blank" rel="noopener" href="https://www.educba.com/best-c-compilers/">EDUCBA</a></p>
+<p>当程序较大、较复杂时，GCC 在 macOS 上的表现欠佳，因此想到了 Clang。
+—<a target="_blank" rel="noopener" href="https://www.educba.com/best-c-compilers/">EDUCBA</a></p>
 </blockquote>
-<p>您可在该<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_compilers">维基词条</a>下找到包括 C 编译器在内的市面上所有的编译器。下面让我们来剖析一下 C 程序的编译流程。</p>
-<h2 id="编译流程详解"><a href="#编译流程详解" class="headerlink" title="编译流程详解"></a>编译流程详解</h2><p>写好代码之后，第一件要做的事就是编译代码，此过程往往耗费数秒。代码在这期间经过一系列转换，得到了二进制文件。另外，这个过程是顺序进行的，就好比工厂里的流水线，上一工序的输出是下一工序的输入。</p>
+<p>您可在该<a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_compilers">维基词条</a>下找到包括
+C 编译器在内的市面上所有的编译器。下面让我们来剖析一下 C
+程序的编译流程。</p>
+<h2 id="编译流程详解">编译流程详解</h2>
+<p>写好代码之后，第一件要做的事就是编译代码，此过程往往耗费数秒。代码在这期间经过一系列转换，得到了二进制文件。另外，这个过程是顺序进行的，就好比工厂里的流水线，上一工序的输出是下一工序的输入。</p>
 <p>进一步讲解之前，先声明以下两个约定：</p>
 <ul>
 <li>仅编译源文件</li>
 <li>分开编译源文件</li>
 </ul>
 <p>C 程序的编译流程分四大步骤：</p>
-<ol>
+<ol type="1">
 <li>预处理</li>
 <li>编译</li>
 <li>汇编</li>
 <li>链接</li>
 </ol>
-<p>只有顺利通过上述所有步骤，才能输出产物。操作系统不同，输出产物也不同。在 Windows 系统下，通常得到 <strong>.exe</strong> 文件，而在 Linux 系统下默认生成 <strong>a.out</strong>。在上述任何步骤中，即使发生了一个细微的错误也会造成编译或链接失败。</p>
+<p>只有顺利通过上述所有步骤，才能输出产物。操作系统不同，输出产物也不同。在
+Windows 系统下，通常得到 <strong>.exe</strong> 文件，而在 Linux
+系统下默认生成
+<strong>a.out</strong>。在上述任何步骤中，即使发生了一个细微的错误也会造成编译或链接失败。</p>
 <p>下图展示了整个编译流程，您可以快速总览一下。</p>
-<p><img src="https://nerdyelectronics.com/wp-content/uploads/2017/07/GCC_CompilationProcess.png" srcset="/img/loading.gif" lazyload></p>
+<p><img
+src="https://nerdyelectronics.com/wp-content/uploads/2017/07/GCC_CompilationProcess.png" srcset="/img/loading.gif" lazyload /></p>
 <p>以下命令可得到编译过程产生的所有中间文件和可执行文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ gcc –Wall –save-temps cprogram.c –o cprogram<br></code></pre></td></tr></table></figure>
-
 <p>参数说明：</p>
 <ul>
 <li><p>-Wall</p>
-<p>显示所有错误信息和警告信息</p>
-</li>
+<p>显示所有错误信息和警告信息</p></li>
 <li><p>-save-temps</p>
-<p>保存编译过程产生的中间文件</p>
-</li>
+<p>保存编译过程产生的中间文件</p></li>
 <li><p>-o</p>
-<p>指定输出文件名</p>
-</li>
+<p>指定输出文件名</p></li>
 </ul>
 <p>中间文件：</p>
 <ul>
 <li><p>cprogram.i</p>
-<p>预处理器生成物</p>
-</li>
+<p>预处理器生成物</p></li>
 <li><p>cprogram.s</p>
-<p>编译器生成物</p>
-</li>
+<p>编译器生成物</p></li>
 <li><p>cprogram.o</p>
-<p>汇编器生成物</p>
-</li>
+<p>汇编器生成物</p></li>
 <li><p>cprogram.out</p>
-<p>最终产物—可执行文件</p>
-</li>
+<p>最终产物—可执行文件</p></li>
 </ul>
-<h3 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h3><p>预处理是整个编译流程的第一步，经过预处理的代码称为<strong>翻译单元</strong>。</p>
-<p>任何 C 代码中都不可避免地要包含一些库、定义一些宏，有时还要设一些条件编译指令。所有这些指令被称为预处理指令。经过预处理后，预处理指令将被替换成原始值。</p>
-<h4 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h4><p>C 代码的开头一般会包含一个或多个头文件。预处理器根据<code>#include</code>指令将相关头文件的内容替换进来。</p>
-<h4 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h4><p>C 语言中使用<code>#define</code>指令定义宏，预处理器会将这些宏替换成相应值。</p>
-<h4 id="条件编译"><a href="#条件编译" class="headerlink" title="条件编译"></a>条件编译</h4><p>为了提高编译效率，我们期望需要编译的代码尽可能少，这时就用到了条件编译。预处理器会根据条件编译指令去除那些无需编译的代码。常见条件编译指令如下：</p>
+<h3 id="预处理">预处理</h3>
+<p>预处理是整个编译流程的第一步，经过预处理的代码称为<strong>翻译单元</strong>。</p>
+<p>任何 C
+代码中都不可避免地要包含一些库、定义一些宏，有时还要设一些条件编译指令。所有这些指令被称为预处理指令。经过预处理后，预处理指令将被替换成原始值。</p>
+<h4 id="头文件">头文件</h4>
+<p>C
+代码的开头一般会包含一个或多个头文件。预处理器根据<code>#include</code>指令将相关头文件的内容替换进来。</p>
+<h4 id="宏">宏</h4>
+<p>C
+语言中使用<code>#define</code>指令定义宏，预处理器会将这些宏替换成相应值。</p>
+<h4 id="条件编译">条件编译</h4>
+<p>为了提高编译效率，我们期望需要编译的代码尽可能少，这时就用到了条件编译。预处理器会根据条件编译指令去除那些无需编译的代码。常见条件编译指令如下：</p>
 <ul>
 <li><strong>#undef</strong></li>
 <li><strong>#ifdef</strong></li>
@@ -315,68 +334,73 @@
 <li><strong>#elif</strong></li>
 <li><strong>#endif</strong></li>
 </ul>
-<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>为了提高程序的可读性，代码中经常要写注释。对于计算机而言，这些注释都是多余的，因此预处理器会移除代码中的注释。</p>
-<h4 id="GCC-命令"><a href="#GCC-命令" class="headerlink" title="GCC 命令"></a>GCC 命令</h4><p>一个简单 C 程序的示例代码如下：</p>
+<h4 id="注释">注释</h4>
+<p>为了提高程序的可读性，代码中经常要写注释。对于计算机而言，这些注释都是多余的，因此预处理器会移除代码中的注释。</p>
+<h4 id="gcc-命令">GCC 命令</h4>
+<p>一个简单 C 程序的示例代码如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// Header File</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> Max 10</span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello World&quot;</span>); <span class="hljs-comment">// Print Hello World</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>, Max);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>使用<code>-E</code>参数将源文件转换成编译单元。由于包含了 stdio.h 头文件，翻译后的代码行数多达上千，以下只截取关键部分展示：</p>
+<p>使用<code>-E</code>参数将源文件转换成编译单元。由于包含了 stdio.h
+头文件，翻译后的代码行数多达上千，以下只截取关键部分展示：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ gcc -E cprogram.c<br><br><br><span class="hljs-comment"># 1 &quot;cprogram.c&quot;</span><br><span class="hljs-comment"># 1 &quot;&quot;</span><br><span class="hljs-comment"># 1 &quot;&quot;</span><br><span class="hljs-comment"># 1 &quot;cprogram.c&quot;</span><br>.......<br>.......<br>.......<br>typedef __time64_t time_t;<br><span class="hljs-comment"># 435 &quot;C:/msys64/mingw64/x86_64-w64-mingw32/include/corecrt.h&quot; 3</span><br><br>typedef struct localeinfo_struct &#123;<br>  pthreadlocinfo locinfo;<br>  pthreadmbcinfo mbcinfo;<br>&#125; _locale_tstruct,*_locale_t;<br><br>typedef struct tagLC_ID &#123;<br>  unsigned short wLanguage;<br>  unsigned short wCountry;<br>  unsigned short wCodePage;<br>&#125; LC_ID,*LPLC_ID;<br><br>.......<br>.......<br>.......<br><span class="hljs-comment"># 1582 &quot;C:/msys64/mingw64/x86_64-w64-mingw32/include/stdio.h&quot; 2 3</span><br><span class="hljs-comment"># 3 &quot;cprogram.c&quot; 2</span><br><br><br><span class="hljs-comment"># 5 &quot;cprogram.c&quot;</span><br>int <span class="hljs-function"><span class="hljs-title">main</span></span>()<br>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello World&quot;</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>, 10);<br>    <span class="hljs-built_in">return</span> 0;<br>&#125;<br></code></pre></td></tr></table></figure>
-
 <p>C 开发工具箱提供了一个专门用于预处理的工具 cpp，其用法如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">cpp cprogram.c<br></code></pre></td></tr></table></figure>
-
 <p>综上，预处理器只是做了一些很基础的字符替换、移除等工作。预处理得到的文件扩展名为<code>.i</code>。如果将其直接作为编译器的输入，编译器假定此文件已完成预处理，自动跳过预处理步骤。</p>
-<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>编译是很关键的一步，此步骤的输入为翻译单元，输出为汇编代码。汇编代码接近硬件，但人类仍可读。</p>
+<h3 id="编译">编译</h3>
+<p>编译是很关键的一步，此步骤的输入为翻译单元，输出为汇编代码。汇编代码接近硬件，但人类仍可读。</p>
 <p>先用<code>-S</code>参数将源文件预处理、编译成汇编代码，再用<code>cat</code>命令查看结果。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ gcc -S cprogram.c<br><br>$ <span class="hljs-built_in">cat</span> cprogram.s<br><br>	.file	<span class="hljs-string">&quot;cprogram.c&quot;</span><br>	.text<br>	.def	<span class="hljs-built_in">printf</span>;	.scl	3;	.<span class="hljs-built_in">type</span>	32;	.endef<br>	.seh_proc	<span class="hljs-built_in">printf</span><br><span class="hljs-built_in">printf</span>:<br>	pushq	%rbp<br>	.seh_pushreg	%rbp<br>	pushq	%rbx<br>	.seh_pushreg	%rbx<br>	subq	<span class="hljs-variable">$56</span>, %rsp<br>	.seh_stackalloc	56<br>	leaq	128(%rsp), %rbp<br>	.seh_setframe	%rbp, 128<br>	.seh_endprologue<br>	movq	%rcx, -48(%rbp)<br>	movq	%rdx, -40(%rbp)<br>	movq	%r8, -32(%rbp)<br>	movq	%r9, -24(%rbp)<br>	leaq	-40(%rbp), %rax<br>	movq	%rax, -96(%rbp)<br>	movq	-96(%rbp), %rbx<br>	movl	<span class="hljs-variable">$1</span>, %ecx<br>	movq	__imp___acrt_iob_func(%rip), %rax<br>	call	*%rax<br>	movq	%rbx, %r8<br>	movq	-48(%rbp), %rdx<br>	movq	%rax, %rcx<br>	call	__mingw_vfprintf<br>	movl	%eax, -84(%rbp)<br>	movl	-84(%rbp), %eax<br>	addq	<span class="hljs-variable">$56</span>, %rsp<br>	popq	%rbx<br>	popq	%rbp<br>	ret<br>	.seh_endproc<br>	.def	__main;	.scl	2;	.<span class="hljs-built_in">type</span>	32;	.endef<br>	.section .rdata,<span class="hljs-string">&quot;dr&quot;</span><br>.LC0:<br>	.ascii <span class="hljs-string">&quot;Hello World\0&quot;</span><br>.LC1:<br>	.ascii <span class="hljs-string">&quot;%d\0&quot;</span><br>	.text<br>	.globl	main<br>	.def	main;	.scl	2;	.<span class="hljs-built_in">type</span>	32;	.endef<br>	.seh_proc	main<br>main:<br>	pushq	%rbp<br>	.seh_pushreg	%rbp<br>	movq	%rsp, %rbp<br>	.seh_setframe	%rbp, 0<br>	subq	<span class="hljs-variable">$32</span>, %rsp<br>	.seh_stackalloc	32<br>	.seh_endprologue<br>	call	__main<br>	leaq	.LC0(%rip), %rcx<br>	call	<span class="hljs-built_in">printf</span><br>	movl	<span class="hljs-variable">$10</span>, %edx<br>	leaq	.LC1(%rip), %rcx<br>	call	<span class="hljs-built_in">printf</span><br>	movl	<span class="hljs-variable">$0</span>, %eax<br>	addq	<span class="hljs-variable">$32</span>, %rsp<br>	popq	%rbp<br>	ret<br>	.seh_endproc<br>	.ident	<span class="hljs-string">&quot;GCC: (Rev3, Built by MSYS2 project) 10.2.0&quot;</span><br>	.def	__mingw_vfprintf;	.scl	2;	.<span class="hljs-built_in">type</span>	32;	.endef<br></code></pre></td></tr></table></figure>
-
-<p>编译结果与 CPU 架构相关。即使同一份代码用同一个编译器编译，在不同 CPU 架构的机器上得到汇编结果也不同。编译得到的汇编代码属于低级语言，下一步骤将被转换为可重定位对象文件。</p>
-<h3 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h3><p>汇编器用上一步得到的汇编代码生成机器代码，输出可重定位对象文件。CPU 架构不同，汇编器也不同。不同架构下的汇编器将汇编代码转换成匹配本架构的机器代码。</p>
-<h4 id="生成可重定位对象文件"><a href="#生成可重定位对象文件" class="headerlink" title="生成可重定位对象文件"></a>生成可重定位对象文件</h4><p><code>as</code>工具可由汇编文件生成可重定位对象文件，用法如下：</p>
+<p>编译结果与 CPU 架构相关。即使同一份代码用同一个编译器编译，在不同 CPU
+架构的机器上得到汇编结果也不同。编译得到的汇编代码属于低级语言，下一步骤将被转换为可重定位对象文件。</p>
+<h3 id="汇编">汇编</h3>
+<p>汇编器用上一步得到的汇编代码生成机器代码，输出可重定位对象文件。CPU
+架构不同，汇编器也不同。不同架构下的汇编器将汇编代码转换成匹配本架构的机器代码。</p>
+<h4 id="生成可重定位对象文件">生成可重定位对象文件</h4>
+<p><code>as</code>工具可由汇编文件生成可重定位对象文件，用法如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ as cprogram.s -o cprogram.o<br></code></pre></td></tr></table></figure>
-
-<p>gcc 使用<code>-c</code>参数合并预处理、编译、汇编三个操作，直接从源文件生成对象文件。多个源文件要重复执行以下命令。</p>
+<p>gcc
+使用<code>-c</code>参数合并预处理、编译、汇编三个操作，直接从源文件生成对象文件。多个源文件要重复执行以下命令。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ gcc -c cprogram.c	<br></code></pre></td></tr></table></figure>
-
 <p>机器指令人类不可读。截止目前，我们学会了如何从汇编文件或者源文件生成对象文件，下面仅就剩最后一步链接。</p>
-<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p>链接也是至关重要的一步，这一步我们将合并/链接多个对象文件，得到另一种可执行的对象文件。</p>
-<p>假设有以下两个文件：htd.h 中声明了<code>printHTD()</code>函数，htd.c 中定义了<code>printHTD()</code>函数。</p>
+<h3 id="链接">链接</h3>
+<p>链接也是至关重要的一步，这一步我们将合并/链接多个对象文件，得到另一种可执行的对象文件。</p>
+<p>假设有以下两个文件：htd.h 中声明了<code>printHTD()</code>函数，htd.c
+中定义了<code>printHTD()</code>函数。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// htd.h</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">printHTD</span><span class="hljs-params">()</span>;<br></code></pre></td></tr></table></figure>
-
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;htd.h&quot;</span></span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">printHTD</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hack The Developer&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>cprogram.c 中的<code>main</code>()调用<code>printHTD</code>()输出字符串。</p>
+<p>cprogram.c
+中的<code>main</code>()调用<code>printHTD</code>()输出字符串。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// cprogram.c</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;htd.h&quot;</span></span><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>    printHTD();<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-
 <p>先将源文件分别生成两个对象文件，然后使用<code>ld</code>工具将生成的对象文件链接起来。由于未链接标准库，链接器报错<strong>未定义的引用</strong>，链接失败！</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ gcc -c cporgram.c<br>$ gcc -c htd.c<br>$ ld htd.o cprogram.o -o cprogram.out<br><br>ld: warning: cannot find entry symbol _start; defaulting to 00010074<br>ld: htd.o: <span class="hljs-keyword">in</span> <span class="hljs-keyword">function</span> `printHTD<span class="hljs-string">&#x27;:</span><br><span class="hljs-string">htd.c:(.text+0xc): undefined reference to `printf&#x27;</span><br></code></pre></td></tr></table></figure>
-
-<p>gcc 内置的链接器可自动链接标准库，用法如下。链接成功，终于得到梦寐以求的可执行文件。</p>
+<p>gcc
+内置的链接器可自动链接标准库，用法如下。链接成功，终于得到梦寐以求的可执行文件。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ gcc cprogram.o htd.o -o cprogram.out<br></code></pre></td></tr></table></figure>
-
-<h2 id="对象文件分析"><a href="#对象文件分析" class="headerlink" title="对象文件分析"></a>对象文件分析</h2><p><code>nm</code>工具用于显示对象文件里的各种符号。</p>
+<h2 id="对象文件分析">对象文件分析</h2>
+<p><code>nm</code>工具用于显示对象文件里的各种符号。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ nm htd.o<br>         U <span class="hljs-built_in">printf</span><br>00000000 T printHTD<br>$ nm cprogram.o<br>00000000 T main<br>         U printHTD<br></code></pre></td></tr></table></figure>
-
-<p>以上结果中，00000000为符号在对象文件中的偏移量，U 代表未定义(undefined)的符号，T 代表该符号位于代码段(Text)。链接器会从一起链接的标准库和其它对象文件中搜寻这些未定义符号，如果在别处都找到就能成功链接。下图展示了可重定位对象文件的文件结构。</p>
-<p><img src="https://hackthedeveloper.com/wp-content/uploads/2020/10/Object-File-Structure.png.webp" srcset="/img/loading.gif" lazyload></p>
+<p>以上结果中，00000000为符号在对象文件中的偏移量，U
+代表未定义(undefined)的符号，T
+代表该符号位于代码段(Text)。链接器会从一起链接的标准库和其它对象文件中搜寻这些未定义符号，如果在别处都找到就能成功链接。下图展示了可重定位对象文件的文件结构。</p>
+<p><img
+src="https://hackthedeveloper.com/wp-content/uploads/2020/10/Object-File-Structure.png.webp" srcset="/img/loading.gif" lazyload /></p>
 <p>众多节中，以下4个节非常关键：</p>
 <ul>
 <li><p>.text</p>
-<p>此节可读、可执行但不可写，存储了机器代码。</p>
-</li>
+<p>此节可读、可执行但不可写，存储了机器代码。</p></li>
 <li><p>.data</p>
-<p>此节可读，可写，存储了所有已初始化的全局变量和已初始化的静态变量。</p>
-</li>
+<p>此节可读，可写，存储了所有已初始化的全局变量和已初始化的静态变量。</p></li>
 <li><p>.rodata</p>
-<p>此节仅可读，储存了常量和字面量。</p>
-</li>
+<p>此节仅可读，储存了常量和字面量。</p></li>
 <li><p>.bss</p>
-<p>此节可读，可写，存储了所有未初始化的全局变量和未初始化的静态变量。</p>
-</li>
+<p>此节可读，可写，存储了所有未初始化的全局变量和未初始化的静态变量。</p></li>
 </ul>
-<p>ELF 是可执行文件、可重定位文件、共享库文件、核心转储文件的共同文件标准。在 Linux 下可用<code>readelf</code>工具读取标准 ELF 文件的信息。限于篇幅原因，这里不再演示。</p>
+<p>ELF
+是可执行文件、可重定位文件、共享库文件、核心转储文件的共同文件标准。在
+Linux 下可用<code>readelf</code>工具读取标准 ELF
+文件的信息。限于篇幅原因，这里不再演示。</p>
 <p>可执行文件中的主要节的结构如下：</p>
-<p><img src="https://hackthedeveloper.com/wp-content/uploads/2020/10/Structure.png.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img
+src="https://hackthedeveloper.com/wp-content/uploads/2020/10/Structure.png.webp" srcset="/img/loading.gif" lazyload /></p>
 <p>感谢您的阅读，希望您喜欢这些有趣的知识。</p>
 
                 

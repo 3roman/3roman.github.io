@@ -16,25 +16,24 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="nameof 是 C# 6.0新增的表达式，与 sizeof 不同， 它不是运算符。MSDN 上 关于 nameof 的介绍很简单，但作用却不简单。 nameof 用于获取变量、类型或成员的名称，可避免类名或属性名作为参数时使用 hardcode，以防后续重构困难。同时 nameof 也可部分代替反射，提高了程序的性能。下面介绍两个 nameof 的典型应用场景。  属性通知 M">
+    <meta name="description" content="实际工程计算中经常会见到热力学的影子，然而热力学并不是一门很好掌握的学科。也许大家都早已熟稔一些基本的热力学概念，但是这远远不够的。热力学是一门应用科学，公式是其精华和核心，也是一道绕不开的坎。本文从最基本的热力学公式出发，展示一些重要应用公式的推导过程。 推导原则 热力学公式有很多，推导过程难易不一，推导原则如下：  公理不推导 数学公式不推导 无实际应用的公式不推导  相关概念">
 <meta property="og:type" content="article">
-<meta property="og:title" content="试试nameof表达式">
-<meta property="og:url" content="https://3roman.github.io/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/%E8%AF%95%E8%AF%95nameof%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:title" content="热力学公式的推导">
+<meta property="og:url" content="https://3roman.github.io/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E7%83%AD%E5%8A%9B%E5%AD%A6%E5%85%AC%E5%BC%8F%E7%9A%84%E6%8E%A8%E5%AF%BC/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="nameof 是 C# 6.0新增的表达式，与 sizeof 不同， 它不是运算符。MSDN 上 关于 nameof 的介绍很简单，但作用却不简单。 nameof 用于获取变量、类型或成员的名称，可避免类名或属性名作为参数时使用 hardcode，以防后续重构困难。同时 nameof 也可部分代替反射，提高了程序的性能。下面介绍两个 nameof 的典型应用场景。  属性通知 M">
+<meta property="og:description" content="实际工程计算中经常会见到热力学的影子，然而热力学并不是一门很好掌握的学科。也许大家都早已熟稔一些基本的热力学概念，但是这远远不够的。热力学是一门应用科学，公式是其精华和核心，也是一道绕不开的坎。本文从最基本的热力学公式出发，展示一些重要应用公式的推导过程。 推导原则 热力学公式有很多，推导过程难易不一，推导原则如下：  公理不推导 数学公式不推导 无实际应用的公式不推导  相关概念">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/nameof1.png">
-<meta property="article:published_time" content="2022-12-27T12:11:42.123Z">
-<meta property="article:modified_time" content="2023-01-02T09:34:55.308Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/20230211thermodynamics.jpg">
+<meta property="article:published_time" content="2023-02-06T12:23:06.419Z">
+<meta property="article:modified_time" content="2023-02-12T13:30:46.667Z">
 <meta property="article:author" content="3roman">
-<meta property="article:tag" content="编程">
-<meta property="article:tag" content="C#">
+<meta property="article:tag" content="基础理论">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/nameof1.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/20230211thermodynamics.jpg">
   
   
   
-  <title>试试nameof表达式 - 昼锦堂小记</title>
+  <title>热力学公式的推导 - 昼锦堂小记</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -164,7 +163,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="试试nameof表达式"></span>
+            <span id="subtitle" data-typed-text="热力学公式的推导"></span>
           
         </div>
 
@@ -175,8 +174,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-27 20:11" pubdate>
-          2022年12月27日 晚上
+        <time datetime="2023-02-06 20:23" pubdate>
+          2023年2月6日 晚上
         </time>
       </span>
     
@@ -187,7 +186,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          3.6k 字
         
       </span>
     
@@ -198,7 +197,7 @@
         
         
         
-          13 分钟
+          30 分钟
         
       </span>
     
@@ -236,46 +235,247 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">试试nameof表达式</h1>
+            <h1 style="display: none">热力学公式的推导</h1>
             
             
               <div class="markdown-body">
                 
-                <p>nameof 是 C# 6.0新增的表达式，与 sizeof 不同， 它不是运算符。MSDN 上
-关于 nameof 的介绍很简单，但作用却不简单。</p>
-<p>nameof
-用于获取变量、类型或成员的名称，可避免类名或属性名作为参数时使用
-hardcode，以防后续重构困难。同时 nameof
-也可部分代替反射，提高了程序的性能。下面介绍两个 nameof
-的典型应用场景。</p>
-<p><img
-src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/nameof.png" srcset="/img/loading.gif" lazyload /></p>
-<h2 id="属性通知">属性通知</h2>
-<p>MVVM
-设计模式中，属性值改变时要触发相关事件，同时传递属性名称作为事件的参数，以告知
-View 具体是哪个属性发生了变化，代码一般写在属性的 set
-访问器中。原始写法和改进写法对比如下：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Stock</span>: <span class="hljs-title">INotifyPropertyChanged</span> <br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-built_in">int</span> _price;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> Price<br>    &#123;<br>     	<span class="hljs-keyword">get</span> &#123; <span class="hljs-keyword">return</span> _price;<br>	&#125;<br><span class="hljs-keyword">set</span> <br>&#123;<br>    <span class="hljs-keyword">this</span>.OnPropertyChanged(<span class="hljs-string">&quot;UserName&quot;</span>);<br>    <span class="hljs-comment">// 原始写法使用了hardcode</span><br>    <span class="hljs-keyword">this</span>.OnPropertyChanged(<span class="hljs-keyword">nameof</span>(Price));<br>    <span class="hljs-comment">// 改进写法可被同步改名</span><br>    _price = <span class="hljs-keyword">value</span>;<br>&#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnPropertyChanged</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> propertyName</span>)</span> <br>&#123;<br>	<span class="hljs-keyword">this</span>.PropertyChanged.Invoke(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">new</span> PropertyChangedEventArgs(propertyName));<br>&#125;<br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> PropertyChangedEventHandler PropertyChanged;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>使用 hardcode 的原始写法存在两个明显弊端：</p>
+                <p>实际工程计算中经常会见到热力学的影子，然而热力学并不是一门很好掌握的学科。也许大家都早已熟稔一些基本的热力学概念，但是这远远不够的。热力学是一门应用科学，公式是其精华和核心，也是一道绕不开的坎。本文从最基本的热力学公式出发，展示一些重要应用公式的推导过程。</p>
+<h2 id="推导原则">推导原则</h2>
+<p>热力学公式有很多，推导过程难易不一，推导原则如下：</p>
 <ol type="1">
-<li><p>排错难</p>
-<p>若将字符串字面量<code>"Price"</code>误写成<code>"Priec"</code>，编译能通过，运行后还是无法实现通知功能。这类错误往往很难排查。</p></li>
-<li><p>重构烦</p>
-<p>当修改属性名时应同步修改对应的字符串参数，改多了就容易遗漏，当然一个一个改起来本身就很繁琐。</p></li>
+<li>公理不推导</li>
+<li>数学公式不推导</li>
+<li>无实际应用的公式不推导</li>
 </ol>
-<h2 id="数据库字段映射">数据库字段映射</h2>
-<p>使用 Dapper 这类 ORM 框架时，SQL 语句中的表名和字段名应与对应 POCO
-类的类名和属性名一致，否则无法建立映射关系。以往做法是写死 SQL
-语句中的表名和字段名，造成后期维护麻烦，比如：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> <span class="hljs-keyword">record</span> = DbConnection.QueryFirstOrDefault(<span class="hljs-string">$&quot;SELECT TOP 1 FROM Stock WHERE Name=<span class="hljs-subst">&#123;tesla.Name&#125;</span>&quot;</span>);<br></code></pre></td></tr></table></figure>
-<p>上例中，表名 Tesla 和 字段名 Name 都是写死的。后期若要重构 POCO
-类，逐条修改 SQL 语句要累成狗。使用 nameof
-改成以下写法，按按【Ctrl+R+R】轻松搞定，高下立判！</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> <span class="hljs-keyword">record</span> = DbConnection.QueryFirstOrDefault(<span class="hljs-string">$&quot;SELECT TOP 1 FROM <span class="hljs-subst">&#123;<span class="hljs-keyword">nameof</span>(Stock)&#125;</span> WHERE <span class="hljs-subst">&#123;<span class="hljs-keyword">nameof</span>(Stock.Name)&#125;</span> = <span class="hljs-subst">&#123;tesla.Name&#125;</span>&quot;</span>);<br></code></pre></td></tr></table></figure>
-<h2 id="非完全限定名">非完全限定名</h2>
-<p>nameof
-返回的是非完全限定名，如果需要完全限定名就只能靠反射了，这点需要留意。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs csharp">Console.WriteLine(<span class="hljs-keyword">nameof</span>(System.Console)); <span class="hljs-comment">// 打印 Console</span><br>Console.WriteLine(<span class="hljs-keyword">typeof</span>(System.Console).FullName); <span class="hljs-comment">// 打印 System.Console</span><br></code></pre></td></tr></table></figure>
+<h2 id="相关概念和定义">相关概念和定义</h2>
+<p>要想看懂下面的公式推导，有几个基本概念需要提前掌握。</p>
+<h3 id="热力学概念">热力学概念</h3>
+<p>简单可压缩热力系</p>
+<blockquote>
+<p>与外界只有热量交换和<strong>体积功</strong>转换的可压缩热力系统。热力学常以<strong>闭口的</strong>简单可压缩热力系为基础展开研究，典型模型气缸活塞模型。</p>
+</blockquote>
+<figure>
+<img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/20230211Thermodynamics%20piston.jpeg" srcset="/img/loading.gif" lazyload
+alt="Thermodynamics Piston" />
+<figcaption aria-hidden="true">Thermodynamics Piston</figcaption>
+</figure>
+<p>平衡状态</p>
+<blockquote>
+<p>如果一个热力学系统的所有不平衡势都已消除（力平衡、热平衡、相平衡、化学平衡），那么这个系统就处于平衡状态，此时就可以用状态参数去描述它。</p>
+</blockquote>
+<p>准静态过程</p>
+<blockquote>
+<p>准静态过程由一系列无限接近于平衡状态的热力过程所组成，也称为准平衡过程。</p>
+</blockquote>
+<p>可逆过程</p>
+<blockquote>
+<p>热力系统经过一个热力过程后，如过程沿原路径逆向返回后<strong>系统本身和外界同时恢复到原初的状态</strong>，那么这个过程就是可逆过程。</p>
+<p>可逆过程首先必须是准静态过程，其次过程中不能发生任何耗散效应。</p>
+</blockquote>
+<p>理想气体</p>
+<blockquote>
+<p>理想气体忽略了气体分子的体积和相互之间的作用力，其状态参数满足理想气体状态方程。</p>
+</blockquote>
+<p>理想气体状态方程</p>
+<blockquote>
+<p>对于 n(mol) 气体，则有<span class="math inline">\(pV=n\rm
+RT\)</span>，<span
+class="math inline">\(R\)</span>被称为通用气体常数。</p>
+<p>对于单位质量（1kg）的理想气体，则有<span
+class="math inline">\(p\dfrac{V}{m}=\dfrac{n}{m}RT\Rightarrow
+p\upsilon=\rm R_{\rm g}T\)</span>。<span class="math inline">\(R_{\rm
+g}\)</span>被称为气体状态常数，定义为<span
+class="math inline">\(\dfrac{R}{M}\)</span>。另外<span
+class="math inline">\(\upsilon\)</span>是气体的比体积，定义为单位质量气体所占据的体积。</p>
+</blockquote>
+<h3 id="数学定义">数学定义</h3>
+<p><span class="math inline">\(\rm d(xy)=(x+\rm dx)(y\rm +dy)-xy=x\rm
+dy+y\rm dx+\rm dx\rm dy+xy-xy=x\rm dy+y\rm dx+\rm dx\rm dy\)</span></p>
+<p>由于上式中的<span class="math inline">\(\rm dx\rm
+dy\)</span>是高阶无穷小，因此上式可以演化成<span
+class="math inline">\(\rm d(xy)=x\rm dy+y\rm dx\)</span></p>
+<hr />
+<p><span class="math inline">\(a\ln b=\ln{b^a}\)</span></p>
+<p><span class="math inline">\(\ln a-\ln b=\ln\dfrac{a}{b}\)</span></p>
+<p><span class="math inline">\(\ln a+\ln b=\ln{ab}\)</span></p>
+<h2 id="公式推导">公式推导</h2>
+<h3 id="热力学第一定律">热力学第一定律</h3>
+<p>热力学第一定律是普适的，适用于任何热力系统及热力过程，并且攘括了宏观和微观两种形式的能量，其能量如下：
+<span class="math display">\[
+Q=\Delta E+W=\Delta U+\Delta E_{\rm k}+\Delta E_{\rm p}+W
+\]</span></p>
+<p>闭口系相对开口系要简单，我们先从闭口系开始研究，忽略宏观能量（宏观功能和势能）的变化，闭口系能量方程如下：</p>
+<p><span class="math display">\[
+Q=\Delta U+W
+\]</span></p>
+<p>以单位质量的工质为研究对象可将广延参数转变为强度参数，研究起来更方便。因此，对于1
+kg工质来讲，闭口系能量方程可表达为如下两种形式： <span
+class="math display">\[
+q = \Delta u+w\\
+\delta q=\rm du+\delta w
+\]</span></p>
+<h3 id="气体热力学参数">气体热力学参数</h3>
+<p>以下公式推导过程未引用理想气体状态方程，适用于任何气体。</p>
+<p>等容过程的体积功为零；等压过程压力恒定，因此对压力的微分为零，体积功可表达为<span
+class="math inline">\(p\rm
+d\upsilon\)</span>，这同样适用于下面要讲到的可逆过程。 <span
+class="math display">\[
+\left.
+\begin{aligned}
+\delta q = \rm du+\delta w\\
+\upsilon=const
+\end{aligned}
+\right\}
+\Rightarrow
+c_v\rm dT=\rm du+0
+\Rightarrow
+c_v=\frac{\rm du}{\rm dT}
+\]</span></p>
+<p><span class="math display">\[
+\left.
+\begin{aligned}
+h=u+p\upsilon\\
+c_p\rm dT=\rm du+p\rm d\upsilon\\
+p=const
+\end{aligned}
+\right\}
+\Rightarrow
+\rm dh=\rm du+\rm p\rm d\upsilon
+\Rightarrow
+\rm dh=c_p\rm dT
+\Rightarrow
+c_p=\frac{\rm dh}{\rm dT}
+\]</span></p>
+<h3 id="理想气体热力学参数">理想气体热力学参数</h3>
+<p><span class="math display">\[
+\left.\begin{aligned}
+p\upsilon=R_gT\\
+p=const
+\end{aligned}\right\}
+\Rightarrow
+p\rm d\upsilon=R_{\rm g}\rm dT
+\Rightarrow
+R_{\rm g}=\frac{p\rm d\upsilon}{\rm dT}
+\]</span></p>
+<p><span class="math display">\[
+\left.\begin{aligned}
+\delta q = \rm du+\delta w\\
+R_g=\frac{p\rm d\upsilon}{\rm dT}\\
+p=const
+\end{aligned}\right\}
+\Rightarrow
+c_p\rm dT=\rm du+p\rm d\upsilon
+\Rightarrow
+c_p=\frac{\rm du}{\rm dT}+\frac{p\rm d\upsilon}{\rm dT}
+\Rightarrow
+c_p=\frac{\rm du}{\rm dT}+R_{\rm g}
+\]</span></p>
+<p><span class="math display">\[
+\left.
+\begin{aligned}
+c_v=\frac{\rm du}{\rm dT}\\
+c_p=\frac{\rm du}{\rm dT}+R_{\rm g}
+\end{aligned}
+\right\}
+\Rightarrow
+c_p=c_v+R_{\rm g}
+\]</span></p>
+$$ .
+<span class="math display">\[\begin{aligned}
+\mathrm ds=\frac{\delta q}{T} \\
+\delta q=c_v \mathrm dT + p\mathrm d\upsilon \\
+p\upsilon=RT
+\end{aligned}\]</span>
+} ds==c_v+R s=<em>{T_1}^{T_2}c_v,dT+ </em>{_1}^{_2}
+<span class="math display">\[\begin{aligned}
+\Delta s=0 \\
+\Delta s=c_p\ln\frac {T_2}{T_1}-\text R \ln \frac{p_2}{p_1}\\
+\frac {\text R} {c_p}=1-\frac 1 \gamma \\
+\end{aligned}\]</span>
+<p>} =R{c_p} =1- =(1- )= =()^{1- } $$</p>
+<p><span class="math display">\[
+\left.
+\begin{aligned}
+\frac{T_2}{T_1}=\frac{p_2}{p_1}^{1-\frac 1 \gamma} \\
+p\upsilon=RT\Rightarrow
+\frac{p_2\upsilon_2}{T2}=\frac{p_1\upsilon_1}{T1}\Rightarrow
+\frac{p_2\upsilon_2}{p_1\upsilon_1} = \frac{T_2}{T_1}
+\end{aligned}
+\right\}
+\Rightarrow
+\frac{p_2\upsilon_2}{p_1\upsilon_1}=(\frac{p_2}{p_1})^{1-\frac 1 \gamma}
+\Rightarrow
+\frac{\upsilon_2}{\upsilon_1}=\frac{(\dfrac{p_2}{p_1})^{1-\frac 1
+\gamma}}{(\dfrac{p_2}{p_1})^{1}}=(\dfrac{p_2}{p_1})^{-\frac 1
+\gamma}\Rightarrow
+\frac{p_2}{p_1}=(\frac{\upsilon_1}{\upsilon_2})^\gamma
+\]</span></p>
+<p>绝热可逆过程 <span class="math display">\[
+\left.
+\begin{aligned}
+\delta q = \rm du+ \delta w \\
+\delta q = 0 \\
+\rm du=c_v\rm dT \\
+\delta w=p\rm d\upsilon \\
+\end{aligned}
+\right\}
+\left.
+\begin{aligned}
+\Rightarrow c_v\rm dT + p\rm d\upsilon=0 \\
+p\upsilon=\rm RT
+\end{aligned}
+\right\}
+\Rightarrow c_v\rm d(\frac{p\upsilon}{R}) + p\rm d\upsilon=0 \Rightarrow
+\\
+\]</span></p>
+<h2 id="公式汇总">公式汇总</h2>
+<table>
+
+<thead>
+<tr class="header">
+<th style="text-align: center;">序号</th>
+<th>公式</th>
+<th style="text-align: center;">理想气体</th>
+<th style="text-align: center;">闭口系</th>
+<th style="text-align: center;">可逆过程</th>
+<th style="text-align: center;">绝热过程</th>
+<th style="text-align: center;">等熵过程</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td><span class="math inline">\(c_{\rm v}=\frac{\rm du}{\rm
+dT}\)</span></td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;">n/a</td>
+<td style="text-align: center;">n/a</td>
+<td style="text-align: center;">n/a</td>
+<td style="text-align: center;">n/a</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td><span class="math inline">\(c_{\rm p}=\frac{\rm dh}{\rm
+dT}\)</span></td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;">n/a</td>
+<td style="text-align: center;">n/a</td>
+<td style="text-align: center;">n/a</td>
+<td style="text-align: center;">n/a</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td><span class="math inline">\(c_p-c_v=R_{\rm g}\)</span></td>
+<td style="text-align: center;">√</td>
+<td style="text-align: center;">n/a</td>
+<td style="text-align: center;">n/a</td>
+<td style="text-align: center;">n/a</td>
+<td style="text-align: center;">n/a</td>
+</tr>
+</tbody>
+</table>
 
                 
               </div>
@@ -288,9 +488,7 @@ View 具体是哪个属性发生了变化，代码一般写在属性的 set
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%BC%96%E7%A8%8B/">#编程</a>
-      
-        <a href="/tags/C/">#C#</a>
+        <a href="/tags/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/">#基础理论</a>
       
     </div>
   
@@ -302,8 +500,8 @@ View 具体是哪个属性发生了变化，代码一般写在属性的 set
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>试试nameof表达式</div>
-      <div>https://3roman.github.io/遨游码海/CSharp/试试nameof表达式/</div>
+      <div>热力学公式的推导</div>
+      <div>https://3roman.github.io/糊口生计/热力学公式的推导/</div>
     </div>
     <div class="license-meta">
       
@@ -315,7 +513,7 @@ View 具体是哪个属性发生了变化，代码一般写在属性的 set
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年12月27日</div>
+          <div>2023年2月6日</div>
         </div>
       
       
@@ -347,18 +545,12 @@ View 具体是哪个属性发生了变化，代码一般写在属性的 set
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/%E8%AF%9D%E8%AF%B4using%E8%AF%AD%E5%8F%A5/" title="话说using语句">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">话说using语句</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/%E7%A5%9E%E5%A5%87%E7%9A%84Fody/" title="神奇的Fody">
-                        <span class="hidden-mobile">神奇的Fody</span>
+                      <a href="/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E8%BF%9B%E5%8F%A3%E8%9D%B6%E9%98%80%E4%B8%8E%E8%BF%9B%E5%8F%A3%E5%AF%BC%E5%8F%B6%E8%B0%83%E8%8A%82/" title="进口蝶阀与进口导叶调节">
+                        <span class="hidden-mobile">进口蝶阀与进口导叶调节</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

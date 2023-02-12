@@ -16,12 +16,12 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言安全阀是各行各业都会用到的重要安全泄放装置，大到运载火箭，小到家用高压锅，都出现了安全阀的身影。另一种常见安全泄放装置是爆破片或者两者的组合。 本文的目的不在于扫盲，不会介绍安全阀的入门知识。读者如果不具备相关背景知识，请提前做好功课，仔细阅读GB&#x2F;T 12241-2021《安全阀 一般要求》和GB&#x2F;T 12243-2021 《弹簧直接载荷式安全阀》两本规范。同时也不会站在制造商的角度，阐述安">
+    <meta name="description" content="前言 安全阀是各行各业都会用到的重要安全泄放装置，大到运载火箭，小到家用高压锅，都出现了安全阀的身影。另一种常见安全泄放装置是爆破片或者两者的组合。 本文的目的不在于扫盲，不会介绍安全阀的入门知识。读者如果不具备相关背景知识，请提前做好功课，仔细阅读GB&#x2F;T 12241-2021《安全阀 一般要求》和GB&#x2F;T 12243-2021 《弹簧直接载荷式安全阀》两本规范。同时也不会站在制造商的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="蒸汽安全阀相关计算">
 <meta property="og:url" content="https://3roman.github.io/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E8%92%B8%E6%B1%BD%E5%AE%89%E5%85%A8%E9%98%80%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="前言安全阀是各行各业都会用到的重要安全泄放装置，大到运载火箭，小到家用高压锅，都出现了安全阀的身影。另一种常见安全泄放装置是爆破片或者两者的组合。 本文的目的不在于扫盲，不会介绍安全阀的入门知识。读者如果不具备相关背景知识，请提前做好功课，仔细阅读GB&#x2F;T 12241-2021《安全阀 一般要求》和GB&#x2F;T 12243-2021 《弹簧直接载荷式安全阀》两本规范。同时也不会站在制造商的角度，阐述安">
+<meta property="og:description" content="前言 安全阀是各行各业都会用到的重要安全泄放装置，大到运载火箭，小到家用高压锅，都出现了安全阀的身影。另一种常见安全泄放装置是爆破片或者两者的组合。 本文的目的不在于扫盲，不会介绍安全阀的入门知识。读者如果不具备相关背景知识，请提前做好功课，仔细阅读GB&#x2F;T 12241-2021《安全阀 一般要求》和GB&#x2F;T 12243-2021 《弹簧直接载荷式安全阀》两本规范。同时也不会站在制造商的">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/202212281932892.jpg">
 <meta property="article:published_time" content="2022-12-27T12:11:42.037Z">
@@ -240,242 +240,282 @@
             
               <div class="markdown-body">
                 
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>安全阀是各行各业都会用到的重要安全泄放装置，大到运载火箭，小到家用高压锅，都出现了安全阀的身影。另一种常见安全泄放装置是爆破片或者两者的组合。</p>
-<p>本文的目的不在于扫盲，不会介绍安全阀的入门知识。读者如果不具备相关背景知识，请提前做好功课，仔细阅读<a target="_blank" rel="noopener" href="http://std.samr.gov.cn/gb/search/gbDetailed?id=BD89DE8E079C3D08E05397BE0A0A4FAD">GB/T 12241-2021《安全阀 一般要求》</a>和<a target="_blank" rel="noopener" href="http://std.samr.gov.cn/gb/search/gbDetailed?id=C1A814733B2C7A48E05397BE0A0A1C8D">GB/T 12243-2021 《弹簧直接载荷式安全阀》</a>两本规范。同时也不会站在制造商的角度，阐述安全阀该如何设计、制造、检验。本文只针对<strong>蒸汽用弹簧直接荷载式安全阀</strong>，谈谈排放面积、出口压力及排放反力的计算[^1]。</p>
-<h2 id="手工计算"><a href="#手工计算" class="headerlink" title="手工计算"></a>手工计算</h2><p>国内涉及安全阀相关计算的规范主要有两本：HG/T 20570.02-1995《安全阀的设置和选用》及DL/T 5054-2016 《火力发电厂汽水管道设计规范》，GB/T 12243-2021附录B也介绍了排放面积的计算。另外，强烈推荐读读ASME规范、API规范，顺便还提高英语水平。</p>
-<h3 id="排放面积计算"><a href="#排放面积计算" class="headerlink" title="排放面积计算"></a>排放面积计算</h3><p>经过收集对比，排放面积（也称喉部面积）计算公式无一例外如下：<br>$$<br>A_c = \frac {W_r}  {5.25 \times  P_{dr} \times K_{dr} \times K_{sh} \times K_n \times K_b \times K_c}<br>$$</p>
+                <h2 id="前言">前言</h2>
+<p>安全阀是各行各业都会用到的重要安全泄放装置，大到运载火箭，小到家用高压锅，都出现了安全阀的身影。另一种常见安全泄放装置是爆破片或者两者的组合。</p>
+<p>本文的目的不在于扫盲，不会介绍安全阀的入门知识。读者如果不具备相关背景知识，请提前做好功课，仔细阅读<a
+target="_blank" rel="noopener" href="http://std.samr.gov.cn/gb/search/gbDetailed?id=BD89DE8E079C3D08E05397BE0A0A4FAD">GB/T
+12241-2021《安全阀 一般要求》</a>和<a
+target="_blank" rel="noopener" href="http://std.samr.gov.cn/gb/search/gbDetailed?id=C1A814733B2C7A48E05397BE0A0A1C8D">GB/T
+12243-2021
+《弹簧直接载荷式安全阀》</a>两本规范。同时也不会站在制造商的角度，阐述安全阀该如何设计、制造、检验。本文只针对<strong>蒸汽用弹簧直接荷载式安全阀</strong>，谈谈排放面积、出口压力及排放反力的计算[^1]。</p>
+<h2 id="手工计算">手工计算</h2>
+<p>国内涉及安全阀相关计算的规范主要有两本：HG/T
+20570.02-1995《安全阀的设置和选用》及DL/T 5054-2016
+《火力发电厂汽水管道设计规范》，GB/T
+12243-2021附录B也介绍了排放面积的计算。另外，强烈推荐读读ASME规范、API规范，顺便还提高英语水平。</p>
+<h3 id="排放面积计算">排放面积计算</h3>
+<p>经过收集对比，排放面积（也称喉部面积）计算公式无一例外如下： <span
+class="math display">\[
+A_c = \frac {W_r}  {5.25 \times  P_{dr} \times K_{dr} \times K_{sh}
+\times K_n \times K_b \times K_c}
+\]</span></p>
 <p>式中：</p>
 <ul>
-<li><p>A<sub>c</sub>—计算排放面积，mm<sup>2</sup>；</p>
-</li>
-<li><p>W<sub>r</sub> —需要排放量，kg/h；</p>
-</li>
-<li><p>P<sub>dr</sub>—额定排放压力，MPaA(绝对压力)；</p>
-</li>
-<li><p>K<sub>dr</sub>—额定排量系数，其实就是裕度系数，全启式安全阀取值范围为0.6~0.7，制造商数据一般不低于0.75；</p>
-</li>
-<li><p>K<sub>sh</sub>—过热修正系数，查GB/T 12243-2021附表B.1；</p>
-</li>
-<li><p>K<sub>n</sub>—Napier修正系数（也称高压系数），当P<sub>dr</sub>≤10.44时，K<sub>n</sub>=1；当10.44Mpa&lt;P≤22.17时，<br>$$<br>K_n = \frac {27.637-1000} {33.234P_{dr}-1061}<br>$$</p>
-</li>
-<li><p>K<sub>b</sub>—背压修正系数，该系数仅用于波纹管平衡式安全阀，对于弹簧直接荷载式安全阀，K<sub>b</sub>=1；</p>
-</li>
-<li><p>K<sub>c</sub>—爆破片修正系数，不带爆破片时，K<sub>c</sub>=1  。</p>
-</li>
+<li><p>A<sub>c</sub>—计算排放面积，mm<sup>2</sup>；</p></li>
+<li><p>W<sub>r</sub> —需要排放量，kg/h；</p></li>
+<li><p>P<sub>dr</sub>—额定排放压力，MPaA(绝对压力)；</p></li>
+<li><p>K<sub>dr</sub>—额定排量系数，其实就是裕度系数，全启式安全阀取值范围为0.6~0.7，制造商数据一般不低于0.75；</p></li>
+<li><p>K<sub>sh</sub>—过热修正系数，查GB/T 12243-2021附表B.1；</p></li>
+<li><p>K<sub>n</sub>—Napier修正系数（也称高压系数），当P<sub>dr</sub>≤10.44时，K<sub>n</sub>=1；当10.44Mpa&lt;P≤22.17时，
+<span class="math display">\[
+K_n = \frac {27.637-1000} {33.234P_{dr}-1061}
+\]</span></p></li>
+<li><p>K<sub>b</sub>—背压修正系数，该系数仅用于波纹管平衡式安全阀，对于弹簧直接荷载式安全阀，K<sub>b</sub>=1；</p></li>
+<li><p>K<sub>c</sub>—爆破片修正系数，不带爆破片时，K<sub>c</sub>=1
+。</p></li>
 </ul>
-<p>上述参数中，除额定排放压力外，其余参数要么用户给定，要么取默认值，要么查表。仅额定排放压力需单独计算，计算公式如下：<br>$$<br>P_{dr} = P_s \times (1+\Delta P_o) + P_{atm}<br>$$<br>式中：</p>
+<p>上述参数中，除额定排放压力外，其余参数要么用户给定，要么取默认值，要么查表。仅额定排放压力需单独计算，计算公式如下：
+<span class="math display">\[
+P_{dr} = P_s \times (1+\Delta P_o) + P_{atm}
+\]</span> 式中：</p>
 <ul>
-<li><p>P<sub>s</sub>—整定压力，MPag；</p>
-</li>
-<li><p>ΔP<sub>o</sub> —允许超压百分比，查GB/T 12243-2021表6；</p>
-</li>
+<li><p>P<sub>s</sub>—整定压力，MPag；</p></li>
+<li><p>ΔP<sub>o</sub> —允许超压百分比，查GB/T 12243-2021表6；</p></li>
 </ul>
 <table>
 <thead>
-<tr>
-<th align="center">蒸汽锅炉用</th>
-<th align="center">其它蒸汽设备用</th>
-<th align="center">气体用</th>
-<th align="center">液体用</th>
+<tr class="header">
+<th style="text-align: center;">蒸汽锅炉用</th>
+<th style="text-align: center;">其它蒸汽设备用</th>
+<th style="text-align: center;">气体用</th>
+<th style="text-align: center;">液体用</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">3%</td>
-<td align="center">10%</td>
-<td align="center">10%</td>
-<td align="center">10%</td>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">3%</td>
+<td style="text-align: center;">10%</td>
+<td style="text-align: center;">10%</td>
+<td style="text-align: center;">10%</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <ul>
 <li>P<sub>atm</sub>—当地大气压，平原地区可取0.101</li>
 </ul>
-<p>下面将某项目真实数据依次代入上述两个公式，求解排放面积 。此安全阀位于减温减压器二次蒸汽管道，选用弹簧直接荷载式，设计输入如下：</p>
+<p>下面将某项目真实数据依次代入上述两个公式，求解排放面积
+。此安全阀位于减温减压器二次蒸汽管道，选用弹簧直接荷载式，设计输入如下：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>参数</th>
-<th align="center">单位</th>
-<th align="center">数值</th>
+<th style="text-align: center;">单位</th>
+<th style="text-align: center;">数值</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>需要排放量</td>
-<td align="center">kg/h</td>
-<td align="center">10000</td>
+<td style="text-align: center;">kg/h</td>
+<td style="text-align: center;">10000</td>
 </tr>
-<tr>
+<tr class="even">
 <td>整定压力</td>
-<td align="center">MPag</td>
-<td align="center">1.7</td>
+<td style="text-align: center;">MPag</td>
+<td style="text-align: center;">1.7</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>排放温度</td>
-<td align="center">℃</td>
-<td align="center">250</td>
+<td style="text-align: center;">℃</td>
+<td style="text-align: center;">250</td>
 </tr>
-</tbody></table>
-<ol>
-<li><p>排放压力<br>$$<br>P_{dr} = P_s \times (1+\Delta P_o) + P_{atm} = 1.7 \times {(1+0.1)} + 0.101 =1.971  MPaA<br>$$</p>
-</li>
-<li><p>排放面积 </p>
-<p>查表得到过热蒸汽修正系数为0.963，代入数据：<br>$$<br>A_c = \frac {W_r}  {5.25 \times  P_{dr} \times K_{dr} \times K_{sh} \times K_b \times K_c \times K_n} = \frac {10000}  {5.25 \times  1.971 \times 0.87 \times 0.963 \times 1 \times 1 \times 1} = 1153.5mm^2<br>$$</p>
-</li>
+</tbody>
+</table>
+<ol type="1">
+<li><p>排放压力 <span class="math display">\[
+P_{dr} = P_s \times (1+\Delta P_o) + P_{atm} = 1.7 \times {(1+0.1)} +
+0.101 =1.971  MPaA
+\]</span></p></li>
+<li><p>排放面积</p>
+<p>查表得到过热蒸汽修正系数为0.963，代入数据： <span
+class="math display">\[
+A_c = \frac {W_r}  {5.25 \times  P_{dr} \times K_{dr} \times K_{sh}
+\times K_b \times K_c \times K_n} = \frac {10000}  {5.25 \times  1.971
+\times 0.87 \times 0.963 \times 1 \times 1 \times 1} = 1153.5mm^2
+\]</span></p></li>
 </ol>
 <p>得到计算面积后就可以选择具体型号，保证流道面积满足要求，流道系列详下表。选型完成后，再根据实际排放面积反算额定排放量，以校核排放能力是否满足要求。</p>
-<center>国标安全阀流道直径—流道面积对应表</center>
-
+<center>
+国标安全阀流道直径—流道面积对应表
+</center>
 <table>
 <thead>
-<tr>
-<th align="center">流道直径(mm)</th>
-<th align="center">流道面积(mm<sup>2</sup>)</th>
-<th align="center">全启式进口公称直径</th>
+<tr class="header">
+<th style="text-align: center;">流道直径(mm)</th>
+<th style="text-align: center;">流道面积(mm<sup>2</sup>)</th>
+<th style="text-align: center;">全启式进口公称直径</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">12</td>
-<td align="center">113.1</td>
-<td align="center"></td>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">113.1</td>
+<td style="text-align: center;"></td>
 </tr>
-<tr>
-<td align="center">16</td>
-<td align="center">201.1</td>
-<td align="center"></td>
+<tr class="even">
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">201.1</td>
+<td style="text-align: center;"></td>
 </tr>
-<tr>
-<td align="center">20</td>
-<td align="center">314.2</td>
-<td align="center">32</td>
+<tr class="odd">
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">314.2</td>
+<td style="text-align: center;">32</td>
 </tr>
-<tr>
-<td align="center">25</td>
-<td align="center">490.9</td>
-<td align="center">40</td>
+<tr class="even">
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">490.9</td>
+<td style="text-align: center;">40</td>
 </tr>
-<tr>
-<td align="center">32</td>
-<td align="center">804.2</td>
-<td align="center">50</td>
+<tr class="odd">
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">804.2</td>
+<td style="text-align: center;">50</td>
 </tr>
-<tr>
-<td align="center">40</td>
-<td align="center">1256.6</td>
-<td align="center">65</td>
+<tr class="even">
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">1256.6</td>
+<td style="text-align: center;">65</td>
 </tr>
-<tr>
-<td align="center">50</td>
-<td align="center">1963.5</td>
-<td align="center">80</td>
+<tr class="odd">
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">1963.5</td>
+<td style="text-align: center;">80</td>
 </tr>
-<tr>
-<td align="center">65</td>
-<td align="center">3318.3</td>
-<td align="center">100</td>
+<tr class="even">
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">3318.3</td>
+<td style="text-align: center;">100</td>
 </tr>
-<tr>
-<td align="center">80</td>
-<td align="center">5026.5</td>
-<td align="center"></td>
+<tr class="odd">
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">5026.5</td>
+<td style="text-align: center;"></td>
 </tr>
-<tr>
-<td align="center">100</td>
-<td align="center">7854.0</td>
-<td align="center">150</td>
+<tr class="even">
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">7854.0</td>
+<td style="text-align: center;">150</td>
 </tr>
-<tr>
-<td align="center">125</td>
-<td align="center">12271.8</td>
-<td align="center">200</td>
+<tr class="odd">
+<td style="text-align: center;">125</td>
+<td style="text-align: center;">12271.8</td>
+<td style="text-align: center;">200</td>
 </tr>
-</tbody></table>
-<center>美标安全阀流道直径—流道面积对应表</center>
-
+</tbody>
+</table>
+<center>
+美标安全阀流道直径—流道面积对应表
+</center>
 <table>
 <thead>
-<tr>
-<th align="center">流道代号</th>
-<th align="center">流道直径(mm)</th>
-<th align="center">流道面积(mm<sup>2</sup>)</th>
+<tr class="header">
+<th style="text-align: center;">流道代号</th>
+<th style="text-align: center;">流道直径(mm)</th>
+<th style="text-align: center;">流道面积(mm<sup>2</sup>)</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">D</td>
-<td align="center">9.5</td>
-<td align="center">70.9</td>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">D</td>
+<td style="text-align: center;">9.5</td>
+<td style="text-align: center;">70.9</td>
 </tr>
-<tr>
-<td align="center">E</td>
-<td align="center">12.7</td>
-<td align="center">126.7</td>
+<tr class="even">
+<td style="text-align: center;">E</td>
+<td style="text-align: center;">12.7</td>
+<td style="text-align: center;">126.7</td>
 </tr>
-<tr>
-<td align="center">F</td>
-<td align="center">15.9</td>
-<td align="center">198.6</td>
+<tr class="odd">
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">15.9</td>
+<td style="text-align: center;">198.6</td>
 </tr>
-<tr>
-<td align="center">G</td>
-<td align="center">20.3</td>
-<td align="center">323.7</td>
+<tr class="even">
+<td style="text-align: center;">G</td>
+<td style="text-align: center;">20.3</td>
+<td style="text-align: center;">323.7</td>
 </tr>
-<tr>
-<td align="center">H</td>
-<td align="center">25.4</td>
-<td align="center">506.7</td>
+<tr class="odd">
+<td style="text-align: center;">H</td>
+<td style="text-align: center;">25.4</td>
+<td style="text-align: center;">506.7</td>
 </tr>
-<tr>
-<td align="center">J</td>
-<td align="center">32.5</td>
-<td align="center">829.6</td>
+<tr class="even">
+<td style="text-align: center;">J</td>
+<td style="text-align: center;">32.5</td>
+<td style="text-align: center;">829.6</td>
 </tr>
-<tr>
-<td align="center">K</td>
-<td align="center">38.9</td>
-<td align="center">1188.5</td>
+<tr class="odd">
+<td style="text-align: center;">K</td>
+<td style="text-align: center;">38.9</td>
+<td style="text-align: center;">1188.5</td>
 </tr>
-<tr>
-<td align="center">L</td>
-<td align="center">48.4</td>
-<td align="center">1839.8</td>
+<tr class="even">
+<td style="text-align: center;">L</td>
+<td style="text-align: center;">48.4</td>
+<td style="text-align: center;">1839.8</td>
 </tr>
-<tr>
-<td align="center">M</td>
-<td align="center">54.4</td>
-<td align="center">2324.3</td>
+<tr class="odd">
+<td style="text-align: center;">M</td>
+<td style="text-align: center;">54.4</td>
+<td style="text-align: center;">2324.3</td>
 </tr>
-<tr>
-<td align="center">N</td>
-<td align="center">59.7</td>
-<td align="center">2799.2</td>
+<tr class="even">
+<td style="text-align: center;">N</td>
+<td style="text-align: center;">59.7</td>
+<td style="text-align: center;">2799.2</td>
 </tr>
-<tr>
-<td align="center">P</td>
-<td align="center">72.4</td>
-<td align="center">4116.9</td>
+<tr class="odd">
+<td style="text-align: center;">P</td>
+<td style="text-align: center;">72.4</td>
+<td style="text-align: center;">4116.9</td>
 </tr>
-<tr>
-<td align="center">Q</td>
-<td align="center">95.3</td>
-<td align="center">7133.1</td>
+<tr class="even">
+<td style="text-align: center;">Q</td>
+<td style="text-align: center;">95.3</td>
+<td style="text-align: center;">7133.1</td>
 </tr>
-<tr>
-<td align="center">R</td>
-<td align="center">114.6</td>
-<td align="center">10386.9</td>
+<tr class="odd">
+<td style="text-align: center;">R</td>
+<td style="text-align: center;">114.6</td>
+<td style="text-align: center;">10386.9</td>
 </tr>
-<tr>
-<td align="center">T</td>
-<td align="center">146</td>
-<td align="center">16741.5</td>
+<tr class="even">
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">146</td>
+<td style="text-align: center;">16741.5</td>
 </tr>
-</tbody></table>
-<h3 id="出口压力计算"><a href="#出口压力计算" class="headerlink" title="出口压力计算"></a>出口压力计算</h3><p>安全阀出口排放压力影响排放管壁厚的计算，目前国内涉及的规范唯有DL/T 5054-2016 《火力发电厂汽水管道设计规范》，但有研究显示其中的计算方法存在瑕疵，饱和蒸汽计算误差较大。笔者推荐几篇论文供大家赏析：</p>
-<ol>
-<li><a target="_blank" rel="noopener" href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&dbname=CJFD2003&filename=RLFD200301006&uniplatform=NZKPT&v=%25mmd2BytLHo8%25mmd2Bl%25mmd2FwXd0Dd%25mmd2BtPmSi%25mmd2FuTvmorcycCbGeHF5M4f60FJ7YdsFk7g9YC2M2MpRC">火电厂安全阀排汽管道参数计算方法的讨论</a></li>
-<li><a target="_blank" rel="noopener" href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&dbname=CJFD2009&filename=GXDL200905028&uniplatform=NZKPT&v=cYQg794Gra%25mmd2BWG3KT1jDR4HXlFvjBswsk5efZJSSM98B7nosX8WB%25mmd2BN8qjcEqAa4d%25mmd2B">330MW机组锅炉安全阀排汽管道强度核算及探讨</a></li>
-<li><a target="_blank" rel="noopener" href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&dbname=CJFD2011&filename=SLDL201111005&uniplatform=NZKPT&v=IAA00VzThx10FU446oGtY5RAwiCWPDqxrJGGvuB1gZAV1JYwdITLBDnoutXnkyB%25mmd2B">电厂安全阀排汽管道热力计算及应用</a></li>
+</tbody>
+</table>
+<h3 id="出口压力计算">出口压力计算</h3>
+<p>安全阀出口排放压力影响排放管壁厚的计算，目前国内涉及的规范唯有DL/T
+5054-2016
+《火力发电厂汽水管道设计规范》，但有研究显示其中的计算方法存在瑕疵，饱和蒸汽计算误差较大。笔者推荐几篇论文供大家赏析：</p>
+<ol type="1">
+<li><a
+target="_blank" rel="noopener" href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&amp;dbname=CJFD2003&amp;filename=RLFD200301006&amp;uniplatform=NZKPT&amp;v=%25mmd2BytLHo8%25mmd2Bl%25mmd2FwXd0Dd%25mmd2BtPmSi%25mmd2FuTvmorcycCbGeHF5M4f60FJ7YdsFk7g9YC2M2MpRC">火电厂安全阀排汽管道参数计算方法的讨论</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&amp;dbname=CJFD2009&amp;filename=GXDL200905028&amp;uniplatform=NZKPT&amp;v=cYQg794Gra%25mmd2BWG3KT1jDR4HXlFvjBswsk5efZJSSM98B7nosX8WB%25mmd2BN8qjcEqAa4d%25mmd2B">330MW机组锅炉安全阀排汽管道强度核算及探讨</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&amp;dbname=CJFD2011&amp;filename=SLDL201111005&amp;uniplatform=NZKPT&amp;v=IAA00VzThx10FU446oGtY5RAwiCWPDqxrJGGvuB1gZAV1JYwdITLBDnoutXnkyB%25mmd2B">电厂安全阀排汽管道热力计算及应用</a></li>
 </ol>
-<p>ASME B31.1《POWER PIPING》非强制附录II提供的计算方法按<strong>滞止焓</strong>计算，被认为适用性更广、计算精度更高。该规范中安全阀出口排放管压力计算公式如下：<br>$$<br>P = \frac {G} {A} \cdot \frac {b-1}{b} \cdot \sqrt \frac {2(h_o-a)}{2b-1}<br>$$<br>式中：</p>
+<p>ASME B31.1《POWER
+PIPING》非强制附录II提供的计算方法按<strong>滞止焓</strong>计算，被认为适用性更广、计算精度更高。该规范中安全阀出口排放管压力计算公式如下：
+<span class="math display">\[
+P = \frac {G} {A} \cdot \frac {b-1}{b} \cdot \sqrt \frac
+{2(h_o-a)}{2b-1}
+\]</span> 式中：</p>
 <ul>
 <li>G—排放管流量，可取1.11倍安全阀额定排放量，kg/s；</li>
 <li>A —排放管面积，m<sup>2</sup>；</li>
@@ -483,51 +523,81 @@
 <li>a—蒸汽状态系数；</li>
 <li>b—蒸汽状态系数。</li>
 </ul>
-<ol>
+<ol type="1">
 <li><p>滞止焓</p>
-<p>安全阀内达到稳定流动时的实际压力是排放压力，不是整定压力，因此滞止压力应取排放压力。滞止温度取蒸汽最高操作温度。根据滞止压力和滞止温度可计算得到滞止焓，常规计算公式为<a target="_blank" rel="noopener" href="https://web1.hszg.de/thermo_fpc/">IAPWS-IF97</a>。</p>
-</li>
-<li><p>蒸汽状态参数</p>
-</li>
+<p>安全阀内达到稳定流动时的实际压力是排放压力，不是整定压力，因此滞止压力应取排放压力。滞止温度取蒸汽最高操作温度。根据滞止压力和滞止温度可计算得到滞止焓，常规计算公式为<a
+target="_blank" rel="noopener" href="https://web1.hszg.de/thermo_fpc/">IAPWS-IF97</a>。</p></li>
+<li><p>蒸汽状态参数</p></li>
 </ol>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>排汽终态</th>
-<th align="center">a(j/kg)</th>
-<th align="center">b</th>
+<th style="text-align: center;">a(j/kg)</th>
+<th style="text-align: center;">b</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>湿蒸汽，干度&lt;90%</td>
-<td align="center">677000</td>
-<td align="center">11</td>
+<td style="text-align: center;">677000</td>
+<td style="text-align: center;">11</td>
 </tr>
-<tr>
+<tr class="even">
 <td>饱和蒸汽，干度≥90%<br />0.15MPaA ≤ P ≤ 6.89MPaA</td>
-<td align="center">1913000</td>
-<td align="center">4.33</td>
+<td style="text-align: center;">1913000</td>
+<td style="text-align: center;">4.33</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>过热蒸汽，干度≥90%<br />6.89MPaA ≤ P ≤ 13.79MPaA</td>
-<td align="center">1933000</td>
-<td align="center">4.33</td>
+<td style="text-align: center;">1933000</td>
+<td style="text-align: center;">4.33</td>
 </tr>
-</tbody></table>
-<p>结合下节安全阀实际数据得到：排放管流量为3.513kg/s，排放管面积为0.00456㎡；1.971MPaA/265℃蒸汽滞止焓为2941.94 kJ/kg，代入上述公式：<br>$$<br>P = \frac {G} {A} \cdot \frac {b-1}{b} \cdot \sqrt \frac {2(h_o-a)}{2b-1}=\frac {3.513} {0.00456} \cdot \frac {4.33-1}{4.33} \cdot \sqrt \frac {2\times(2941.94-1933)\times1000}{2\times4.33-1}=0.305MPaA<br>$$<br>在安全阀排放的刹那，管道内可能形成冲击波，因此<strong>B31.1规范要求管道设计压力取两倍计算值。</strong></p>
-<p>出口流速计算如下：<br>$$<br>W = \sqrt \frac {2(h_o-a)}{2b-1}=\sqrt \frac {2\times(2941.94-1933)\times1000}{2\times4.33-1}=513.255m/s<br>$$</p>
-<h3 id="排放反力计算"><a href="#排放反力计算" class="headerlink" title="排放反力计算"></a>排放反力计算</h3><p>尽管安全阀通常都是偶然、短暂排放，排放形成的反作用力对管系造成的不利影响却不容小觑，因此管道应力分析需要考虑安全阀排放工况。得到出口压力和出口流速后，即可计算出口反力，公式如下：<br>$$<br>F=GW+1000\times({P-P_{atm}})A<br>$$<br>代入数据：<br>$$<br>F=3.513\times513.255+({0.305-0.101})\times1000000\times0.00456=2733N<br>$$</p>
-<h2 id="软件计算"><a href="#软件计算" class="headerlink" title="软件计算"></a>软件计算</h2><h3 id="软件简介"><a href="#软件简介" class="headerlink" title="软件简介"></a>软件简介</h3><p>艾默生是一家跨国电气公司，其旗下的Fisher调节阀、Crosby安全阀、DCS系统、各种仪表等在石化、电力行业应用广泛。下面我们使用其免费提供的PRV<sup>2</sup>SIZE软件进行安全阀选型计算，<a target="_blank" rel="noopener" href="https://valvesizing.emerson.com/Software/PRV2SIZEOverview.aspx">官方介绍</a>如下。软件具体包括哪些功能、怎么使用请参考官方<a target="_blank" rel="noopener" href="https://valvesizing.emerson.com/ReferenceDocuments/PRV2SIZEQuickStartGuide.pdf">快速上手</a>，这里不再累述。</p>
+</tbody>
+</table>
+<p>结合下节安全阀实际数据得到：排放管流量为3.513kg/s，排放管面积为0.00456㎡；1.971MPaA/265℃蒸汽滞止焓为2941.94
+kJ/kg，代入上述公式： <span class="math display">\[
+P = \frac {G} {A} \cdot \frac {b-1}{b} \cdot \sqrt \frac
+{2(h_o-a)}{2b-1}=\frac {3.513} {0.00456} \cdot \frac {4.33-1}{4.33}
+\cdot \sqrt \frac
+{2\times(2941.94-1933)\times1000}{2\times4.33-1}=0.305MPaA
+\]</span>
+在安全阀排放的刹那，管道内可能形成冲击波，因此<strong>B31.1规范要求管道设计压力取两倍计算值。</strong></p>
+<p>出口流速计算如下： <span class="math display">\[
+W = \sqrt \frac {2(h_o-a)}{2b-1}=\sqrt \frac
+{2\times(2941.94-1933)\times1000}{2\times4.33-1}=513.255m/s
+\]</span></p>
+<h3 id="排放反力计算">排放反力计算</h3>
+<p>尽管安全阀通常都是偶然、短暂排放，排放形成的反作用力对管系造成的不利影响却不容小觑，因此管道应力分析需要考虑安全阀排放工况。得到出口压力和出口流速后，即可计算出口反力，公式如下：
+<span class="math display">\[
+F=GW+1000\times({P-P_{atm}})A
+\]</span> 代入数据： <span class="math display">\[
+F=3.513\times513.255+({0.305-0.101})\times1000000\times0.00456=2733N
+\]</span></p>
+<h2 id="软件计算">软件计算</h2>
+<h3 id="软件简介">软件简介</h3>
+<p>艾默生是一家跨国电气公司，其旗下的Fisher调节阀、Crosby安全阀、DCS系统、各种仪表等在石化、电力行业应用广泛。下面我们使用其免费提供的PRV<sup>2</sup>SIZE软件进行安全阀选型计算，<a
+target="_blank" rel="noopener" href="https://valvesizing.emerson.com/Software/PRV2SIZEOverview.aspx">官方介绍</a>如下。软件具体包括哪些功能、怎么使用请参考官方<a
+target="_blank" rel="noopener" href="https://valvesizing.emerson.com/ReferenceDocuments/PRV2SIZEQuickStartGuide.pdf">快速上手</a>，这里不再累述。</p>
 <blockquote>
-<p>PRV<sup>2</sup>SIZE software is an easy to use and comprehensive program that offers sizing, selection and configuration capabilities for Anderson Greenwood, Crosby and Varec brand Over Pressure Protection Valves and for Yarway brand Automatic Recirculation Control Valves</p>
-<p>PRV<sup>2</sup>SIZE是一款功能全面且易于上手的阀门计算、选型软件，样本库包括了：Anderson Greenwood、Crosby 、Varec品牌安全阀和Yarway品牌最小流量阀。</p>
+<p>PRV<sup>2</sup>SIZE software is an easy to use and comprehensive
+program that offers sizing, selection and configuration capabilities for
+Anderson Greenwood, Crosby and Varec brand Over Pressure Protection
+Valves and for Yarway brand Automatic Recirculation Control Valves</p>
+<p>PRV<sup>2</sup>SIZE是一款功能全面且易于上手的阀门计算、选型软件，样本库包括了：Anderson
+Greenwood、Crosby 、Varec品牌安全阀和Yarway品牌最小流量阀。</p>
 </blockquote>
-<p>现在基于<strong>ASME Section VIII(API 520 Part I,9th edition)<strong>规范新建一个蒸汽安全阀计算实例，如果用于蒸汽锅炉，请选择</strong>ASME Section I</strong>规范。</p>
-<h3 id="计算过程"><a href="#计算过程" class="headerlink" title="计算过程"></a>计算过程</h3><p>输入上节的排放温度、需要排放量、整定压力三个参数，运行后，软件很快给出了选型列表。我们选择列表第2项：Crosby的HSL系列安全阀，结构型式为常规式，阀盖型式为敞开式。对比发现，手算结果与软件计算结果差别很小。</p>
-<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/PRV2SIZE.png" srcset="/img/loading.gif" lazyload></p>
+<p>现在基于<strong>ASME Section VIII(API 520 Part I,9th
+edition)</strong>规范新建一个蒸汽安全阀计算实例，如果用于蒸汽锅炉，请选择<strong>ASME
+Section I</strong>规范。</p>
+<h3 id="计算过程">计算过程</h3>
+<p>输入上节的排放温度、需要排放量、整定压力三个参数，运行后，软件很快给出了选型列表。我们选择列表第2项：Crosby的HSL系列安全阀，结构型式为常规式，阀盖型式为敞开式。对比发现，手算结果与软件计算结果差别很小。</p>
+<p><img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/PRV2SIZE.png" srcset="/img/loading.gif" lazyload /></p>
 <p><strong>其实计算方法都是公开统一的，唯一的区别就在于额定排放系数的取值，这对于选型有直接影响。在没有得到制造商数据的前提下，HG规范推荐取值0.6~0.7，DL规范推荐取值0.6，笔者认为都偏保守。当然最终应以制造商计算书为准。</strong></p>
 <p>确定具体型号之后，接着要设置安全阀本体参数，包括材质、管口参数等。当红色警告消失，即可输出排汽反力。</p>
-<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/PRV2SIZE%25E6%258E%2592%25E6%25B1%25BD%25E5%258F%258D%25E5%258A%259B.png" srcset="/img/loading.gif" lazyload></p>
+<p><img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/PRV2SIZE%25E6%258E%2592%25E6%25B1%25BD%25E5%258F%258D%25E5%258A%259B.png" srcset="/img/loading.gif" lazyload /></p>
 <p>由于软件计算得到的出口压力与按B31.1手工计算结果出入较大，这里不再介绍此功能，读者可以自行发掘研究。</p>
 
                 

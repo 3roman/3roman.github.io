@@ -16,12 +16,12 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="优化设置关闭信息中心、FTPSites将注册表HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A001:804\InfoCenter项下键InfoCenterOn键的值改为1，如此界面右上角信息中心就会消失；  删除注册表HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A00">
+    <meta name="description" content="优化设置 关闭信息中心、FTPSites 将注册表HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A001:804\InfoCenter项下键InfoCenterOn键的值改为1，如此界面右上角信息中心就会消失；  删除注册表HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\AC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AutoCAD 葵花宝典">
 <meta property="og:url" content="https://3roman.github.io/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/AutoCAD%E8%91%B5%E8%8A%B1%E5%AE%9D%E5%85%B8/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="优化设置关闭信息中心、FTPSites将注册表HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A001:804\InfoCenter项下键InfoCenterOn键的值改为1，如此界面右上角信息中心就会消失；  删除注册表HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A00">
+<meta property="og:description" content="优化设置 关闭信息中心、FTPSites 将注册表HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A001:804\InfoCenter项下键InfoCenterOn键的值改为1，如此界面右上角信息中心就会消失；  删除注册表HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\AC">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/AutoCAD-Logo.png">
 <meta property="article:published_time" content="2022-12-27T12:11:42.007Z">
@@ -186,7 +186,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          509 字
+          514 字
         
       </span>
     
@@ -240,17 +240,29 @@
             
               <div class="markdown-body">
                 
-                <h2 id="优化设置"><a href="#优化设置" class="headerlink" title="优化设置"></a>优化设置</h2><h3 id="关闭信息中心、FTPSites"><a href="#关闭信息中心、FTPSites" class="headerlink" title="关闭信息中心、FTPSites"></a>关闭信息中心、FTPSites</h3><p>将注册表<code>HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A001:804\InfoCenter</code>项下键<code>InfoCenterOn</code>键的值改为1，如此界面右上角信息中心就会消失；</p>
-<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/CAD%25E4%25BF%25A1%25E6%2581%25AF%25E4%25B8%25AD%25E5%25BF%2583.png" srcset="/img/loading.gif" lazyload></p>
+                <h2 id="优化设置">优化设置</h2>
+<h3 id="关闭信息中心ftpsites">关闭信息中心、FTPSites</h3>
+<p>将注册表<code>HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A001:804\InfoCenter</code>项下键<code>InfoCenterOn</code>键的值改为1，如此界面右上角信息中心就会消失；</p>
+<p><img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/CAD%25E4%25BF%25A1%25E6%2581%25AF%25E4%25B8%25AD%25E5%25BF%2583.png" srcset="/img/loading.gif" lazyload /></p>
 <p>删除注册表<code>HKEY_CURRENT_USER\SOFTWARE\Autodesk\AutoCAD\R18.2\ACAD-A001:804\FileNavExtensions</code>项下的<code>ACPROJECT</code>和<code>FTPSites</code>键值对。</p>
-<h2 id="清理图层"><a href="#清理图层" class="headerlink" title="清理图层"></a>清理图层</h2><p>将多个图层合并成到一个图层，成功合并后自动删除原图层。</p>
-<img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%25E5%2590%2588%25E5%25B9%25B6%25E5%259B%25BE%25E5%25B1%2582.gif" srcset="/img/loading.gif" lazyload alt="合并图层" style="zoom:67%;" />
-
-<h2 id="清理图纸"><a href="#清理图纸" class="headerlink" title="清理图纸"></a>清理图纸</h2><p>常规方法为<code>PU</code>大法或者网上介绍的另存<code>DXF</code>后再存回<code>DWG</code>；对于图层还可采用<code>LAYDEL</code>强制删除或<code>LAYMRG</code>合并到0层。但碰到顽固对象时，上述方法要么无法清理，要么存在丢失图元的风险。AutoCAD2020及以上版本强化了清理功能，新增支持查看对象关联关系，现在可通过处理关联对象的方法间接清理顽固对象，不失为一剂<strong>治标治本</strong>的良药。</p>
-<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%25E6%25B8%2585%25E7%2590%2586%25E5%258A%25A0%25E5%25BC%25BA%25E7%2589%2588.png" srcset="/img/loading.gif" lazyload alt="清理加强版"></p>
-<h2 id="动态块"><a href="#动态块" class="headerlink" title="动态块"></a>动态块</h2><p>双击参数可以快速调出动作</p>
-<h3 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h3><p>可根据需要选择缩放动作的基准类型：依赖（参数的起点或终点）、独立（x、y坐标确定的具体点）。</p>
-<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%E7%BC%A9%E6%94%BE.gif" srcset="/img/loading.gif" lazyload></p>
+<h2 id="清理图层">清理图层</h2>
+<p>将多个图层合并成到一个图层，成功合并后自动删除原图层。</p>
+<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%25E5%2590%2588%25E5%25B9%25B6%25E5%259B%25BE%25E5%25B1%2582.gif" srcset="/img/loading.gif" lazyload alt="合并图层" style="zoom:67%;" /></p>
+<h2 id="清理图纸">清理图纸</h2>
+<p>常规方法为<code>PU</code>大法或者网上介绍的另存<code>DXF</code>后再存回<code>DWG</code>；对于图层还可采用<code>LAYDEL</code>强制删除或<code>LAYMRG</code>合并到0层。但碰到顽固对象时，上述方法要么无法清理，要么存在丢失图元的风险。AutoCAD2020及以上版本强化了清理功能，新增支持查看对象关联关系，现在可通过处理关联对象的方法间接清理顽固对象，不失为一剂<strong>治标治本</strong>的良药。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%25E6%25B8%2585%25E7%2590%2586%25E5%258A%25A0%25E5%25BC%25BA%25E7%2589%2588.png" srcset="/img/loading.gif" lazyload
+alt="清理加强版" />
+<figcaption aria-hidden="true">清理加强版</figcaption>
+</figure>
+<h2 id="动态块">动态块</h2>
+<p>双击参数可以快速调出动作</p>
+<h3 id="缩放">缩放</h3>
+<p>可根据需要选择缩放动作的基准类型：依赖（参数的起点或终点）、独立（x、y坐标确定的具体点）。</p>
+<p><img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%E7%BC%A9%E6%94%BE.gif" srcset="/img/loading.gif" lazyload /></p>
 
                 
               </div>

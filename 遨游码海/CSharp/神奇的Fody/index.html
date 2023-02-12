@@ -16,12 +16,12 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="AOP编程范式世界观与方法论是一个宏大的话题，世界观决定了方法论，方法论影响了世界观。在计算机的世界里，编程范式就是程序员的方法论。从时间维度看待编程，面向过程是自然而然的选择。从空间角度去看，必然会提炼出面对对象的编程方法。 面向过程、面向对象、函数式编程等都是常见的编程范式，AOP 也属于编程范式的一种，笔者认为这是一种面向补充需求的编程范式。AOP 的字面翻译为面向切片编程，它其实是对面向对">
+    <meta name="description" content="AOP编程范式 世界观与方法论是一个宏大的话题，世界观决定了方法论，方法论影响了世界观。在计算机的世界里，编程范式就是程序员的方法论。从时间维度看待编程，面向过程是自然而然的选择。从空间角度去看，必然会提炼出面对对象的编程方法。 面向过程、面向对象、函数式编程等都是常见的编程范式，AOP 也属于编程范式的一种，笔者认为这是一种面向补充需求的编程范式。AOP 的字面翻译为面向切片编程，它其实">
 <meta property="og:type" content="article">
 <meta property="og:title" content="神奇的Fody">
 <meta property="og:url" content="https://3roman.github.io/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/%E7%A5%9E%E5%A5%87%E7%9A%84Fody/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="AOP编程范式世界观与方法论是一个宏大的话题，世界观决定了方法论，方法论影响了世界观。在计算机的世界里，编程范式就是程序员的方法论。从时间维度看待编程，面向过程是自然而然的选择。从空间角度去看，必然会提炼出面对对象的编程方法。 面向过程、面向对象、函数式编程等都是常见的编程范式，AOP 也属于编程范式的一种，笔者认为这是一种面向补充需求的编程范式。AOP 的字面翻译为面向切片编程，它其实是对面向对">
+<meta property="og:description" content="AOP编程范式 世界观与方法论是一个宏大的话题，世界观决定了方法论，方法论影响了世界观。在计算机的世界里，编程范式就是程序员的方法论。从时间维度看待编程，面向过程是自然而然的选择。从空间角度去看，必然会提炼出面对对象的编程方法。 面向过程、面向对象、函数式编程等都是常见的编程范式，AOP 也属于编程范式的一种，笔者认为这是一种面向补充需求的编程范式。AOP 的字面翻译为面向切片编程，它其实">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/fody.png">
 <meta property="article:published_time" content="2022-12-27T12:11:42.118Z">
@@ -199,7 +199,7 @@
         
         
         
-          24 分钟
+          25 分钟
         
       </span>
     
@@ -242,34 +242,61 @@
             
               <div class="markdown-body">
                 
-                <h2 id="AOP编程范式"><a href="#AOP编程范式" class="headerlink" title="AOP编程范式"></a>AOP编程范式</h2><p>世界观与方法论是一个宏大的话题，世界观决定了方法论，方法论影响了世界观。在计算机的世界里，编程范式就是程序员的方法论。从时间维度看待编程，面向过程是自然而然的选择。从空间角度去看，必然会提炼出面对对象的编程方法。</p>
-<p>面向过程、面向对象、函数式编程等都是常见的编程范式，AOP 也属于编程范式的一种，笔者认为这是一种面向<strong>补充需求</strong>的编程范式。AOP 的字面翻译为面向切片编程，它其实是对面向对象编程的补充。AOP 的核心思想是将程序的功能点独立出来，使程序具备更高的模块化特性。就好比提供了红点瞄准器、倍镜、消音器、枪口制退器、扩容弹夹等枪械部件，根据任务需要搭配，最终组成一把功能齐备的步枪。</p>
+                <h2 id="aop编程范式">AOP编程范式</h2>
+<p>世界观与方法论是一个宏大的话题，世界观决定了方法论，方法论影响了世界观。在计算机的世界里，编程范式就是程序员的方法论。从时间维度看待编程，面向过程是自然而然的选择。从空间角度去看，必然会提炼出面对对象的编程方法。</p>
+<p>面向过程、面向对象、函数式编程等都是常见的编程范式，AOP
+也属于编程范式的一种，笔者认为这是一种面向<strong>补充需求</strong>的编程范式。AOP
+的字面翻译为面向切片编程，它其实是对面向对象编程的补充。AOP
+的核心思想是将程序的功能点独立出来，使程序具备更高的模块化特性。就好比提供了红点瞄准器、倍镜、消音器、枪口制退器、扩容弹夹等枪械部件，根据任务需要搭配，最终组成一把功能齐备的步枪。</p>
 <p>AOP 常见实现方式有三种：</p>
 <ul>
 <li>中间件</li>
 <li>过滤器</li>
 <li>代码织入</li>
 </ul>
-<p>本文将只谈代码织入，代码织入分动态织入和静态织入。静态织入在编译时就将各种涉及 AOP 拦截的代码注入到符合一定规则的类中，最终效果与直接在源码中给类增加属性或方法相同，只是这个工作交由编译器和框架完成。动态织入借助反射特性，动态生成代理类达成 AOP。</p>
-<h2 id="Fody框架"><a href="#Fody框架" class="headerlink" title="Fody框架"></a>Fody框架</h2><p><a target="_blank" rel="noopener" href="https://github.com/FODY">Fody</a> 是 .NET 平台下一款优秀的开源静态织入框架，以插件的方式灵活地为程序增加功能。</p>
-<p>Fody 并没有对织入源码，而是直接织入编译好的程序集，其中至关重要的 ILRepack 功能由 <a target="_blank" rel="noopener" href="https://github.com/Fody/cecil">Ceil</a> 库实现。这样处理使得框架更具通用性，毕竟 .Net 平台下的编程语言包括 C#、VB.Net和 F#三种，不过它们生成的 IL 代码格式一致。只针对 IL 代码，不针对具体语言，无形中降低了框架的开发难度。织入流程图如下。</p>
-<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/202204122108221.png" srcset="/img/loading.gif" lazyload alt="Code weaving using Fody"></p>
-<p>打包资源，参数 Null 检查，通知属性等个性化需求以往都在源码层面通过大量的 plumbing code 完成，这些代码通常高度一致。编写这些模板代码工作量很大，要求程序员掌握诸如反射、编译等多方面知识，如此重复性的工作意义不大，还造成代码冗余。插件解决了上述痛点，程序员可以用一种傻瓜化的方式实现各种需求，还避免了造轮子。目前官方提供10多个插件，具体用法见<a target="_blank" rel="noopener" href="https://github.com/Fody/FodyAddinSamples">示例项目</a>。</p>
-<h2 id="PropertyChanged插件"><a href="#PropertyChanged插件" class="headerlink" title="PropertyChanged插件"></a>PropertyChanged插件</h2><p>PropertyChanged 是一款非常方便的插件，省去了 MVVM 编程中大量冗余代码。众所周知，属性要具备通知功能，传统做法是所属类先继承<code>INotifyPropertyChanged</code>接口，再在<code>setter</code>访问器中引发通知事件。事件的第一个参数是<code>this</code>指针，第二个参数是对应属性名（ C#6.0新增的<code>nameof</code>关键字可代替硬编码属性名）。示例代码如下：</p>
+<p>本文将只谈代码织入，代码织入分动态织入和静态织入。静态织入在编译时就将各种涉及
+AOP
+拦截的代码注入到符合一定规则的类中，最终效果与直接在源码中给类增加属性或方法相同，只是这个工作交由编译器和框架完成。动态织入借助反射特性，动态生成代理类达成
+AOP。</p>
+<h2 id="fody框架">Fody框架</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/FODY">Fody</a> 是 .NET
+平台下一款优秀的开源静态织入框架，以插件的方式灵活地为程序增加功能。</p>
+<p>Fody 并没有对织入源码，而是直接织入编译好的程序集，其中至关重要的
+ILRepack 功能由 <a target="_blank" rel="noopener" href="https://github.com/Fody/cecil">Ceil</a>
+库实现。这样处理使得框架更具通用性，毕竟 .Net 平台下的编程语言包括
+C#、VB.Net和 F#三种，不过它们生成的 IL 代码格式一致。只针对 IL
+代码，不针对具体语言，无形中降低了框架的开发难度。织入流程图如下。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/202204122108221.png" srcset="/img/loading.gif" lazyload
+alt="Code weaving using Fody" />
+<figcaption aria-hidden="true">Code weaving using Fody</figcaption>
+</figure>
+<p>打包资源，参数 Null
+检查，通知属性等个性化需求以往都在源码层面通过大量的 plumbing code
+完成，这些代码通常高度一致。编写这些模板代码工作量很大，要求程序员掌握诸如反射、编译等多方面知识，如此重复性的工作意义不大，还造成代码冗余。插件解决了上述痛点，程序员可以用一种傻瓜化的方式实现各种需求，还避免了造轮子。目前官方提供10多个插件，具体用法见<a
+target="_blank" rel="noopener" href="https://github.com/Fody/FodyAddinSamples">示例项目</a>。</p>
+<h2 id="propertychanged插件">PropertyChanged插件</h2>
+<p>PropertyChanged 是一款非常方便的插件，省去了 MVVM
+编程中大量冗余代码。众所周知，属性要具备通知功能，传统做法是所属类先继承<code>INotifyPropertyChanged</code>接口，再在<code>setter</code>访问器中引发通知事件。事件的第一个参数是<code>this</code>指针，第二个参数是对应属性名（
+C#6.0新增的<code>nameof</code>关键字可代替硬编码属性名）。示例代码如下：</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> : <span class="hljs-title">INotifyPropertyChanged</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> PropertyChangedEventHandler PropertyChanged;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-built_in">string</span> _fullName;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> FullName<br>    &#123;<br>        <span class="hljs-keyword">get</span> &#123; <span class="hljs-keyword">return</span> _fullName; &#125;<br>        <span class="hljs-keyword">set</span> <br>        &#123; <br>            <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">string</span>.Equals(<span class="hljs-keyword">value</span>, _fullName))<br>            &#123;<br>                _fullName = <span class="hljs-keyword">value</span>;<br>                OnPropertyChanged(<span class="hljs-keyword">nameof</span>(FullName)); <span class="hljs-comment">// C#6.0新增关键字</span><br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnPropertyChanged</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> propertyName = <span class="hljs-literal">null</span></span>)</span><br>    &#123;<br>        PropertyChanged?.Invoke(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">new</span> PropertyChangedEventArgs(propertyName));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>试想一下，如果有几十个通知属性，写起来多么麻烦！在没有<code>nameof</code>关键字的情况下，一旦属性名拼写错误，排错也不是件易事。这些弊端在引入 PropertyChanged 插件后将完全根除，插件安装命令如下：</p>
+<p>试想一下，如果有几十个通知属性，写起来多么麻烦！在没有<code>nameof</code>关键字的情况下，一旦属性名拼写错误，排错也不是件易事。这些弊端在引入
+PropertyChanged 插件后将完全根除，插件安装命令如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Install-Package PropertyChanged.Fody<br></code></pre></td></tr></table></figure>
-
 <p>随之将上述代码简化为：</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> : <span class="hljs-title">INotifyPropertyChanged</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> PropertyChangedEventHandler PropertyChanged;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> FullName &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>只要某个类实现了<code>INotifyPropertyChanged</code>接口，插件就可根据此规则自动注入相关 IL 代码，将其所属全部属性升级为通知属性。如无必要的话，也可给属性单独设置<code>[DoNotNotifyAttribute]</code>特性以跳过代码注入，更多细节用法见<a target="_blank" rel="noopener" href="https://github.com/Fody/PropertyChanged/wiki">官方wiki</a>。</p>
+<p>只要某个类实现了<code>INotifyPropertyChanged</code>接口，插件就可根据此规则自动注入相关
+IL
+代码，将其所属全部属性升级为通知属性。如无必要的话，也可给属性单独设置<code>[DoNotNotifyAttribute]</code>特性以跳过代码注入，更多细节用法见<a
+target="_blank" rel="noopener" href="https://github.com/Fody/PropertyChanged/wiki">官方wiki</a>。</p>
 <p>知其然而知其所有然，我们用 ILSpy 查看一下反编译后的代码：</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> : <span class="hljs-title">INotifyPropertyChanged</span><br>&#123;<br>	<span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> FullName<br>	&#123;<br>		[<span class="hljs-meta">CompilerGenerated</span>]<br>		<span class="hljs-keyword">get</span><br>		&#123;<br>			<span class="hljs-keyword">return</span> &lt;FullName&gt;k__BackingField;<br>		&#125;<br>		[<span class="hljs-meta">CompilerGenerated</span>]<br>		<span class="hljs-keyword">set</span><br>		&#123;<br>			<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">string</span>.Equals(&lt;FullName&gt;k__BackingField, <span class="hljs-keyword">value</span>, StringComparison.Ordinal))<br>			&#123;<br>				&lt;FullName&gt;k__BackingField = <span class="hljs-keyword">value</span>;<br>				&lt;&gt;OnPropertyChanged(&lt;&gt;PropertyChangedEventArgs.FullName);<br>			&#125;<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> PropertyChangedEventHandler PropertyChanged;<br><br>	[<span class="hljs-meta">GeneratedCode(<span class="hljs-string">&quot;PropertyChanged.Fody&quot;</span>, <span class="hljs-string">&quot;3.4.0.0&quot;</span>)</span>]<br>	[<span class="hljs-meta">DebuggerNonUserCode</span>]<br>	<span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> &lt;&gt;OnPropertyChanged(PropertyChangedEventArgs eventArgs)<br>	&#123;<br>		<span class="hljs-keyword">this</span>.PropertyChanged?.Invoke(<span class="hljs-keyword">this</span>, eventArgs);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
 <p>上述自动生成的代码与传统方式编写的代码并无二致，笔者认为这是目前实现通知属性最优雅的方式。</p>
-<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p>1、<a target="_blank" rel="noopener" href="https://codingcanvas.com/code-weaving-using-fody/">https://codingcanvas.com/code-weaving-using-fody/</a><br>2、<a target="_blank" rel="noopener" href="https://www.cnblogs.com/weidaorisun/p/15627183.html">https://www.cnblogs.com/weidaorisun/p/15627183.html</a><br>3、<a target="_blank" rel="noopener" href="https://github.com/Fody/Home">https://github.com/Fody/Home</a></p>
+<h2 id="参考文章">参考文章</h2>
+<p>1、https://codingcanvas.com/code-weaving-using-fody/
+2、https://www.cnblogs.com/weidaorisun/p/15627183.html
+3、https://github.com/Fody/Home</p>
 
                 
               </div>

@@ -16,12 +16,12 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言 JavaScript是一种类C的脚本语言，目前在Web前端、后端都有非常广泛的应用。js其实与Java并无关联，当年为了沾上Java的热度就起名叫JavaScript。 对于大多数程序而言，程序&#x3D;数据+算法，因此学习一门新的编程语言应从这两个方面学起，后续在逐渐深入该语言的特有的内容。 数据基本数据类型 number 整型、浮点型、非数字NaN、无穷大Infinity4种数值类型。 12le">
+    <meta name="description" content="前言 JavaScript是一种类C的脚本语言，目前在Web前端、后端都有非常广泛的应用。js其实与Java并无关联，当年为了沾上Java的热度就起名叫JavaScript。 对于大多数程序而言，程序&#x3D;数据+算法，因此学习一门新的编程语言应从这两个方面学起，后续在逐渐深入该语言的特有的内容。 数据 基本数据类型  number 整型、浮点型、非数字NaN、无穷大Infinity4种数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS入门">
 <meta property="og:url" content="https://3roman.github.io/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/JavaScript/js%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="前言 JavaScript是一种类C的脚本语言，目前在Web前端、后端都有非常广泛的应用。js其实与Java并无关联，当年为了沾上Java的热度就起名叫JavaScript。 对于大多数程序而言，程序&#x3D;数据+算法，因此学习一门新的编程语言应从这两个方面学起，后续在逐渐深入该语言的特有的内容。 数据基本数据类型 number 整型、浮点型、非数字NaN、无穷大Infinity4种数值类型。 12le">
+<meta property="og:description" content="前言 JavaScript是一种类C的脚本语言，目前在Web前端、后端都有非常广泛的应用。js其实与Java并无关联，当年为了沾上Java的热度就起名叫JavaScript。 对于大多数程序而言，程序&#x3D;数据+算法，因此学习一门新的编程语言应从这两个方面学起，后续在逐渐深入该语言的特有的内容。 数据 基本数据类型  number 整型、浮点型、非数字NaN、无穷大Infinity4种数">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/javascript.png">
 <meta property="article:published_time" content="2022-12-27T12:11:42.165Z">
@@ -241,62 +241,61 @@
             
               <div class="markdown-body">
                 
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p> JavaScript是一种类C的脚本语言，目前在Web前端、后端都有非常广泛的应用。js其实与Java并无关联，当年为了沾上Java的热度就起名叫JavaScript。</p>
+                <h2 id="前言">前言</h2>
+<p>JavaScript是一种类C的脚本语言，目前在Web前端、后端都有非常广泛的应用。js其实与Java并无关联，当年为了沾上Java的热度就起名叫JavaScript。</p>
 <p>对于大多数程序而言，程序=数据+算法，因此学习一门新的编程语言应从这两个方面学起，后续在逐渐深入该语言的特有的内容。</p>
-<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><ol>
+<h2 id="数据">数据</h2>
+<h3 id="基本数据类型">基本数据类型</h3>
+<ol type="1">
 <li><p>number</p>
 <p>整型、浮点型、非数字<code>NaN</code>、无穷大<code>Infinity</code>4种数值类型。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> num = <span class="hljs-number">1</span> / <span class="hljs-number">0</span>; <span class="hljs-comment">// Infinity</span><br>num = <span class="hljs-string">&quot;hello&quot;</span> - <span class="hljs-number">1</span>; <span class="hljs-comment">// NaN</span><br></code></pre></td></tr></table></figure>
-
 <p>浮点型占用整型2倍的内存空间，因此JavaScript会不失时机地将浮点型数值转换为整型数值。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> n = <span class="hljs-number">2.0</span> <span class="hljs-comment">// 自动转换为2</span><br></code></pre></td></tr></table></figure>
-
 <blockquote>
 <p>任何语言任何时候都不要与浮点型数值作比较</p>
-</blockquote>
-</li>
+</blockquote></li>
 <li><p>string</p>
 <p>用字符串模板代替字符串拼接</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> age = <span class="hljs-number">20</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`I am <span class="hljs-subst">$&#123;age&#125;</span> years old`</span>);<br></code></pre></td></tr></table></figure></li>
 <li><p>常见类型与bool类型转换关系表</p>
 <table>
 <thead>
-<tr>
-<th align="center">数据类型</th>
+<tr class="header">
+<th style="text-align: center;">数据类型</th>
 <th>true</th>
 <th>false</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">string</td>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">string</td>
 <td>任何非空字符串</td>
 <td>“”（空字符串)</td>
 </tr>
-<tr>
-<td align="center">number</td>
+<tr class="even">
+<td style="text-align: center;">number</td>
 <td>任何非零数值(包括无穷大)</td>
 <td>0和NaN</td>
 </tr>
-<tr>
-<td align="center">object</td>
+<tr class="odd">
+<td style="text-align: center;">object</td>
 <td>任何对象</td>
 <td>null</td>
 </tr>
-<tr>
-<td align="center">undefined</td>
+<tr class="even">
+<td style="text-align: center;">undefined</td>
 <td>n/a</td>
 <td>undefined</td>
 </tr>
-</tbody></table>
-</li>
+</tbody>
+</table></li>
 <li><p>undefined</p>
 <p>所有仅被声明而未被赋值的变量，JavaScript会分配一个默认值<code>undefined</code>。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> slogan<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(slogan); <span class="hljs-comment">// undefined</span><br></code></pre></td></tr></table></figure></li>
 <li><p>null</p>
-<p>如果一个变量将来用于存储对象，通常将其初始化为<code>null</code>。</p>
-</li>
-<li><p>object</p>
-</li>
+<p>如果一个变量将来用于存储对象，通常将其初始化为<code>null</code>。</p></li>
+<li><p>object</p></li>
 <li><p>array</p>
 <ul>
 <li>JavaScript属于弱类型编程语言，因此array不会对数据类型进行检查，即同一数组中可以不同类型的数据；</li>
@@ -304,27 +303,27 @@
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> fruits = [<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>];<br>fruits.<span class="hljs-title function_">push</span>(<span class="hljs-number">2020</span>); <span class="hljs-comment">// apple, banana. 2020</span><br>fruits.<span class="hljs-title function_">pop</span>(); <span class="hljs-comment">// 2020</span><br></code></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="常量与变量"><a href="#常量与变量" class="headerlink" title="常量与变量"></a>常量与变量</h3><p>变量命名必须以字母、下划线(_)或美元符号($)打头；类名使用大驼峰命名法；常量使用大写+下划线命名法；其余使用小驼峰命名法。</p>
+<h3 id="常量与变量">常量与变量</h3>
+<p>变量命名必须以字母、下划线(_)或美元符号($)打头；类名使用大驼峰命名法；常量使用大写+下划线命名法；其余使用小驼峰命名法。</p>
 <p>不建议改变变量数据类型</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> slogan = <span class="hljs-string">&quot;hello javascript&quot;</span>;<br>slogan = <span class="hljs-string">&quot;hello world&quot;</span>; <span class="hljs-comment">// 允许</span><br>slogan = <span class="hljs-number">2020</span>; <span class="hljs-comment">// 允许但不推荐</span><br></code></pre></td></tr></table></figure>
-
 <p>除非为兼容旧版本，否则一律使用<code>let</code>关键字声明变量。<code>let</code>不支持变量提升，即变量在被使用之前必须先被声明；其次<code>let</code>不允许重复声明变量；以上特点可避免<del>var</del>关键字可能带来的混乱。</p>
 <p>常量必须初始化，即声明时就赋初值。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> slogan;<br>slogan = <span class="hljs-string">&quot;hello javascript&quot;</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PI</span> = <span class="hljs-number">3.1415926</span>;<br></code></pre></td></tr></table></figure>
-
-<h3 id="动态特性"><a href="#动态特性" class="headerlink" title="动态特性"></a>动态特性</h3><p>JavaScript属于动态型编程语言，允许同一变量在运行周期里存储不同类型的数据，<strong>注意：这不是类型推断。</strong></p>
+<h3 id="动态特性">动态特性</h3>
+<p>JavaScript属于动态型编程语言，允许同一变量在运行周期里存储不同类型的数据，<strong>注意：这不是类型推断。</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> x = <span class="hljs-string">&quot;hello js&quot;</span>;<br><span class="hljs-keyword">typeof</span> x <span class="hljs-comment">// =&gt; &#x27;string&#x27;</span><br>slogan = <span class="hljs-number">2021</span>;<br><span class="hljs-keyword">typeof</span> x <span class="hljs-comment">// =&gt; &#x27;number&#x27;</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h3><p>单行语句以分号结尾；花括号包起来的几行语句即多行语句。</p>
+<h2 id="算法">算法</h2>
+<h3 id="语句">语句</h3>
+<p>单行语句以分号结尾；花括号包起来的几行语句即多行语句。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&#123;<br>    temp = a;<br>    a = b;<br>    b = temp;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><ol>
+<h3 id="运算符">运算符</h3>
+<ol type="1">
 <li>递增与递减</li>
 </ol>
 <p>前置与后置递增、递减运算结果都相同，区别在于赋值运算次序不同。</p>
-  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> price1 = <span class="hljs-number">100</span>, price2 = <span class="hljs-number">100</span>;<br><span class="hljs-keyword">let</span> newPrice1 = price1++;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(newPrice1); <span class="hljs-comment">// 100</span><br><span class="hljs-keyword">let</span> newPrice2 = ++price2;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(newPrice2); <span class="hljs-comment">// 101</span><br></code></pre></td></tr></table></figure>
-
-<ol start="2">
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> price1 = <span class="hljs-number">100</span>, price2 = <span class="hljs-number">100</span>;<br><span class="hljs-keyword">let</span> newPrice1 = price1++;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(newPrice1); <span class="hljs-comment">// 100</span><br><span class="hljs-keyword">let</span> newPrice2 = ++price2;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(newPrice2); <span class="hljs-comment">// 101</span><br></code></pre></td></tr></table></figure></p>
+<ol start="2" type="1">
 <li>比较</li>
 </ol>
 <ul>
@@ -340,39 +339,43 @@
 <blockquote>
 <p>在不清楚具体应用场合的前提下，尽量使用严格相等<code>===</code>或者严格不相等<code>!==</code>。</p>
 </blockquote>
-<h3 id="控制结构"><a href="#控制结构" class="headerlink" title="控制结构"></a>控制结构</h3><ol>
+<h3 id="控制结构">控制结构</h3>
+<ol type="1">
 <li>多条件判断过程</li>
 </ol>
 <p>对于多条件判断语句（逻辑与<code>&amp;&amp;</code>和逻辑或<code>||</code>），当根据条件1就可以得到整体判断结果，后续条件将不再执行。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> dog = <span class="hljs-literal">null</span>;<br><span class="hljs-keyword">if</span> (<span class="hljs-number">2</span> &gt; <span class="hljs-number">1</span> || dog.<span class="hljs-property">age</span> &gt; <span class="hljs-number">5</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;old dog&quot;</span>);<br>&#125; <span class="hljs-comment">// 正常输出：old dog，不会报错</span><br><span class="hljs-keyword">if</span> (dog.<span class="hljs-property">age</span> &gt; <span class="hljs-number">5</span> || <span class="hljs-number">2</span> &gt; <span class="hljs-number">1</span> ) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;old dog&quot;</span>);<br>&#125; <span class="hljs-comment">// 报错：Cannot read property &#x27;age&#x27; of null</span><br></code></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol start="2" type="1">
 <li>分支语句break关键字</li>
 </ol>
 <p>如果缺少<code>break</code>关键字，条件成立部分语句及后续无<code>break</code>关键字语句都将会被执行；此时<code>case</code>关键字起到的是<code>goto</code>的作用，这与<code>if...else if...</code>语句功能不同。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> flag = <span class="hljs-number">2</span>;<br><span class="hljs-keyword">switch</span> (flag) &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>);<br>    &#125;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">2</span>);<br>    &#125;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>: &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">3</span>);<br>    &#125;<br>    <span class="hljs-attr">default</span>: &#123;<br>        <span class="hljs-keyword">break</span>;<br>    &#125;<br>&#125; <span class="hljs-comment">// 输出2、3</span><br></code></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol start="3" type="1">
 <li>遍历</li>
 </ol>
 <p><code>for...in</code>语句用于遍历数组的元素或者对象的属性。不同于C#语言，JavaScript语言中可对集合进行读写。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> stuff = &#123;<span class="hljs-attr">name</span>:<span class="hljs-string">&quot;wanger&quot;</span>, <span class="hljs-attr">age</span>:<span class="hljs-number">30</span>, <span class="hljs-attr">married</span>:<span class="hljs-literal">false</span>&#125;; <br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> x <span class="hljs-keyword">in</span> stuff) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;x&#125;</span>:<span class="hljs-subst">$&#123;stuff[x]&#125;</span>`</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>虽然JavaScript支持行注释和块注释，但是编辑器都是以行注释的型式生成注释。</p>
-   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// function add(x, y)&#123;</span><br><span class="hljs-comment">//     return x + y;</span><br><span class="hljs-comment">// &#125;</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h2><h3 id="填坑"><a href="#填坑" class="headerlink" title="填坑"></a>填坑</h3><ol>
+<h2 id="其它">其它</h2>
+<h3 id="注释">注释</h3>
+<p>虽然JavaScript支持行注释和块注释，但是编辑器都是以行注释的型式生成注释。</p>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// function add(x, y)&#123;</span><br><span class="hljs-comment">//     return x + y;</span><br><span class="hljs-comment">// &#125;</span><br></code></pre></td></tr></table></figure></p>
+<h2 id="es6">ES6</h2>
+<h3 id="填坑">填坑</h3>
+<ol type="1">
 <li>大胆抛弃<code>var</code>关键字，请用<code>let</code>和<code>const</code>代替</li>
 <li><code>import</code>模块时不建议省略后缀名，主要怕引起诸如<code>math.js</code>和<code>math\index.js</code>的歧义。</li>
 </ol>
-<h3 id="简化"><a href="#简化" class="headerlink" title="简化"></a>简化</h3><ol>
-<li>简化对象方法声明<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> coder = &#123;<br>    <span class="hljs-comment">// sayHello: function()&#123;</span><br>    <span class="hljs-comment">//     console.log(&quot;hello js&quot;);</span><br>    <span class="hljs-comment">// &#125;</span><br>    <span class="hljs-comment">// 简化写法</span><br>    <span class="hljs-title function_">sayHello</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;hello js&quot;</span>);<br>    &#125;<br>&#125;	<br></code></pre></td></tr></table></figure></li>
-<li>使用箭头函数简化方法定义<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript">numbers.<span class="hljs-title function_">sort</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>)&#123;<span class="hljs-keyword">return</span> a - b&#125;);<br><span class="hljs-comment">// 简化写法</span><br>numbers.<span class="hljs-title function_">sort</span>(<span class="hljs-function">(<span class="hljs-params">a,b</span>) =&gt;</span> a - b);<br><br><span class="hljs-comment">// 注意：用箭头函数定义实例方法时，this一般不指向实例</span><br><span class="hljs-keyword">const</span> tommy = &#123;<br>    <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;tommy&#x27;</span>,<br>    <span class="hljs-title function_">sayHello</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`this is <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>);<br>    &#125;,<br><br>    <span class="hljs-attr">sayBye</span>: <span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`this is <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>);<br>    &#125;<br><br>&#125;<br><br>tommy.<span class="hljs-title function_">sayHello</span>(); <span class="hljs-comment">// this is tommy</span><br>tommy.<span class="hljs-title function_">sayBye</span>(); <span class="hljs-comment">// this is undefined </span><br></code></pre></td></tr></table></figure></li>
+<h3 id="简化">简化</h3>
+<ol type="1">
+<li><p>简化对象方法声明</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> coder = &#123;<br>    <span class="hljs-comment">// sayHello: function()&#123;</span><br>    <span class="hljs-comment">//     console.log(&quot;hello js&quot;);</span><br>    <span class="hljs-comment">// &#125;</span><br>    <span class="hljs-comment">// 简化写法</span><br>    <span class="hljs-title function_">sayHello</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;hello js&quot;</span>);<br>    &#125;<br>&#125;	<br></code></pre></td></tr></table></figure></li>
+<li><p>使用箭头函数简化方法定义</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript">numbers.<span class="hljs-title function_">sort</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>)&#123;<span class="hljs-keyword">return</span> a - b&#125;);<br><span class="hljs-comment">// 简化写法</span><br>numbers.<span class="hljs-title function_">sort</span>(<span class="hljs-function">(<span class="hljs-params">a,b</span>) =&gt;</span> a - b);<br><br><span class="hljs-comment">// 注意：用箭头函数定义实例方法时，this一般不指向实例</span><br><span class="hljs-keyword">const</span> tommy = &#123;<br>    <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;tommy&#x27;</span>,<br>    <span class="hljs-title function_">sayHello</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`this is <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>);<br>    &#125;,<br><br>    <span class="hljs-attr">sayBye</span>: <span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`this is <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>);<br>    &#125;<br><br>&#125;<br><br>tommy.<span class="hljs-title function_">sayHello</span>(); <span class="hljs-comment">// this is tommy</span><br>tommy.<span class="hljs-title function_">sayBye</span>(); <span class="hljs-comment">// this is undefined </span><br></code></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="新意思"><a href="#新意思" class="headerlink" title="新意思"></a>新意思</h3><ol>
-<li>高阶函数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> diameters = [<span class="hljs-number">3</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>];<br>diameters = diameters.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">d</span> =&gt;</span> d &gt; <span class="hljs-number">0</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(diameters); <span class="hljs-comment">// [ 1, 2, 3 ]</span><br>areas = diameters.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">d</span> =&gt;</span> <span class="hljs-number">0.785</span> * d ** <span class="hljs-number">2</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(areas); <span class="hljs-comment">// [ 0.785, 3.14, 7.065 ]</span><br><span class="hljs-keyword">var</span> totalAreas = areas.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">x,y</span>) =&gt;</span> x + y);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(totalAreas); <span class="hljs-comment">// 10.99 = 0.785+ 3.14 + 7.065</span><br></code></pre></td></tr></table></figure></li>
-</ol>
-<ol start="2">
+<h3 id="新意思">新意思</h3>
+<ol type="1">
+<li><p>高阶函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> diameters = [<span class="hljs-number">3</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>];<br>diameters = diameters.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">d</span> =&gt;</span> d &gt; <span class="hljs-number">0</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(diameters); <span class="hljs-comment">// [ 1, 2, 3 ]</span><br>areas = diameters.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">d</span> =&gt;</span> <span class="hljs-number">0.785</span> * d ** <span class="hljs-number">2</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(areas); <span class="hljs-comment">// [ 0.785, 3.14, 7.065 ]</span><br><span class="hljs-keyword">var</span> totalAreas = areas.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">x,y</span>) =&gt;</span> x + y);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(totalAreas); <span class="hljs-comment">// 10.99 = 0.785+ 3.14 + 7.065</span><br></code></pre></td></tr></table></figure></li>
 <li><p>解构</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">SteamPro</span>(<span class="hljs-params">press, temp</span>) &#123;<br>    <span class="hljs-keyword">var</span> density, entropy, enthalpy, viscosity;<br>    <span class="hljs-comment">// balabala</span><br>    <span class="hljs-keyword">return</span> &#123; density, entropy, enthalpy, viscosity &#125;;<br>&#125;<br><br><span class="hljs-keyword">const</span> &#123; density, entropy, enthalpy, viscosity &#125; = <span class="hljs-title class_">SteamPro</span>(press, temp);<br></code></pre></td></tr></table></figure></li>
 <li><p>展开运算符</p>

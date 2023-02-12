@@ -16,12 +16,12 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="WinDbg 是 Windows 平台下的一款多用途调试器，由微软官方维护。区别于 OD，WinDbg  既可调试用户态代码，又能调试内核态代码及驱动程序。 安装Win10及以上系统可通过微软商店安装最新 Preview 程序，Win10以下只能下载安装包安装。 符号表PDB(Program Database Files) 符号表文件由链接器生成，它是调试器与源文件之间的桥梁，记录了变量及函数的名">
+    <meta name="description" content="WinDbg 是 Windows 平台下的一款多用途调试器，由微软官方维护。区别于 OD，WinDbg 既可调试用户态代码，又能调试内核态代码及驱动程序。 安装 Win10及以上系统可通过微软商店安装最新 Preview 程序，Win10以下只能下载安装包安装。 符号表 PDB(Program Database Files) 符号表文件由链接器生成，它是调试器与源文件之间的桥梁，记录">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WinDbg快速入门">
 <meta property="og:url" content="https://3roman.github.io/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/WinDbg%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="WinDbg 是 Windows 平台下的一款多用途调试器，由微软官方维护。区别于 OD，WinDbg  既可调试用户态代码，又能调试内核态代码及驱动程序。 安装Win10及以上系统可通过微软商店安装最新 Preview 程序，Win10以下只能下载安装包安装。 符号表PDB(Program Database Files) 符号表文件由链接器生成，它是调试器与源文件之间的桥梁，记录了变量及函数的名">
+<meta property="og:description" content="WinDbg 是 Windows 平台下的一款多用途调试器，由微软官方维护。区别于 OD，WinDbg 既可调试用户态代码，又能调试内核态代码及驱动程序。 安装 Win10及以上系统可通过微软商店安装最新 Preview 程序，Win10以下只能下载安装包安装。 符号表 PDB(Program Database Files) 符号表文件由链接器生成，它是调试器与源文件之间的桥梁，记录">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/windbg.jpg">
 <meta property="article:published_time" content="2022-12-27T12:11:42.060Z">
@@ -186,7 +186,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          951 字
+          902 字
         
       </span>
     
@@ -240,10 +240,17 @@
             
               <div class="markdown-body">
                 
-                <p>WinDbg 是 Windows 平台下的一款多用途调试器，由微软官方维护。区别于 OD，WinDbg  既可调试用户态代码，又能调试内核态代码及驱动程序。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Win10及以上系统可通过<a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/p/windbg-preview/9pgjgd53tn86#activetab=pivot:overviewtab">微软商店</a>安装最新 Preview 程序，Win10以下只能下载安装包安装。</p>
-<h2 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h2><p>PDB(Program Database Files) 符号表文件由链接器生成，它是调试器与源文件之间的桥梁，记录了变量及函数的名称与地址、参数和局部变量的堆栈偏移量、源码的文件名和行号等信息，一般用于调试目的。PDB 文件默认搜索路径如下：</p>
-<ol>
+                <p>WinDbg 是 Windows 平台下的一款多用途调试器，由微软官方维护。区别于
+OD，WinDbg 既可调试用户态代码，又能调试内核态代码及驱动程序。</p>
+<h2 id="安装">安装</h2>
+<p>Win10及以上系统可通过<a
+target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/p/windbg-preview/9pgjgd53tn86#activetab=pivot:overviewtab">微软商店</a>安装最新
+Preview 程序，Win10以下只能下载安装包安装。</p>
+<h2 id="符号表">符号表</h2>
+<p>PDB(Program Database Files)
+符号表文件由链接器生成，它是调试器与源文件之间的桥梁，记录了变量及函数的名称与地址、参数和局部变量的堆栈偏移量、源码的文件名和行号等信息，一般用于调试目的。PDB
+文件默认搜索路径如下：</p>
+<ol type="1">
 <li>当前被调试文件所在目录</li>
 <li>当前被调试文件硬编码记录的 build 目录</li>
 <li>symbol server 的本地缓存</li>
@@ -251,29 +258,40 @@
 </ol>
 <p>指定3路径、4路径命令如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">.sympath SRV*c:\windows\localsymbols*http://msdl.microsoft.com/download/symbols<br></code></pre></td></tr></table></figure>
-
-<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="加载插件"><a href="#加载插件" class="headerlink" title="加载插件"></a>加载插件</h3><p>强大的程序大都支持插件，WinDbg 亦然。加载插件很简单，一句命令即可：</p>
+<h2 id="插件">插件</h2>
+<h3 id="加载插件">加载插件</h3>
+<p>强大的程序大都支持插件，WinDbg
+亦然。加载插件很简单，一句命令即可：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">.load C:\Windows\Microsoft.NET\Framework\v4.0.30319\SOS.dll<br></code></pre></td></tr></table></figure>
-
 <p>上述命令只能一次性加载，下次还得重新执行。解决方法是将加载命令添加到启动命令组中。</p>
-<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/202202031653402.png" srcset="/img/loading.gif" lazyload alt="image-20220203165342328"></p>
-<h3 id="查看插件"><a href="#查看插件" class="headerlink" title="查看插件"></a>查看插件</h3><p><code>.chain</code>命令查看当前已加载插件列表</p>
-<h3 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h3><p>SOS 插件随 .NET Framework 一同发布，提供了查看托管堆的方法。其对应 dll 文件既分 x86 和 x64 版本，又分 .NET 版本，因此应根据具体调试对象区分加载。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/202202031653402.png" srcset="/img/loading.gif" lazyload
+alt="image-20220203165342328" />
+<figcaption aria-hidden="true">image-20220203165342328</figcaption>
+</figure>
+<h3 id="查看插件">查看插件</h3>
+<p><code>.chain</code>命令查看当前已加载插件列表</p>
+<h3 id="常用插件">常用插件</h3>
+<p>SOS 插件随 .NET Framework 一同发布，提供了查看托管堆的方法。其对应
+dll 文件既分 x86 和 x64 版本，又分 .NET
+版本，因此应根据具体调试对象区分加载。</p>
 <ul>
-<li> .NET 4.0及上32位程序集</li>
+<li>.NET 4.0及上32位程序集</li>
 </ul>
-<p>  C:\Windows\Microsoft.NET\Framework\v4.0.30319\clr.dll</p>
+<p>C:.NET.0.30319.dll</p>
 <ul>
-<li> .NET 4.0及上64位程序集</li>
+<li>.NET 4.0及上64位程序集</li>
 </ul>
-<p>  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\clr.dll</p>
+<p>C:.NET.0.30319.dll</p>
 <p>该插件常用方法如下：</p>
-<ol>
+<ol type="1">
 <li><p>Name2EE</p>
-<p>根据名称查找类型、属性及方法，其原理是遍历对象的 <code>MethodTable</code>和<code>EEClass</code>结构体。</p>
-<p>基本语法：<code>Name2EE &lt;module name&gt; !&lt;type or method name&gt;</code>，通配符 * 代表所有模块，名称区分大小写。</p>
-<p>典型用法：<code>!name2ee *!Program.Main</code></p>
-</li>
+<p>根据名称查找类型、属性及方法，其原理是遍历对象的
+<code>MethodTable</code>和<code>EEClass</code>结构体。</p>
+<p>基本语法：<code>Name2EE &lt;module name&gt; !&lt;type or method name&gt;</code>，通配符
+* 代表所有模块，名称区分大小写。</p>
+<p>典型用法：<code>!name2ee *!Program.Main</code></p></li>
 </ol>
 
                 

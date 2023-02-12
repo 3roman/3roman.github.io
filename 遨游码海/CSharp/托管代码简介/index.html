@@ -16,12 +16,12 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="托管代码运行于CLR之上，CLR即通用语言运行平台，也叫通用语言运行时。作为一个平台，CLR提供了以下主要功能：  实时编译JIT 垃圾回收GC 程序集加载 提供基础类库 内存管理 线程管理 异常管理 安全管理 类型安全检查 调试引擎  托管代码实际就是中间语言（MSIL）代码，这些代码无法被CPU直接执行，这是与机器码（native code）的最大区别。编译器生成的托管代码应用程序或链接库被称">
+    <meta name="description" content="托管代码运行于CLR之上，CLR即通用语言运行平台，也叫通用语言运行时。作为一个平台，CLR提供了以下主要功能：  实时编译JIT 垃圾回收GC 程序集加载 提供基础类库 内存管理 线程管理 异常管理 安全管理 类型安全检查 调试引擎  托管代码实际就是中间语言（MSIL）代码，这些代码无法被CPU直接执行，这是与机器码（native code）的最大区别。编译器生成的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="托管代码简介">
 <meta property="og:url" content="https://3roman.github.io/%E9%81%A8%E6%B8%B8%E7%A0%81%E6%B5%B7/CSharp/%E6%89%98%E7%AE%A1%E4%BB%A3%E7%A0%81%E7%AE%80%E4%BB%8B/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="托管代码运行于CLR之上，CLR即通用语言运行平台，也叫通用语言运行时。作为一个平台，CLR提供了以下主要功能：  实时编译JIT 垃圾回收GC 程序集加载 提供基础类库 内存管理 线程管理 异常管理 安全管理 类型安全检查 调试引擎  托管代码实际就是中间语言（MSIL）代码，这些代码无法被CPU直接执行，这是与机器码（native code）的最大区别。编译器生成的托管代码应用程序或链接库被称">
+<meta property="og:description" content="托管代码运行于CLR之上，CLR即通用语言运行平台，也叫通用语言运行时。作为一个平台，CLR提供了以下主要功能：  实时编译JIT 垃圾回收GC 程序集加载 提供基础类库 内存管理 线程管理 异常管理 安全管理 类型安全检查 调试引擎  托管代码实际就是中间语言（MSIL）代码，这些代码无法被CPU直接执行，这是与机器码（native code）的最大区别。编译器生成的">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/managed%20code.png">
 <meta property="article:published_time" content="2022-12-27T12:11:42.112Z">
@@ -187,7 +187,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          539 字
+          550 字
         
       </span>
     
@@ -254,48 +254,58 @@
 <li>类型安全检查</li>
 <li>调试引擎</li>
 </ul>
-<p>托管代码实际就是中间语言（MSIL）代码，这些代码无法被CPU直接执行，这是与机器码（native code）的最大区别。编译器生成的托管代码应用程序或链接库被称为程序集，当程序集运行加载时，由CLR将程序集中的托管代码实时转换成机器码，此过程称为“实时编译JIT”。这样做虽然显得大费周章，同时不可避免地造成了效率下降，但是带来跨平台等多个好处。首次编译生成的机器码将被保留在内存中，后续再次执行同一程序集将无需重复编译。程序集生成、执行流程如下图：</p>
-<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%25E7%25A8%258B%25E5%25BA%258F%25E9%259B%2586%25E7%2594%259F%25E6%2588%2590%25E3%2580%2581%25E6%2589%25A7%25E8%25A1%258C%25E6%25B5%2581%25E7%25A8%258B1.jpg" srcset="/img/loading.gif" lazyload alt="程序集生成、执行流程1"></p>
-<p> .NET Framework与CLR不一定一起更新。 例如，2.0、3.0 和 3.5版的 .NET Framework 都使用了 2.0版CLR 。 下表展示了 .NET Framework 与 CLR 的对应关系。</p>
+<p>托管代码实际就是中间语言（MSIL）代码，这些代码无法被CPU直接执行，这是与机器码（native
+code）的最大区别。编译器生成的托管代码应用程序或链接库被称为程序集，当程序集运行加载时，由CLR将程序集中的托管代码实时转换成机器码，此过程称为“实时编译JIT”。这样做虽然显得大费周章，同时不可避免地造成了效率下降，但是带来跨平台等多个好处。首次编译生成的机器码将被保留在内存中，后续再次执行同一程序集将无需重复编译。程序集生成、执行流程如下图：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/%25E7%25A8%258B%25E5%25BA%258F%25E9%259B%2586%25E7%2594%259F%25E6%2588%2590%25E3%2580%2581%25E6%2589%25A7%25E8%25A1%258C%25E6%25B5%2581%25E7%25A8%258B1.jpg" srcset="/img/loading.gif" lazyload
+alt="程序集生成、执行流程1" />
+<figcaption aria-hidden="true">程序集生成、执行流程1</figcaption>
+</figure>
+<p>.NET Framework与CLR不一定一起更新。 例如，2.0、3.0 和 3.5版的 .NET
+Framework 都使用了 2.0版CLR 。 下表展示了 .NET Framework 与 CLR
+的对应关系。</p>
 <table>
 <thead>
-<tr>
-<th align="left">.NET版本</th>
-<th align="left">CLR版本</th>
-<th align="left">CLR文件</th>
+<tr class="header">
+<th style="text-align: left;">.NET版本</th>
+<th style="text-align: left;">CLR版本</th>
+<th style="text-align: left;">CLR文件</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">1.1</td>
-<td align="left">1.1</td>
-<td align="left">mscorwks.dll</td>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1.1</td>
+<td style="text-align: left;">1.1</td>
+<td style="text-align: left;">mscorwks.dll</td>
 </tr>
-<tr>
-<td align="left">2.0</td>
-<td align="left">2.0</td>
-<td align="left">mscorwks.dll</td>
+<tr class="even">
+<td style="text-align: left;">2.0</td>
+<td style="text-align: left;">2.0</td>
+<td style="text-align: left;">mscorwks.dll</td>
 </tr>
-<tr>
-<td align="left">3.0</td>
-<td align="left">2.0</td>
-<td align="left">mscorwks.dll</td>
+<tr class="odd">
+<td style="text-align: left;">3.0</td>
+<td style="text-align: left;">2.0</td>
+<td style="text-align: left;">mscorwks.dll</td>
 </tr>
-<tr>
-<td align="left">3.5</td>
-<td align="left">2.0</td>
-<td align="left">mscorwks.dll</td>
+<tr class="even">
+<td style="text-align: left;">3.5</td>
+<td style="text-align: left;">2.0</td>
+<td style="text-align: left;">mscorwks.dll</td>
 </tr>
-<tr>
-<td align="left">4.0</td>
-<td align="left">4.0</td>
-<td align="left">clr.dll</td>
+<tr class="odd">
+<td style="text-align: left;">4.0</td>
+<td style="text-align: left;">4.0</td>
+<td style="text-align: left;">clr.dll</td>
 </tr>
-<tr>
-<td align="left">4.5</td>
-<td align="left">4.0</td>
-<td align="left">clr.dll</td>
+<tr class="even">
+<td style="text-align: left;">4.5</td>
+<td style="text-align: left;">4.0</td>
+<td style="text-align: left;">clr.dll</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
                 
               </div>

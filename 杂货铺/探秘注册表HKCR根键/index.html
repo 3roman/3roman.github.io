@@ -16,12 +16,12 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="无论是计算机老鸟还是小白，多少都接触过点注册表，这里俨然就是 Windows 操作系统的藏宝库。注册表由单词Registry直译而来，不过笔者认为译作配置信息数据库更加贴切。注册表是一种集中存储方式，linux 系统采用配置文件存储配置信息，比如bash.rc、my.cnf等等，这种方式是松散的。 注册表包含五个根键，根键、子健、键值对的概念这里不再累述。排在第一个的根键为HKEY_CLASSES">
+    <meta name="description" content="无论是计算机老鸟还是小白，多少都接触过点注册表，这里俨然就是 Windows 操作系统的藏宝库。注册表由单词Registry直译而来，不过笔者认为译作配置信息数据库更加贴切。注册表是一种集中存储方式，linux 系统采用配置文件存储配置信息，比如bash.rc、my.cnf等等，这种方式是松散的。 注册表包含五个根键，根键、子健、键值对的概念这里不再累述。排在第一个的根键为HKEY_CLAS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="探秘注册表 HKCR 根键">
 <meta property="og:url" content="https://3roman.github.io/%E6%9D%82%E8%B4%A7%E9%93%BA/%E6%8E%A2%E7%A7%98%E6%B3%A8%E5%86%8C%E8%A1%A8HKCR%E6%A0%B9%E9%94%AE/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="无论是计算机老鸟还是小白，多少都接触过点注册表，这里俨然就是 Windows 操作系统的藏宝库。注册表由单词Registry直译而来，不过笔者认为译作配置信息数据库更加贴切。注册表是一种集中存储方式，linux 系统采用配置文件存储配置信息，比如bash.rc、my.cnf等等，这种方式是松散的。 注册表包含五个根键，根键、子健、键值对的概念这里不再累述。排在第一个的根键为HKEY_CLASSES">
+<meta property="og:description" content="无论是计算机老鸟还是小白，多少都接触过点注册表，这里俨然就是 Windows 操作系统的藏宝库。注册表由单词Registry直译而来，不过笔者认为译作配置信息数据库更加贴切。注册表是一种集中存储方式，linux 系统采用配置文件存储配置信息，比如bash.rc、my.cnf等等，这种方式是松散的。 注册表包含五个根键，根键、子健、键值对的概念这里不再累述。排在第一个的根键为HKEY_CLAS">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/registry.png">
 <meta property="article:published_time" content="2022-12-27T12:11:41.984Z">
@@ -240,23 +240,54 @@
             
               <div class="markdown-body">
                 
-                <p>无论是计算机老鸟还是小白，多少都接触过点注册表，这里俨然就是 Windows 操作系统的藏宝库。注册表由单词<code>Registry</code>直译而来，不过笔者认为译作<strong>配置信息数据库</strong>更加贴切。注册表是一种集中存储方式，linux 系统采用配置文件存储配置信息，比如<code>bash.rc</code>、<code>my.cnf</code>等等，这种方式是松散的。</p>
-<p>注册表包含五个根键，根键、子健、键值对的概念这里不再累述。排在第一个的根键为<code>HKEY_CLASSES_ROOT</code>，它是<code>HKEY_LOCAL_MACHINE\Software\Classes</code>子健和<code>HKEY_CURRENT_USER\Software\Classes</code>子健的合并视图，主要存储了文件类型、右键菜单和COM组件等信息。展开该根键后，出现一大堆后缀名和 GUID 序列，下面将谈谈这些内容的用途。</p>
-<h2 id="打开方式"><a href="#打开方式" class="headerlink" title="打开方式"></a>打开方式</h2><h3 id="剖析注册表"><a href="#剖析注册表" class="headerlink" title="剖析注册表"></a>剖析注册表</h3><p>双击一个文本文件后，为什么张三电脑上打开的是记事本程序，而李四的电脑上确是 sublime？想要直接弄清楚注册表中的端倪，有点难度。不妨换个思路，将刚才的文本文件重命名为<code>test.abcd</code>，操作系统现在不知道该如何打开这个文件了，文件图标也变成了白色。使用 <a target="_blank" rel="noopener" href="http://www.torchsoft.com/download/RegistryWorkshop.exe">Registry Workshop</a> 工具给当前注册表拍个快照，然后双击打开<code>test.abcd</code>，选择<strong>始终用</strong>记事本打开，接着对比当前注册表和刚生成的快照。</p>
-<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210928224718742.png" srcset="/img/loading.gif" lazyload alt="image-20210928224718742"></p>
+                <p>无论是计算机老鸟还是小白，多少都接触过点注册表，这里俨然就是 Windows
+操作系统的藏宝库。注册表由单词<code>Registry</code>直译而来，不过笔者认为译作<strong>配置信息数据库</strong>更加贴切。注册表是一种集中存储方式，linux
+系统采用配置文件存储配置信息，比如<code>bash.rc</code>、<code>my.cnf</code>等等，这种方式是松散的。</p>
+<p>注册表包含五个根键，根键、子健、键值对的概念这里不再累述。排在第一个的根键为<code>HKEY_CLASSES_ROOT</code>，它是<code>HKEY_LOCAL_MACHINE\Software\Classes</code>子健和<code>HKEY_CURRENT_USER\Software\Classes</code>子健的合并视图，主要存储了文件类型、右键菜单和COM组件等信息。展开该根键后，出现一大堆后缀名和
+GUID 序列，下面将谈谈这些内容的用途。</p>
+<h2 id="打开方式">打开方式</h2>
+<h3 id="剖析注册表">剖析注册表</h3>
+<p>双击一个文本文件后，为什么张三电脑上打开的是记事本程序，而李四的电脑上确是
+sublime？想要直接弄清楚注册表中的端倪，有点难度。不妨换个思路，将刚才的文本文件重命名为<code>test.abcd</code>，操作系统现在不知道该如何打开这个文件了，文件图标也变成了白色。使用
+<a
+target="_blank" rel="noopener" href="http://www.torchsoft.com/download/RegistryWorkshop.exe">Registry
+Workshop</a>
+工具给当前注册表拍个快照，然后双击打开<code>test.abcd</code>，选择<strong>始终用</strong>记事本打开，接着对比当前注册表和刚生成的快照。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210928224718742.png" srcset="/img/loading.gif" lazyload
+alt="image-20210928224718742" />
+<figcaption aria-hidden="true">image-20210928224718742</figcaption>
+</figure>
 <p>对比结果显示，新增了<code>HKEY_CLASSES_ROOT\.abcd</code>和<code>HKEY_CLASSES_ROOT\abcd_auto_file</code>两个子项；<code>.abcd</code>子项默认键值对描述了该后缀名对应的文件类型<code>abcd_auto_file</code>；而文件类型子项才真正记录了打开、编辑该类型文件的程序。您可以依葫芦画瓢，给任何已知、未知的程序设置默认打开方式，这也是很多病毒的惯用伎俩。</p>
-<p><img src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210928232620565.png" srcset="/img/loading.gif" lazyload alt="image-20210928232620565"></p>
-<h3 id="ShellExecute-函数"><a href="#ShellExecute-函数" class="headerlink" title="ShellExecute 函数"></a>ShellExecute 函数</h3><p>ShellExecute 的功能是对一个指定的文件执行某操作，函数原型如下：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/image-20210928232620565.png" srcset="/img/loading.gif" lazyload
+alt="image-20210928232620565" />
+<figcaption aria-hidden="true">image-20210928232620565</figcaption>
+</figure>
+<h3 id="shellexecute-函数">ShellExecute 函数</h3>
+<p>ShellExecute 的功能是对一个指定的文件执行某操作，函数原型如下：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">HINSTANCE <span class="hljs-title">ShellExecuteA</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">  HWND   hwnd, <span class="hljs-comment">// 父窗口句柄</span></span></span><br><span class="hljs-params"><span class="hljs-function">  LPCSTR lpOperation, <span class="hljs-comment">// 指定操作：open、edit、print...</span></span></span><br><span class="hljs-params"><span class="hljs-function">  LPCSTR lpFile, <span class="hljs-comment">// 待操作的文件或程序</span></span></span><br><span class="hljs-params"><span class="hljs-function">  LPCSTR lpParameters, <span class="hljs-comment">// 操作参数，如果打开的是文件，该参数设为NULL</span></span></span><br><span class="hljs-params"><span class="hljs-function">  LPCSTR lpDirectory, <span class="hljs-comment">// 操作的工作目录</span></span></span><br><span class="hljs-params"><span class="hljs-function">  INT    nShowCmd <span class="hljs-comment">// 窗口显示方式</span></span></span><br><span class="hljs-params"><span class="hljs-function">)</span></span>;<br></code></pre></td></tr></table></figure>
-
-<p>其中，lpFile 待操作文件的默认程序通过查询以上注册表项获得，lpOperation 指定的具体操作与注册表 shell 项下的子项名称对应。</p>
-<p>做个小试验，先将<code>HKEY_CLASSES_ROOT\txtfile\shell\print\command</code>默认键值改为 calc.exe，然后编写一个非常简单的C++命令行程序，代码如下。在生成目录下新建 test.txt 文本文件，运行程序后不出意外将弹出计算器。当然，在文件上右键打印也会弹出计算器，ShellExecute 函数其实就是实现了诸如打开、编辑和打印等文件交互式操作。</p>
+<p>其中，lpFile
+待操作文件的默认程序通过查询以上注册表项获得，lpOperation
+指定的具体操作与注册表 shell 项下的子项名称对应。</p>
+<p>做个小试验，先将<code>HKEY_CLASSES_ROOT\txtfile\shell\print\command</code>默认键值改为
+calc.exe，然后编写一个非常简单的C++命令行程序，代码如下。在生成目录下新建
+test.txt
+文本文件，运行程序后不出意外将弹出计算器。当然，在文件上右键打印也会弹出计算器，ShellExecute
+函数其实就是实现了诸如打开、编辑和打印等文件交互式操作。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;Windows.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">// 调用系统默认程序打印文本文件</span><br>    <span class="hljs-built_in">ShellExecute</span>(<span class="hljs-literal">NULL</span>, <span class="hljs-string">L&quot;print&quot;</span>, <span class="hljs-string">L&quot;test.txt&quot;</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-number">0</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="右键菜单"><a href="#右键菜单" class="headerlink" title="右键菜单"></a>右键菜单</h2><p>注册表项<code>shell</code>和<code>shellex</code>都与右键菜单相关联。<code>shell</code>子项对应普通右键菜单，通常用于选择某个程序打开文件；<code>shellex</code>对应级联菜单，功能相对复杂，一般只是记录了对某个 COM 组件的引用。</p>
+<h2 id="右键菜单">右键菜单</h2>
+<p>注册表项<code>shell</code>和<code>shellex</code>都与右键菜单相关联。<code>shell</code>子项对应普通右键菜单，通常用于选择某个程序打开文件；<code>shellex</code>对应级联菜单，功能相对复杂，一般只是记录了对某个
+COM 组件的引用。</p>
 <p>按作用位置不同，右键菜单至少分文件右键菜单、文件夹右键菜单、文件夹空白处右处键菜单三类，下面将逐一介绍。</p>
 <p>// TODO</p>
-<h3 id="文件右键菜单"><a href="#文件右键菜单" class="headerlink" title="文件右键菜单"></a>文件右键菜单</h3><h3 id="文件夹右键菜单"><a href="#文件夹右键菜单" class="headerlink" title="文件夹右键菜单"></a>文件夹右键菜单</h3><h3 id="文件夹空白右键菜单"><a href="#文件夹空白右键菜单" class="headerlink" title="文件夹空白右键菜单"></a>文件夹空白右键菜单</h3><h2 id="COM-组件"><a href="#COM-组件" class="headerlink" title="COM 组件"></a>COM 组件</h2>
+<h3 id="文件右键菜单">文件右键菜单</h3>
+<h3 id="文件夹右键菜单">文件夹右键菜单</h3>
+<h3 id="文件夹空白右键菜单">文件夹空白右键菜单</h3>
+<h2 id="com-组件">COM 组件</h2>
+
                 
               </div>
             
