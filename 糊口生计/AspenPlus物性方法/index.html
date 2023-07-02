@@ -20,26 +20,24 @@
   <meta name="author" content="3roman">
   <meta name="keywords" content="">
   
-    <meta name="description" content="水分子的结构 水分子由两个氢原子和一个氧原子组成。原子之间的的夹角大约是104.5°。氢、氧原子之间的中心距大约是0.0957 nm。分子结构如下图：  因为氧原子比氢原子氧化性更强，简单说来就是氧原子更能吸引电子，所以水分子中共价键共用的电子更靠近氧原子，致使氧原子显负电性。同理，由于共价电子偏离了氢原子，氢原子就显正电性。如果分子空间结构是不对称的，上述共用电子的偏离就会使得分子整体显">
+    <meta name="description" content="在化工流程模拟过程中，所执行的最主要的热力学计算是相平衡。而其中又以汽液相平衡最为主要。我们在Aspen Plus当中也可以看到非常多的物性方法供我们进行选择，其中主要有两大类：状态方程法和活度系数法。本期推送，我们就来揭开这两类方法的区别。  一个平衡系统的汽液相中对于每个组分最基本的关系，是组分在气相中的逸度等于在液相当中的逸度。组分的逸度既可以用逸度系数表示，也可以用活度系数来表示。对">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IAPWS对于常见问题的解答">
-<meta property="og:url" content="https://3roman.github.io/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/IAPWS%E5%AF%B9%E4%BA%8E%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E7%AD%94/index.html">
+<meta property="og:title" content="AspenPlus物性方法">
+<meta property="og:url" content="https://3roman.github.io/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/AspenPlus%E7%89%A9%E6%80%A7%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="昼锦堂小记">
-<meta property="og:description" content="水分子的结构 水分子由两个氢原子和一个氧原子组成。原子之间的的夹角大约是104.5°。氢、氧原子之间的中心距大约是0.0957 nm。分子结构如下图：  因为氧原子比氢原子氧化性更强，简单说来就是氧原子更能吸引电子，所以水分子中共价键共用的电子更靠近氧原子，致使氧原子显负电性。同理，由于共价电子偏离了氢原子，氢原子就显正电性。如果分子空间结构是不对称的，上述共用电子的偏离就会使得分子整体显">
+<meta property="og:description" content="在化工流程模拟过程中，所执行的最主要的热力学计算是相平衡。而其中又以汽液相平衡最为主要。我们在Aspen Plus当中也可以看到非常多的物性方法供我们进行选择，其中主要有两大类：状态方程法和活度系数法。本期推送，我们就来揭开这两类方法的区别。  一个平衡系统的汽液相中对于每个组分最基本的关系，是组分在气相中的逸度等于在液相当中的逸度。组分的逸度既可以用逸度系数表示，也可以用活度系数来表示。对">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/water_molecule.png">
-<meta property="article:published_time" content="2023-06-26T11:32:30.253Z">
-<meta property="article:modified_time" content="2023-07-02T10:09:15.534Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/aspen.png">
+<meta property="article:published_time" content="2023-07-02T10:42:52.682Z">
+<meta property="article:modified_time" content="2023-07-02T12:15:53.186Z">
 <meta property="article:author" content="3roman">
 <meta property="article:tag" content="基础理论">
-<meta property="article:tag" content="工业技术">
-<meta property="article:tag" content="转载">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/water_molecule.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/aspen.png">
   
   
   
-  <title>IAPWS对于常见问题的解答 - 昼锦堂小记</title>
+  <title>AspenPlus物性方法 - 昼锦堂小记</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -169,7 +167,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="IAPWS对于常见问题的解答"></span>
+            <span id="subtitle" data-typed-text="AspenPlus物性方法"></span>
           
         </div>
 
@@ -180,8 +178,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-06-26 19:32" pubdate>
-          2023年6月26日 晚上
+        <time datetime="2023-07-02 18:42" pubdate>
+          2023年7月2日 晚上
         </time>
       </span>
     
@@ -192,7 +190,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.6k 字
         
       </span>
     
@@ -203,7 +201,7 @@
         
         
         
-          12 分钟
+          14 分钟
         
       </span>
     
@@ -241,96 +239,62 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">IAPWS对于常见问题的解答</h1>
+            <h1 style="display: none">AspenPlus物性方法</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="水分子的结构">水分子的结构</h2>
-<p>水分子由两个氢原子和一个氧原子组成。原子之间的的夹角大约是104.5°。氢、氧原子之间的中心距大约是0.0957
-nm。分子结构如下图：</p>
+                <p>在化工流程模拟过程中，所执行的最主要的热力学计算是相平衡。而其中又以汽液相平衡最为主要。我们在Aspen
+Plus当中也可以看到非常多的物性方法供我们进行选择，其中主要有两大类：状态方程法和活度系数法。本期推送，我们就来揭开这两类方法的区别。</p>
 <p><img
-src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/molecule.gif" srcset="/img/loading.gif" lazyload /></p>
-<p>因为氧原子比氢原子氧化性更强，简单说来就是氧原子更能吸引电子，所以水分子中共价键共用的电子更靠近氧原子，致使氧原子显负电性。同理，由于共价电子偏离了氢原子，氢原子就显正电性。如果分子空间结构是不对称的，上述共用电子的偏离就会使得分子整体显极性，极性程度用电偶极矩定量表示。水分子的电偶极矩大约是1.85
-德拜 。</p>
-<p>水分子的极性直接促成了氢键，即水分子中氧原子的吸引，相邻水分子中的氧原子、氢原子和当前氧原子空间上排成一个直线型的稳定结构。氢键不属于范德华力，且作用程度强于范德华力。氢键结构如下图：</p>
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/NRTL.png" srcset="/img/loading.gif" lazyload /></p>
+<p>一个平衡系统的汽液相中对于每个组分最基本的关系，是组分在气相中的逸度等于在液相当中的逸度。组分的逸度既可以用逸度系数表示，也可以用活度系数来表示。对于气相而言，由于气相的活度系数关系式尚未建立，因此逸度常用逸度系数来表示。而对于液相而言，逸度既可以用逸度系数来表示，也可以用活度系数来表示。也正是因为液相中逸度的表达方式有两种，所以也就出现两种方法：状态方程法和活度系数法。
+<span class="math display">\[
+f_{i}^{v}=f_{i}^{l}
+\]</span>
+当汽液相逸度均使用逸度系数来进行表示时，如下图，那么根据气液相逸度相等（等式1和2左侧相等），便可得到第三个等式。</p>
+<p><span class="math display">\[
+\begin{aligned}
+f_i^v=\varphi_i^vy_iP\\
+f_i^l=\varphi_i^lx_iP\\
+\varphi_i^vy_i=\varphi_i^lx_i
+\end{aligned}
+\]</span>
+公式中逸度系数的计算如下所示，可以发现逸度系数的计算与温度、压力和组成相关，需要依赖状态方程和混合规则，因此被称为状态方程法。
+<span class="math display">\[
+\ln \varphi_i^{\alpha}=-\frac{1}{RT}\int_{\infty}^{V\alpha}
+[(\frac{\partial P}{\partial n_i})_{T,v,n}-\frac{RT}{V}]\rm dV-\ln Z_m^a
+\]</span> Aspen
+Plus当中常用的状态方程法有Peng-Robinson、R-K-Soave等等，具体如下表所示：</p>
+<p><img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/thermodynamics_methods.webp" srcset="/img/loading.gif" lazyload /></p>
+<p>对于活度系数法，气相逸度采用逸度系数表示，而液相逸度则采用活度系数来表示，如下图。同样根据气液相逸度相等（等式1和2左侧相等），便可得到第三个等式。其中左边包含了逸度系数，前面提到，需要依赖状态方程和混合规则计算。而右边包含了活度系数，活度系数的计算，是通过活度系数模型来得到的。
+<span class="math display">\[
+\begin{aligned}
+f_i^v=\varphi_i^vy_iP\\
+f_i^l=x_ir_i^lf_i^{*,l}\\
+\varphi_i^vy_iP=x_ir_i^lf_i^{*,l}
+\end{aligned}
+\]</span>
+活度系数模型分为两类，一类是经典模型，以vanLaar、Margules方程为代表，对于较简单的系统能获得较理想的结果。第二类是20世纪60年代以后从局部组成概念发展起来的活度系数模型，典型代表有Wilson和NRTL方程等等。能从较少的特征参数关联或推算混合物的相平衡，特别是对于非理想性系统的气液相平衡有较为满意的结果。所以说，相比而言，第二类模型更加优秀。</p>
+<p>根据前面的介绍我们也知道，活度系数法其实是包含了液相活度系数的计算和气相逸度系数的计算。所以物性方法的缩写也就是这两个计算方法的缩写，比如NRTL-RK所代表的物性方法其实就是液相活度系数用NRTL方程计算，气相逸度系数用RK方程计算。所以活度系数方程和逸度系数方程进行组合可以有很多种物性方法。以下是Aspen当中有的活度系数模型。</p>
+<p><img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/thermodynamics_methods2.webp" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/thermodynamics_methods3.webp" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/thermodynamics_methods4.webp" srcset="/img/loading.gif" lazyload /></p>
+<p>状态方程法和活度系数法各有优缺点，因此适用于不同的体系和温度压力范围。下表是孙兰义老师在书中对这两种方法进行的比较，之前在亨利组分推送当中也提到了一些（点击即可跳转<a
+target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s%3F__biz%3DMzU5OTQxMjI5MA%3D%3D%26mid%3D2247488625%26idx%3D1%26sn%3D0a6b4eb3d63fb920fc8b71bd5a359b4d%26chksm%3Dfeb40f5cc9c3864a69e1d6c8d4bff9b88738fa081c64e0679dd2c50c1b8fe6cd02caf5518d04%26scene%3D21%23wechat_redirect">什么时候要选择Henry组分，为什么要选Henry组分？</a>）。</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/dimer.png" srcset="/img/loading.gif" lazyload
-alt="dimer" />
-<figcaption aria-hidden="true">dimer</figcaption>
+src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/thermodynamics_methods_comparison.webp" srcset="/img/loading.gif" lazyload
+alt="thermodynamics_methods_comparison" />
+<figcaption
+aria-hidden="true">thermodynamics_methods_comparison</figcaption>
 </figure>
-<p>氢键也是水分子的能量存储场所，这可以解释了水的一些独特的性质，包括巨大的气化潜热和结冰后反常的膨胀现象。</p>
-<h2 id="结冰后体积膨胀">结冰后体积膨胀</h2>
-<p>大多数液体都是”热胀冷缩“。”冷缩“是因为温度降低后，分子运动变慢，水分子克服分子间引力的能力减弱，分子们就挨得越来越近，直至凝固成冰。而固体紧密的晶体结构会进一步使得体积收缩。</p>
-<p>当水被冷却时，它的体积如预期一样会收缩。当温度降至4℃时，体积反而开始逐渐轻微膨胀，达到冰点时膨胀才停止，整个过程中大约膨胀了9%。这是很反常的现象。</p>
-<p>这种”与众不同“源于水分子的特殊结构，也就是上节提到的氢键。温度降低，分子能量逐渐降低，其晃动氢键的能力也随之减弱，氢键作用愈加凸显，水分子间形成氢键网络的倾向性逐步增强。冰完全由氢键构建，这些氢键迫使冰形成了相对"开放"的晶体结构，如下图所示：</p>
-<p><img
-src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/ice1.gif" srcset="/img/loading.gif" lazyload /></p>
-<p>下图第一张展现了液态水的典型结构，第二张展现了冰的典型结构；注意观察冰中水分子间的“开放”空间。</p>
-<p><img
-src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/ice_molecule.png" srcset="/img/loading.gif" lazyload /></p>
-<p>这种开放的结构导致冰的密度比水小，这就是为什么冰会浮在水面上。</p>
-<p>再来解释下水的最大密度的由来。温度接近冰点时，水中局部分子形成了冰状结构，使得水中出现
-"开放"空间，这使得水密度倾向于降低。冷却时分子也会更加靠近，这使得水密度倾向于增大。大约4摄氏度时，两种对立趋势达到平衡，此时就出现了最大密度。</p>
-<h2 id="压力与沸点的关系">压力与沸点的关系</h2>
-<p>在任何温度下，液体都会产生蒸汽压，可将蒸气压想象成液相分子逃逸到气相中的程度。温度越高，分子运动越快，克服分子引力的能力越强，换言之会有更多的分子逃逸到气相中，因此蒸汽压随温度的升高而升高。当蒸气压达到或超过环境压力时，液体就会沸腾。</p>
-<p>在标准大气压下，水的沸点大约是100℃，也可认为100℃时水的蒸汽压大约是1个标准大气压。更高的环境压力下（比如高压锅中），要求沸腾时的蒸汽压更高，因此沸点也要更高，因此受压的水的沸点更高。同样，当环境压力较低时（如高海拔地区），在较低的温度下水蒸气压就可达到环境压力。例如，在美国科罗拉多州丹佛地区，那里的海拔高度约为1600米，大气压力约为标准大气压的83%，水的沸点约为95摄氏度。</p>
-<p>下表列举了水的饱和蒸汽压与温度的关系，这是通过IAPWS方法获得的，供工程和科学研究之用。</p>
-<table>
-<thead>
-<tr class="header">
-<th>Temperature (degrees Celsius)</th>
-<th>Vapor Pressure (MPa)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0.01</td>
-<td>0.000 612</td>
-</tr>
-<tr class="even">
-<td>25</td>
-<td>0.003 17</td>
-</tr>
-<tr class="odd">
-<td>50</td>
-<td>0.012 35</td>
-</tr>
-<tr class="even">
-<td>75</td>
-<td>0.0386</td>
-</tr>
-<tr class="odd">
-<td>100</td>
-<td>0.1014</td>
-</tr>
-<tr class="even">
-<td>150</td>
-<td>0.4762</td>
-</tr>
-<tr class="odd">
-<td>200</td>
-<td>1.555</td>
-</tr>
-<tr class="even">
-<td>250</td>
-<td>3.976</td>
-</tr>
-<tr class="odd">
-<td>300</td>
-<td>8.588</td>
-</tr>
-<tr class="even">
-<td>350</td>
-<td>16.529</td>
-</tr>
-<tr class="odd">
-<td>373.946</td>
-<td>22.064</td>
-</tr>
-</tbody>
-</table>
+<p>两种物性方法的最关键区别，就是液相当中逸度计算方法的选择。看完本篇推送，以后在进行物性方法的选择时，至少应该能知道选择的物性方法是状态方程法还是活度系数法了吧!</p>
+<p>原文链接：https://zhuanlan.zhihu.com/p/524133786</p>
 
                 
               </div>
@@ -345,10 +309,6 @@ src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/ice_molecule.pn
       
         <a href="/tags/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/">#基础理论</a>
       
-        <a href="/tags/%E5%B7%A5%E4%B8%9A%E6%8A%80%E6%9C%AF/">#工业技术</a>
-      
-        <a href="/tags/%E8%BD%AC%E8%BD%BD/">#转载</a>
-      
     </div>
   
 </div>
@@ -359,8 +319,8 @@ src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/ice_molecule.pn
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>IAPWS对于常见问题的解答</div>
-      <div>https://3roman.github.io/糊口生计/IAPWS对于常见问题的解答/</div>
+      <div>AspenPlus物性方法</div>
+      <div>https://3roman.github.io/糊口生计/AspenPlus物性方法/</div>
     </div>
     <div class="license-meta">
       
@@ -372,7 +332,7 @@ src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/ice_molecule.pn
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年6月26日</div>
+          <div>2023年7月2日</div>
         </div>
       
       
@@ -404,18 +364,12 @@ src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/ice_molecule.pn
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/AspenPlus%E7%89%A9%E6%80%A7%E6%96%B9%E6%B3%95/" title="AspenPlus物性方法">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">AspenPlus物性方法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/%E7%94%B5%E5%8E%82%E5%8C%96%E5%AD%A6%E6%B0%B4%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="">
-                        <span class="hidden-mobile"></span>
+                      <a href="/%E7%B3%8A%E5%8F%A3%E7%94%9F%E8%AE%A1/IAPWS%E5%AF%B9%E4%BA%8E%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E7%AD%94/" title="IAPWS对于常见问题的解答">
+                        <span class="hidden-mobile">IAPWS对于常见问题的解答</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
