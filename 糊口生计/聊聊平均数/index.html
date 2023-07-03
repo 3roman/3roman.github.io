@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/20230131average.png">
 <meta property="article:published_time" content="2023-01-31T12:11:09.724Z">
-<meta property="article:modified_time" content="2023-02-06T12:31:13.000Z">
+<meta property="article:modified_time" content="2023-07-03T07:46:56.000Z">
 <meta property="article:author" content="3roman">
 <meta property="article:tag" content="基础理论">
 <meta name="twitter:card" content="summary_large_image">
@@ -190,7 +190,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          2k 字
         
       </span>
     
@@ -201,7 +201,7 @@
         
         
         
-          18 分钟
+          17 分钟
         
       </span>
     
@@ -263,38 +263,36 @@
 <p><span class="math display">\[
 \overline{x}=\frac{\sum_{i=1}^{n}x_iw_i}{\sum_{i=1}^{n}w_i}=\frac{x_1w_1+x_2w_2+\cdots+x_nw_n}{w_1+w_2+\cdots+w_n}
 \]</span></p>
-<p>举个实际应用的例子，规范要求工作时间段内有毒气体平均接触浓度采用加权算术平均数的计算方法。某天的测量数据如下表：</p>
+<p>举个常见的例子，某选秀节目歌手得分由现场评委打分、现场观众打分和网络观众打分三个部分综合得到。由于观众很难判断歌手的专业水平，一般仅凭个人好恶打分。如果采用算数平均的方式，外形出众但演唱平平的歌手就很得便宜，可以预见观众分会将整体得分大幅拉高，这样对于唱的好的歌手就不公平。合理的做法是赋予不同评分体系以不同的权重，将加权算术平均数作为最终得分。</p>
 <table>
 <thead>
 <tr class="header">
-<th style="text-align: center;">平均接触浓度（mg/m³）</th>
-<th style="text-align: center;">持续接触时间（h）</th>
-<th style="text-align: center;">时间权重（0~1）</th>
+<th style="text-align: center;">打分对象</th>
+<th style="text-align: center;">分数</th>
+<th style="text-align: center;">权重（0~1）</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;">400</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">1/8</td>
+<td style="text-align: center;">现场评委</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">0.6</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">2</td>
-<td style="text-align: center;">2/8</td>
+<td style="text-align: center;">现场观众</td>
+<td style="text-align: center;">85</td>
+<td style="text-align: center;">0.3</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">120</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">5/8</td>
+<td style="text-align: center;">网络观众</td>
+<td style="text-align: center;">87</td>
+<td style="text-align: center;">0.1</td>
 </tr>
 </tbody>
 </table>
 <p>时间加权算术平均数计算过程如下： <span class="math display">\[
-C_{twa}=\frac{C_1W_1+C_2W_2+\cdots+C_nWn}{W_1+W_2+\cdots+W_n}=\frac{400\times\dfrac{1}{8}+60\times\dfrac{2}{8}+120\times\dfrac{5}{8}}{\dfrac{1}{8}+\dfrac{2}{8}+\dfrac{5}{8}}=140mg/m^3
-\]</span>
-简单算术平均数计算结果为193.3，为什么会不一样呢？回到原初需求，我们要算8小时内的平均接触浓度，这里强调的是对时间的平均。上述三个平均数的持续时间都不同，在时间维度上是不均匀的，也就是说对于整个时间段的贡献程度是不同的。如果使用简单算术平均数，就默认了它们在时间维度上平等性，明显不合理。<strong>对于这类平均数再求平均数的场景，要特别注意采用哪种方法。</strong></p>
-<h2 id="几何平均">几何平均</h2>
+C_{twa}=\frac{C_1W_1+C_2W_2+\cdots+C_nWn}{W_1+W_2+\cdots+W_n}=\frac{90\times0.6+85\times0.3+87\times0.1}{0.6+0.3+0.1}=88.2
+\]</span> ## 几何平均</p>
 <p>几何平均一般用于品质类数据，反映了整体的平均变化率。<strong>数据不独立，存在前后依赖关系。</strong></p>
 <p>几何平均也分加权和不加权两种。之所以叫几何平均，是因为可以通过几何作图的方法求得两个数的几何平均数（平方根）。几何平均定义如下：</p>
 <blockquote>
