@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/aspen.png">
 <meta property="article:published_time" content="2023-07-02T10:42:52.682Z">
-<meta property="article:modified_time" content="2023-07-05T07:47:12.000Z">
+<meta property="article:modified_time" content="2023-07-05T13:46:20.251Z">
 <meta property="article:author" content="3roman">
 <meta property="article:tag" content="基础理论">
 <meta name="twitter:card" content="summary_large_image">
@@ -190,7 +190,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.7k 字
+          2.2k 字
         
       </span>
     
@@ -201,7 +201,7 @@
         
         
         
-          15 分钟
+          19 分钟
         
       </span>
     
@@ -294,6 +294,12 @@ src="https://raw.githubusercontent.com/3roman/PicBed/master/hexo/thermodynamics_
 <p>压缩因子和逸度系数都是对实际气体偏离理想气体程度的修正，前者修正的是
 EOS 中的摩尔体积，后者修正的是压力。</p>
 <p>理想气体的假设忽略了分子的体积和分子之间的作用力；理想溶液假定溶质完全均匀分散于溶剂中，且忽略分子之间的作用力。活度系数从浓度的角度反映了实际溶液偏离理想溶液的程度。</p>
+<p>一般来说，热力学模型包括状态方程和活度系数模型是针对纯组分建立的，因此它们有跟组分相关的参数。但是在研究混合物的时候，相互作用和纯组分是不一样的，也就是说相似分子和相异分子，这个时候就要利用二元交互参数来校正它们之间的相互作用。两种分子越相似，二元相互交互系数越小。当然，这个值与热力学模型相关。</p>
+<p>混合物的相行为使用纯组分的性质无法很好地描述。当使用对称或非对称的方法时，常需要使用一些实验数据来帮助“半理论方程”来描述实际情况。如果选择的热力学方法是状态方程，实验参数通常被称为“kij”，它常被用于校正立方型状态方程的二次混合项，可大致表示混合物组分之间相互作用的能量。如果选择的热力学方法是活度系数模型，实验参数通常被称为“aij”和“aji”。</p>
+<p>不同的热力学模型有不同的模型参数，对不同模型参数有各自独立的表达式。
+热力学模型在处理混合物时，会使用可调参数（即交互作用参数）对模型参数进行修正。
+交互作用参数能够一定程度地反应分子间的相互作用，特别是当物系为极性分子时，缺少交互作用参数，
+模拟结果的准确性是没有丝毫保证的。</p>
 
                 
               </div>
