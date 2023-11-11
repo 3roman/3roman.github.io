@@ -2,14 +2,17 @@
 
 - Engineering
   - [AspenPlus物性方法](Engineering/AspenPlus物性方法.md)
-  - [IAPWS对于常见问题的解答](Engineering/IAPWS对于常见问题的解答.md)
   - [汽轮机超速保护](Engineering/汽轮机超速保护.md)
-  - [热力学公式的推导](Engineering/热力学公式的推导.md)
   - [电厂化学水处理](Engineering/电厂化学水处理.md)
   - [管道应力分析](Engineering/管道应力分析.md)
   - [蒸汽安全阀相关计算](Engineering/蒸汽安全阀相关计算.md)
   - [进口蝶阀与进口导叶调节](Engineering/进口蝶阀与进口导叶调节.md)
   - [钢铁的一些知识](Engineering/钢铁的一些知识.md)
+- Theory
+  - [热力学公式的推导](Theory/热力学公式的推导.md)
+  - [IAPWS对于常见问题的解答](Theory/IAPWS对于常见问题的解答.md)
+  - [水力光滑管与水力粗糙管的区别](Theory/水力光滑管与水力粗糙管的区别.md)
+
 - Programming
   - [C程序的内存布局](Programming/C程序的内存布局.md)
   - [C代码编译过程](Programming/C代码编译过程.md)
@@ -30,7 +33,6 @@
 - Math
   - [变化量的表示](Math/变化量的表示.md)
   - [聊聊平均数](Math/聊聊平均数.md)
-
 - Linux
   - [玩转树莓派](Linux/玩转树莓派.md)
   - [免输密码登陆SSH](Linux/免输密码登陆SSH.md)
