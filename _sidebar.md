@@ -12,7 +12,7 @@
   - [热力学公式的推导](Theory/热力学公式的推导.md)
   - [IAPWS对于常见问题的解答](Theory/IAPWS对于常见问题的解答.md)
   - [水力光滑管与水力粗糙管的区别](Theory/水力光滑管与水力粗糙管的区别.md)
-
+  - [局部摩擦阻力的计算方法](Theory/局部摩擦阻力的计算方法.md)
 - Programming
   - [C程序的内存布局](Programming/C程序的内存布局.md)
   - [C代码编译过程](Programming/C代码编译过程.md)
@@ -40,4 +40,3 @@
   - [本站文章写作规范](Misc/本站文章写作规范.md)
   - [常用注册表项](Misc/常用注册表项.md)
   - [探秘注册表HKCR根键](Misc/探秘注册表HKCR根键.md)
-
