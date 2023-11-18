@@ -14,6 +14,7 @@
   - [水力光滑管与水力粗糙管的区别](Theory/水力光滑管与水力粗糙管的区别.md)
   - [局部摩擦阻力的计算方法](Theory/局部摩擦阻力的计算方法.md)
 - Programming
+  
   - [C程序的内存布局](Programming/C程序的内存布局.md)
   - [C代码编译过程](Programming/C代码编译过程.md)
   - [从C代码到二进制文件](Programming/从C代码到二进制文件.md)
@@ -33,6 +34,7 @@
 - Math
   - [变化量的表示](Math/变化量的表示.md)
   - [聊聊平均数](Math/聊聊平均数.md)
+  - [牛顿-拉夫逊迭代法](Math/牛顿-拉夫逊迭代法.md)
 - Linux
   - [玩转树莓派](Linux/玩转树莓派.md)
   - [免输密码登陆SSH](Linux/免输密码登陆SSH.md)
